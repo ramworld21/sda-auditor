@@ -1,0 +1,111 @@
+{
+  "url": "https://my.gov.sa",
+  "title": "National Platform (National Portal)",
+  "snapPath": "snap-1757487216501.png",
+  "timestamp": "2025-09-10T06:53:38.885Z",
+  "fonts": [
+    "__IBM_Plex_Sans_Arabic_e83a0d, sans-serif",
+    "\"IBM Plex Sans Arabic\", sans-serif",
+    "Rubik, -apple-system, BlinkMacSystemFont, \"avenir next\", avenir, \"helvetica neue\", helvetica, ubuntu, roboto, noto, \"segoe ui\", arial, sans-serif"
+  ],
+  "fontMatch": true,
+  "colorAudit": [
+    {
+      "color": "rgb(0, 0, 0)",
+      "closest": "rgb(13,18,28)",
+      "distance": 35.73513677041127,
+      "match": false
+    },
+    {
+      "color": "rgba(0, 0, 0, 0)",
+      "closest": "rgb(13,18,28)",
+      "distance": 35.73513677041127,
+      "match": false
+    },
+    {
+      "color": "rgb(27, 131, 84)",
+      "closest": "rgb(27,131,84)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(255, 255, 255)",
+      "closest": "rgb(252,252,253)",
+      "distance": 4.69041575982343,
+      "match": true
+    },
+    {
+      "color": "rgb(33, 37, 41)",
+      "closest": "rgb(31,42,55)",
+      "distance": 15,
+      "match": true
+    },
+    {
+      "color": "rgb(219, 161, 2)",
+      "closest": "rgb(219,161,2)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(73, 80, 87)",
+      "closest": "rgb(77,87,97)",
+      "distance": 12.84523257866513,
+      "match": true
+    },
+    {
+      "color": "rgb(19, 58, 137)",
+      "closest": "rgb(56,66,80)",
+      "distance": 68.42514157822401,
+      "match": false
+    },
+    {
+      "color": "rgb(7, 77, 49)",
+      "closest": "rgb(16,70,49)",
+      "distance": 11.40175425099138,
+      "match": true
+    },
+    {
+      "color": "rgb(222, 226, 230)",
+      "closest": "rgb(229,231,235)",
+      "distance": 9.9498743710662,
+      "match": true
+    },
+    {
+      "color": "rgb(173, 181, 189)",
+      "closest": "rgb(157,164,174)",
+      "distance": 27.748873851023216,
+      "match": true
+    },
+    {
+      "color": "rgb(55, 124, 99)",
+      "closest": "rgb(37,147,95)",
+      "distance": 29.478805945967352,
+      "match": true
+    },
+    {
+      "color": "rgb(248, 113, 113)",
+      "closest": "rgb(247,213,77)",
+      "distance": 106.28734637763802,
+      "match": false
+    },
+    {
+      "color": "rgb(68, 74, 82)",
+      "closest": "rgb(56,66,80)",
+      "distance": 14.560219778561036,
+      "match": true
+    },
+    {
+      "color": "rgb(102, 117, 155)",
+      "closest": "rgb(108,115,127)",
+      "distance": 28.705400188814647,
+      "match": true
+    },
+    {
+      "color": "rgb(65, 64, 66)",
+      "closest": "rgb(56,66,80)",
+      "distance": 16.76305461424021,
+      "match": true
+    }
+  ],
+  "hasSearchBar": true
+}

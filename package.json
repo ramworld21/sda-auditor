@@ -1,0 +1,17 @@
+{
+  "name": "sda-auditor",
+  "version": "0.1.0",
+  "type": "module",
+  "bin": {
+    "sda-auditor": "cli.js"
+  },
+  "scripts": {
+    "test": "node cli.js https://www.my.gov.sa"
+  },
+  "dependencies": {
+    "@platformscode/core": "^0.0.27",
+    "js-yaml": "^4.1.0",
+    "playwright": "^1.45.0",
+    "yargs": "^17.7.2"
+  }
+}
