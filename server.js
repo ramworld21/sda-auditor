@@ -6,7 +6,9 @@ import { fileURLToPath } from 'url';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
-
+app.get("/", (req, res) => {
+  res.send("Server is running!");
+});
 app.use(cors()); // Allow all origins
 app.use(express.json());
 
