@@ -1,5 +1,5 @@
 # Use official Playwright image with all browsers preinstalled
-FROM mcr.microsoft.com/playwright:v1.55.0-focal
+FROM mcr.microsoft.com/playwright:v1.48.2-focal
 
 # Set working directory inside container
 WORKDIR /usr/src/app
