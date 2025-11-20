@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SDA Auditor - Website Scan</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'IBM Plex Sans', Arial, sans-serif;
+      background: linear-gradient(120deg, #f5f5f5 0%, #e3eafc 100%);
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+    .container {
+      background: white;
+      border-radius: 18px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      padding: 2.5rem 2rem 2rem 2rem;
+      margin-top: 3rem;
+      width: 100%;
+      max-width: 480px;
+      text-align: center;
+    }
+    h1 {
+      color: #004990;
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+      font-weight: 700;
+    }
+    p {
+      color: #555;
+      margin-bottom: 2rem;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      align-items: center;
+    }
+    input[type="url"] {
+      padding: 0.7rem 1rem;
+      border-radius: 8px;
+      border: 1px solid #bcd0ee;
+      font-size: 1.1rem;
+      width: 100%;
+      max-width: 340px;
+      transition: border 0.2s;
+    }
+    input[type="url"]:focus {
+      border: 1.5px solid #004990;
+      outline: none;
+    }
+    button {
+      padding: 0.7rem 2rem;
+      border-radius: 8px;
+      background: #004990;
+      color: white;
+      font-size: 1.1rem;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    button:disabled {
+      background: #bcd0ee;
+      cursor: not-allowed;
+    }
+    .progress {
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      color: #004990;
+      min-height: 2.2em;
+    }
+    .result-link {
+      margin-top: 2rem;
+      display: block;
+      font-size: 1.1rem;
+      color: #25935F;
+      text-decoration: underline;
+      font-weight: 600;
+    }
+    .loader {
+      margin: 1.5rem auto 0 auto;
+      border: 6px solid #e3eafc;
+      border-top: 6px solid #004990;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      display: inline-block;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>SDA Website Auditor</h1>
+    <p>أدخل رابط الموقع الإلكتروني ليتم فحصه حسب معايير الهوية الوطنية السعودية.</p>
+    <form id="scan-form">
+      <input type="url" id="website-url" name="website-url" placeholder="https://example.gov.sa" required autocomplete="off">
+      <button type="submit">ابدأ الفحص</button>
+    </form>
+    <div class="progress" id="scan-progress"></div>
+    <div id="loader" style="display:none;" class="loader"></div>
+    <a id="result-link" class="result-link" style="display:none;" href="report.html" target="_blank">عرض تقرير الفحص</a>
+  </div>
+  <script>
+    const form = document.getElementById('scan-form');
+    const progress = document.getElementById('scan-progress');
+    const loader = document.getElementById('loader');
+    const resultLink = document.getElementById('result-link');
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      let url = document.getElementById('website-url').value.trim();
+      if (!/^https?:\/\//i.test(url)) {
+        url = 'https://' + url;
+      }
+      progress.textContent = 'جاري الفحص...';
+      loader.style.display = 'inline-block';
+      resultLink.style.display = 'none';
+      form.querySelector('button').disabled = true;
+      try {
+        const response = await fetch('http://localhost:3001/scan', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url })
+        });
+        if (response.ok) {
+          progress.textContent = 'تم الفحص بنجاح!';
+          loader.style.display = 'none';
+          resultLink.style.display = 'block';
+        } else {
+          const data = await response.json();
+          progress.textContent = 'فشل الفحص: ' + (data.error || 'خطأ غير معروف');
+          loader.style.display = 'none';
+        }
+      } catch (err) {
+        progress.textContent = 'فشل الفحص: ' + err.message;
+        loader.style.display = 'none';
+      }
+      form.querySelector('button').disabled = false;
+    });
+  </script>
+</body>
+</html>

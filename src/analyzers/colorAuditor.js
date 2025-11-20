@@ -73,12 +73,16 @@ export async function auditColors(url) {
     };
   });
 
-  // Wait 5 seconds to ensure all dynamic content is visible before screenshot
-  await new Promise(resolve => setTimeout(resolve, 5000));
-
+  // Wait 5 seconds to ensure all dynamic content and fonts are visible before screenshot
+  await page.waitForTimeout(5000);
+  await page.evaluate(async () => {
+    if (document.fonts && document.fonts.ready) {
+      await document.fonts.ready;
+    }
+  });
   const snapFile = `snap-${Date.now()}.png`;
   const snapPath = `reports/${snapFile}`;
-  await page.screenshot({ path: snapPath, fullPage: true });
+  await page.screenshot({ path: snapPath, fullPage: true, timeout: 60000 }); // Increase screenshot timeout to 60s
 
   // Responsive screenshots
   const screenshotMobileFile = `snap-${Date.now()}-mobile.png`;
