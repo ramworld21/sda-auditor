@@ -1,10 +1,13 @@
 {
-  "url": "https://www.my.gov.sa",
-  "title": "National Platform (National Portal)",
-  "snapPath": "snap-1763642800332.png",
-  "timestamp": "2025-11-20T12:46:47.140Z",
+  "url": "https://google.com",
+  "title": "Google",
+  "snapPath": "snap-1763658885912.png",
+  "timestamp": "2025-11-20T17:14:52.181Z",
   "fonts": [
-    "__IBM_Plex_Sans_Arabic_25982a, sans-serif"
+    "Times",
+    "Arial, sans-serif",
+    "\"Google Sans Text\", Roboto, Helvetica, Arial, sans-serif",
+    "monospace"
   ],
   "fontMatch": false,
   "colorAudit": [
@@ -15,16 +18,16 @@
       "match": false
     },
     {
-      "color": "rgba(0, 0, 0, 0)",
-      "closest": "rgb(13,18,28)",
-      "distance": 35.73513677041127,
-      "match": false
+      "color": "rgb(31, 31, 31)",
+      "closest": "rgb(17,25,39)",
+      "distance": 17.204650534085253,
+      "match": true
     },
     {
-      "color": "rgb(27, 131, 84)",
-      "closest": "rgb(27,131,84)",
-      "distance": 0,
-      "match": true
+      "color": "rgb(26, 13, 171)",
+      "closest": "rgb(56,66,80)",
+      "distance": 109.4988584415381,
+      "match": false
     },
     {
       "color": "rgb(255, 255, 255)",
@@ -33,104 +36,112 @@
       "match": true
     },
     {
-      "color": "rgb(33, 37, 41)",
-      "closest": "rgb(31,42,55)",
-      "distance": 15,
-      "match": true
-    },
-    {
-      "color": "rgb(219, 161, 2)",
-      "closest": "rgb(219,161,2)",
-      "distance": 0,
-      "match": true
-    },
-    {
-      "color": "rgb(73, 80, 87)",
+      "color": "rgb(94, 94, 94)",
       "closest": "rgb(77,87,97)",
-      "distance": 12.84523257866513,
+      "distance": 18.627936010197157,
       "match": true
     },
     {
-      "color": "rgb(19, 58, 137)",
-      "closest": "rgb(56,66,80)",
-      "distance": 68.42514157822401,
-      "match": false
-    },
-    {
-      "color": "rgb(7, 77, 49)",
-      "closest": "rgb(16,70,49)",
-      "distance": 11.40175425099138,
+      "color": "rgb(112, 117, 122)",
+      "closest": "rgb(108,115,127)",
+      "distance": 6.708203932499369,
       "match": true
     },
     {
-      "color": "rgb(222, 226, 230)",
-      "closest": "rgb(229,231,235)",
-      "distance": 9.9498743710662,
-      "match": true
-    },
-    {
-      "color": "rgb(173, 181, 189)",
+      "color": "rgb(154, 160, 166)",
       "closest": "rgb(157,164,174)",
-      "distance": 27.748873851023216,
+      "distance": 9.433981132056603,
       "match": true
     },
     {
-      "color": "rgb(55, 124, 99)",
-      "closest": "rgb(37,147,95)",
-      "distance": 29.478805945967352,
-      "match": true
-    },
-    {
-      "color": "rgb(248, 113, 113)",
-      "closest": "rgb(247,213,77)",
-      "distance": 106.28734637763802,
+      "color": "rgba(0, 0, 0, 0)",
+      "closest": "rgb(13,18,28)",
+      "distance": 35.73513677041127,
       "match": false
+    },
+    {
+      "color": "rgba(0, 0, 0, 0.87)",
+      "closest": "rgb(13,18,28)",
+      "distance": 35.73513677041127,
+      "match": false
+    },
+    {
+      "color": "rgb(71, 71, 71)",
+      "closest": "rgb(56,66,80)",
+      "distance": 18.193405398660254,
+      "match": true
+    },
+    {
+      "color": "rgb(33, 33, 33)",
+      "closest": "rgb(17,25,39)",
+      "distance": 18.867962264113206,
+      "match": true
+    },
+    {
+      "color": "rgb(128, 128, 128)",
+      "closest": "rgb(108,115,127)",
+      "distance": 23.874672772626646,
+      "match": true
+    },
+    {
+      "color": "rgb(32, 33, 36)",
+      "closest": "rgb(17,25,39)",
+      "distance": 17.26267650163207,
+      "match": true
+    },
+    {
+      "color": "rgb(60, 64, 67)",
+      "closest": "rgb(56,66,80)",
+      "distance": 13.74772708486752,
+      "match": true
     }
   ],
   "hasSearchBar": true,
   "spacings": [
     "0px",
-    "8px",
-    "16px",
-    "32px",
-    "12px",
+    "6px",
     "4px",
-    "2px",
+    "8px",
+    "10px",
+    "12px",
+    "68px",
     "20px",
     "auto",
-    "75px",
-    "316px",
+    "14px",
+    "-1px",
+    "2px",
+    "312px",
+    "223px",
+    "44px",
+    "-100px",
+    "276px",
+    "13px",
+    "3px",
+    "18px",
+    "60px",
+    "26px",
+    "16px",
+    "1px",
+    "7px",
+    "-2px",
+    "-10px",
+    "11px",
+    "-16px",
     "24px",
-    "140px",
-    "6px",
-    "28px",
-    "10px",
-    "80px",
-    "40px",
-    "56px",
-    "96px",
-    "64px",
-    "56.5px",
-    "112px",
-    "48px"
+    "15px",
+    "30px",
+    "5px"
   ],
   "spacingMatches": [
-    8,
-    16,
-    32,
-    12,
     4,
+    8,
+    12,
     20,
-    24,
-    80,
-    40,
-    56,
-    96,
-    64,
-    48
+    16,
+    24
   ],
-  "spacingAccuracy": 59.09090909090909,
-  "screenshotMobile": "snap-1763642800765-mobile.png",
-  "screenshotTablet": "snap-1763642800765-tablet.png",
-  "screenshotDesktop": "snap-1763642800765-desktop.png"
+  "spacingAccuracy": 23.076923076923077,
+  "screenshotMobile": "snap-1763658885983-mobile.png",
+  "screenshotTablet": "snap-1763658885983-tablet.png",
+  "screenshotDesktop": "snap-1763658885983-desktop.png"
 }
