@@ -6,8 +6,11 @@
     "sda-auditor": "cli.js"
   },
   "scripts": {
+    "start": "node server.js",
+    "postinstall": "npx playwright install --with-deps",
     "test": "node cli.js https://www.my.gov.sa"
   },
+  
   "dependencies": {
     "@platformscode/core": "^0.0.27",
     "cors": "^2.8.5",
