@@ -13,6 +13,7 @@ const PORT = process.env.PORT || 3001;
 
 // Serve static files from "public" directory
 app.use(express.static(path.join(__dirname, "public")));
+app.use("/reports", express.static(path.join(__dirname, "reports")));
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
