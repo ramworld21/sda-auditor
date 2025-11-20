@@ -2,7 +2,6 @@ import express from 'express';
 import cors from 'cors';
 import { exec } from 'child_process';
 import { chromium } from 'playwright';
-import Solver from '2captcha';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
