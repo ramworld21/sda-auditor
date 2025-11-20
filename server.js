@@ -4,16 +4,22 @@ import { exec } from 'child_process';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
-const app = express();
-const PORT = process.env.PORT || 3001;
-app.get("/", (req, res) => {
-  res.send("Server is running!");
-});
-app.use(cors()); // Allow all origins
-app.use(express.json());
-
+// Fix: define __dirname BEFORE using it
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+const app = express();
+const PORT = process.env.PORT || 3001;
+
+// Serve static files from "public" directory
+app.use(express.static(path.join(__dirname, "public")));
+
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+app.use(cors());
+app.use(express.json());
 
 // POST /scan - expects { url: "https://example.com" }
 app.post('/scan', (req, res) => {
