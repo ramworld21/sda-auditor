@@ -19,13 +19,13 @@
       <div class="card">
         <h1>Audit Report</h1>
         <p class="meta">URL: <a href="https://my.gov.sa" target="_blank">https://my.gov.sa</a></p>
-        <p class="meta">Timestamp: 2025-09-10T06:53:38.885Z</p>
+        <p class="meta">Timestamp: 2025-11-20T09:54:38.071Z</p>
         <p class="meta">Title: National Platform (National Portal)</p>
       </div>
       <div class="card">
         <h2>Font Comparison</h2>
-        <p><strong>Fonts found:</strong> __IBM_Plex_Sans_Arabic_e83a0d, sans-serif, "IBM Plex Sans Arabic", sans-serif, Rubik, -apple-system, BlinkMacSystemFont, "avenir next", avenir, "helvetica neue", helvetica, ubuntu, roboto, noto, "segoe ui", arial, sans-serif</p>
-        <p><strong>Matches brand font ("IBM Plex Sans"):</strong> ✔️ Yes</p>
+        <p><strong>Fonts found:</strong> __IBM_Plex_Sans_Arabic_25982a, sans-serif</p>
+        <p><strong>Matches brand font ("IBM Plex Sans"):</strong> ❌ No</p>
       </div>
       
         <div class="card">
@@ -132,38 +132,56 @@
                   <td>❌</td>
                 </tr>
               
-                <tr class="match">
-                  <td><span class="swatch" style="background:rgb(68, 74, 82)"></span>rgb(68, 74, 82)</td>
-                  <td><span class="swatch" style="background:rgb(56,66,80)"></span>rgb(56,66,80)</td>
-                  <td>14.6</td>
-                  <td>✔️</td>
-                </tr>
-              
-                <tr class="match">
-                  <td><span class="swatch" style="background:rgb(102, 117, 155)"></span>rgb(102, 117, 155)</td>
-                  <td><span class="swatch" style="background:rgb(108,115,127)"></span>rgb(108,115,127)</td>
-                  <td>28.7</td>
-                  <td>✔️</td>
-                </tr>
-              
-                <tr class="match">
-                  <td><span class="swatch" style="background:rgb(65, 64, 66)"></span>rgb(65, 64, 66)</td>
-                  <td><span class="swatch" style="background:rgb(56,66,80)"></span>rgb(56,66,80)</td>
-                  <td>16.8</td>
-                  <td>✔️</td>
-                </tr>
-              
             </tbody>
           </table>
         </div>
       
       <div class="card">
-        <h2>Screenshot</h2>
-        <img src="snap-1757487216501.png" alt="Screenshot">
-      </div>
-      <div class="card">
         <h2>Search Bar Audit</h2>
         <p class="meta"><strong>Search Bar Present:</strong> ✔️ Yes</p>
+      </div>
+      <div class="card">
+        <h2>Spacing Audit</h2>
+        <p><strong>How Spacing Was Measured:</strong></p>
+        <ul>
+          <li>All <strong>margin</strong> and <strong>padding</strong> values were extracted from every element on the page using automated browser inspection.</li>
+          <li>Each value was compared against the official Saudi DGA spacing tokens: <span style="font-family:monospace">4px, 8px, 12px, 16px, 20px, 24px, 32px, 40px, 48px, 56px, 64px, 80px, 96px, 128px, 160px, 192px, 256px</span>.</li>
+          <li>Accuracy = (number of matches / total measured spacings) × 100.</li>
+        </ul>
+        <p><strong>Accuracy:</strong> 59.1%</p>
+        <p><strong>Matched Spacing Values:</strong> 8, 16, 32, 12, 4, 20, 24, 80, 40, 56, 96, 64, 48</p>
+        <p><strong>Diagnosis:</strong> تطبيق المسافات متوسط حسب النظام</p>
+      </div>
+      <div class="card">
+        <h2>التصميم المتجاوب (Responsive Design Test)</h2>
+        <p>تم اختبار توافق الموقع مع الأجهزة التالية:</p>
+        <div style="display:flex; flex-wrap:wrap; gap:2rem; justify-content:center;">
+          <div style="text-align:center;">
+            <div style="width:220px; height:440px; background:#222; border-radius:32px; box-shadow:0 4px 16px #0003; padding:16px; margin-bottom:8px; position:relative; display:flex; align-items:center; justify-content:center;">
+              <img src="snap-1763632471654-mobile.png" alt="Mobile Screenshot" style="width:188px; height:400px; object-fit:cover; border-radius:24px; background:#fff; box-shadow:0 2px 8px #0001;">
+              <span style="position:absolute;top:12px;left:50%;transform:translateX(-50%);color:#fff;font-size:1em;font-weight:bold;">جوال</span>
+            </div>
+            <span style="font-size:0.95em; color:#004990;">جوال (375x812)</span>
+          </div>
+          <div style="text-align:center;">
+            <div style="width:320px; height:240px; background:#222; border-radius:24px; box-shadow:0 4px 16px #0003; padding:16px; margin-bottom:8px; position:relative; display:flex; align-items:center; justify-content:center;">
+              <img src="snap-1763632471654-tablet.png" alt="Tablet Screenshot" style="width:288px; height:192px; object-fit:cover; border-radius:16px; background:#fff; box-shadow:0 2px 8px #0001;">
+              <span style="position:absolute;top:12px;left:50%;transform:translateX(-50%);color:#fff;font-size:1em;font-weight:bold;">تابلت</span>
+            </div>
+            <span style="font-size:0.95em; color:#004990;">تابلت (768x1024)</span>
+          </div>
+          <div style="text-align:center;">
+            <div style="width:420px; height:260px; background:#222; border-radius:16px; box-shadow:0 4px 16px #0003; padding:16px; margin-bottom:8px; position:relative; display:flex; align-items:center; justify-content:center;">
+              <img src="snap-1763632471654-desktop.png" alt="Desktop Screenshot" style="width:388px; height:192px; object-fit:cover; border-radius:8px; background:#fff; box-shadow:0 2px 8px #0001;">
+              <span style="position:absolute;top:12px;left:50%;transform:translateX(-50%);color:#fff;font-size:1em;font-weight:bold;">ديسكتوب</span>
+            </div>
+            <span style="font-size:0.95em; color:#004990;">ديسكتوب (1440x900)</span>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Screenshot</h2>
+        <img src="snap-1763632471187.png" alt="Screenshot">
       </div>
     </body>
     </html>

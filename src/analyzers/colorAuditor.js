@@ -33,7 +33,7 @@ function colorDistance(a, b) {
 
 // Main function
 export async function auditColors(url) {
-  const browser = await chromium.launch({ headless: false }); // run with visible browser
+  const browser = await chromium.launch({ headless: true }); // run in headless mode for automation
   const context = await browser.newContext({
     userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
     locale: 'en-US'
@@ -43,28 +43,60 @@ export async function auditColors(url) {
     'Accept-Language': 'en-US,en;q=0.9'
   });
 
-  await page.goto(url, { waitUntil: "networkidle" });
-  await page.waitForTimeout(10000); // Wait 10 seconds for manual checks
+  try {
+    await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 }); // 60s timeout, less strict
+  } catch (err) {
+    await browser.close();
+    throw new Error('Navigation failed: ' + err.message);
+  }
 
   const title = await page.title(); // <-- Add this line
 
-  // Extract all unique computed colors and fonts
-  const { fonts, colors } = await page.evaluate(() => {
+  // Extract all unique computed colors, fonts, and spacings
+  const { fonts, colors, spacings } = await page.evaluate(() => {
     const fontSet = new Set();
     const colorSet = new Set();
+    const spacingSet = new Set();
     document.querySelectorAll('*').forEach(el => {
-      fontSet.add(getComputedStyle(el).fontFamily);
-      colorSet.add(getComputedStyle(el).color);
+      const style = getComputedStyle(el);
+      fontSet.add(style.fontFamily);
+      colorSet.add(style.color);
+      // Collect all margin and padding values
+      ['marginTop','marginRight','marginBottom','marginLeft','paddingTop','paddingRight','paddingBottom','paddingLeft'].forEach(prop => {
+        spacingSet.add(style[prop]);
+      });
     });
     return {
       fonts: Array.from(fontSet),
-      colors: Array.from(colorSet)
+      colors: Array.from(colorSet),
+      spacings: Array.from(spacingSet)
     };
   });
+
+  // Wait 5 seconds to ensure all dynamic content is visible before screenshot
+  await new Promise(resolve => setTimeout(resolve, 5000));
 
   const snapFile = `snap-${Date.now()}.png`;
   const snapPath = `reports/${snapFile}`;
   await page.screenshot({ path: snapPath, fullPage: true });
+
+  // Responsive screenshots
+  const screenshotMobileFile = `snap-${Date.now()}-mobile.png`;
+  const screenshotTabletFile = `snap-${Date.now()}-tablet.png`;
+  const screenshotDesktopFile = `snap-${Date.now()}-desktop.png`;
+
+  // Mobile
+  await page.setViewportSize({ width: 375, height: 812 });
+  await new Promise(resolve => setTimeout(resolve, 2000));
+  await page.screenshot({ path: path.join('reports', screenshotMobileFile) });
+  // Tablet
+  await page.setViewportSize({ width: 768, height: 1024 });
+  await new Promise(resolve => setTimeout(resolve, 2000));
+  await page.screenshot({ path: path.join('reports', screenshotTabletFile) });
+  // Desktop
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await new Promise(resolve => setTimeout(resolve, 2000));
+  await page.screenshot({ path: path.join('reports', screenshotDesktopFile) });
 
   // Check for search bar BEFORE closing the browser!
   const hasSearchBar = await page.evaluate(() => {
@@ -85,6 +117,26 @@ export async function auditColors(url) {
   const brandColors = Object.values(tokens.colors)
     .flatMap(palette => typeof palette === 'string' ? [palette] : Object.values(palette));
   const brandRgb = brandColors.map(hexToRgb);
+
+  // Spacing tokens (from design system)
+  const spacingTokens = tokens.spacing ? Object.values(tokens.spacing) : [];
+  // Normalize spacing values to px
+  function normalizePx(val) {
+    if (typeof val === 'number') return val;
+    if (typeof val === 'string' && val.endsWith('px')) return parseFloat(val);
+    return null;
+  }
+  const spacingPxTokens = spacingTokens.map(normalizePx).filter(v => v !== null);
+
+  // Filter out 0, auto, negative, and duplicate spacing values
+  const validSpacings = spacings
+    .map(normalizePx)
+    .filter(v => v !== null && v > 0);
+  const uniqueSpacings = Array.from(new Set(validSpacings));
+
+  // Check if unique page spacings match any design system spacing
+  const spacingMatches = uniqueSpacings.filter(sp => spacingPxTokens.includes(sp));
+  const spacingAccuracy = uniqueSpacings.length > 0 ? (spacingMatches.length / uniqueSpacings.length) * 100 : null;
 
   // Compare website colors to brand colors
   const results = colors.map(colorStr => {
@@ -136,7 +188,13 @@ export async function auditColors(url) {
     fonts,
     fontMatch,
     colorAudit,
-    hasSearchBar // <-- add this
+    hasSearchBar,
+    spacings,
+    spacingMatches,
+    spacingAccuracy,
+    screenshotMobile: screenshotMobileFile,
+    screenshotTablet: screenshotTabletFile,
+    screenshotDesktop: screenshotDesktopFile
   };
 
   // Ensure reports directory exists

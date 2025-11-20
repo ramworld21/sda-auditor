@@ -1,14 +1,12 @@
 {
   "url": "https://my.gov.sa",
   "title": "National Platform (National Portal)",
-  "snapPath": "snap-1757487216501.png",
-  "timestamp": "2025-09-10T06:53:38.885Z",
+  "snapPath": "snap-1763632471187.png",
+  "timestamp": "2025-11-20T09:54:38.071Z",
   "fonts": [
-    "__IBM_Plex_Sans_Arabic_e83a0d, sans-serif",
-    "\"IBM Plex Sans Arabic\", sans-serif",
-    "Rubik, -apple-system, BlinkMacSystemFont, \"avenir next\", avenir, \"helvetica neue\", helvetica, ubuntu, roboto, noto, \"segoe ui\", arial, sans-serif"
+    "__IBM_Plex_Sans_Arabic_25982a, sans-serif"
   ],
-  "fontMatch": true,
+  "fontMatch": false,
   "colorAudit": [
     {
       "color": "rgb(0, 0, 0)",
@@ -87,25 +85,52 @@
       "closest": "rgb(247,213,77)",
       "distance": 106.28734637763802,
       "match": false
-    },
-    {
-      "color": "rgb(68, 74, 82)",
-      "closest": "rgb(56,66,80)",
-      "distance": 14.560219778561036,
-      "match": true
-    },
-    {
-      "color": "rgb(102, 117, 155)",
-      "closest": "rgb(108,115,127)",
-      "distance": 28.705400188814647,
-      "match": true
-    },
-    {
-      "color": "rgb(65, 64, 66)",
-      "closest": "rgb(56,66,80)",
-      "distance": 16.76305461424021,
-      "match": true
     }
   ],
-  "hasSearchBar": true
+  "hasSearchBar": true,
+  "spacings": [
+    "0px",
+    "8px",
+    "16px",
+    "32px",
+    "12px",
+    "4px",
+    "2px",
+    "20px",
+    "auto",
+    "75px",
+    "316px",
+    "24px",
+    "140px",
+    "6px",
+    "28px",
+    "10px",
+    "80px",
+    "40px",
+    "56px",
+    "96px",
+    "64px",
+    "56.5px",
+    "112px",
+    "48px"
+  ],
+  "spacingMatches": [
+    8,
+    16,
+    32,
+    12,
+    4,
+    20,
+    24,
+    80,
+    40,
+    56,
+    96,
+    64,
+    48
+  ],
+  "spacingAccuracy": 59.09090909090909,
+  "screenshotMobile": "snap-1763632471654-mobile.png",
+  "screenshotTablet": "snap-1763632471654-tablet.png",
+  "screenshotDesktop": "snap-1763632471654-desktop.png"
 }

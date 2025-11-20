@@ -46,5 +46,24 @@
   "fonts": {
     "main": "IBM Plex Sans, sans-serif",
     "alt": "IBM Plex Sans, sans-serif"
+  },
+  "spacing": {
+    "xxs": 4,
+    "xs": 8,
+    "sm": 12,
+    "md": 16,
+    "lg": 20,
+    "xl": 24,
+    "2xl": 32,
+    "3xl": 40,
+    "4xl": 48,
+    "5xl": 56,
+    "6xl": 64,
+    "7xl": 80,
+    "8xl": 96,
+    "9xl": 128,
+    "10xl": 160,
+    "11xl": 192,
+    "12xl": 256
   }
 }

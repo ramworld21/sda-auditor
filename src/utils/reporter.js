@@ -56,12 +56,55 @@ export function generateHTMLReport(result) {
         </div>
       ` : ''}
       <div class="card">
-        <h2>Screenshot</h2>
-        <img src="${result.snapPath}" alt="Screenshot">
-      </div>
-      <div class="card">
         <h2>Search Bar Audit</h2>
         <p class="meta"><strong>Search Bar Present:</strong> ${result.hasSearchBar ? '✔️ Yes' : '❌ No'}</p>
+      </div>
+      <div class="card">
+        <h2>Spacing Audit</h2>
+        <p><strong>How Spacing Was Measured:</strong></p>
+        <ul>
+          <li>All <strong>margin</strong> and <strong>padding</strong> values were extracted from every element on the page using automated browser inspection.</li>
+          <li>Each value was compared against the official Saudi DGA spacing tokens: <span style="font-family:monospace">4px, 8px, 12px, 16px, 20px, 24px, 32px, 40px, 48px, 56px, 64px, 80px, 96px, 128px, 160px, 192px, 256px</span>.</li>
+          <li>Accuracy = (number of matches / total measured spacings) × 100.</li>
+        </ul>
+        <p><strong>Accuracy:</strong> ${typeof result.spacingAccuracy === 'number' ? result.spacingAccuracy.toFixed(1) + '%' : 'N/A'}</p>
+        <p><strong>Matched Spacing Values:</strong> ${(result.spacingMatches && result.spacingMatches.length) ? result.spacingMatches.join(', ') : 'N/A'}</p>
+        <p><strong>Diagnosis:</strong> ${(() => {
+          if (result.spacingAccuracy > 80) return 'تطبيق المسافات جيد حسب النظام';
+          if (result.spacingAccuracy > 50) return 'تطبيق المسافات متوسط حسب النظام';
+          return 'لم يتم تطبيق المسافات حسب النظام';
+        })()}</p>
+      </div>
+      <div class="card">
+        <h2>التصميم المتجاوب (Responsive Design Test)</h2>
+        <p>تم اختبار توافق الموقع مع الأجهزة التالية:</p>
+        <div style="display:flex; flex-wrap:wrap; gap:2rem; justify-content:center;">
+          <div style="text-align:center;">
+            <div style="width:220px; height:440px; background:#222; border-radius:32px; box-shadow:0 4px 16px #0003; padding:16px; margin-bottom:8px; position:relative; display:flex; align-items:center; justify-content:center;">
+              <img src="${result.screenshotMobile || ''}" alt="Mobile Screenshot" style="width:188px; height:400px; object-fit:cover; border-radius:24px; background:#fff; box-shadow:0 2px 8px #0001;">
+              <span style="position:absolute;top:12px;left:50%;transform:translateX(-50%);color:#fff;font-size:1em;font-weight:bold;">جوال</span>
+            </div>
+            <span style="font-size:0.95em; color:#004990;">جوال (375x812)</span>
+          </div>
+          <div style="text-align:center;">
+            <div style="width:320px; height:240px; background:#222; border-radius:24px; box-shadow:0 4px 16px #0003; padding:16px; margin-bottom:8px; position:relative; display:flex; align-items:center; justify-content:center;">
+              <img src="${result.screenshotTablet || ''}" alt="Tablet Screenshot" style="width:288px; height:192px; object-fit:cover; border-radius:16px; background:#fff; box-shadow:0 2px 8px #0001;">
+              <span style="position:absolute;top:12px;left:50%;transform:translateX(-50%);color:#fff;font-size:1em;font-weight:bold;">تابلت</span>
+            </div>
+            <span style="font-size:0.95em; color:#004990;">تابلت (768x1024)</span>
+          </div>
+          <div style="text-align:center;">
+            <div style="width:420px; height:260px; background:#222; border-radius:16px; box-shadow:0 4px 16px #0003; padding:16px; margin-bottom:8px; position:relative; display:flex; align-items:center; justify-content:center;">
+              <img src="${result.screenshotDesktop || ''}" alt="Desktop Screenshot" style="width:388px; height:192px; object-fit:cover; border-radius:8px; background:#fff; box-shadow:0 2px 8px #0001;">
+              <span style="position:absolute;top:12px;left:50%;transform:translateX(-50%);color:#fff;font-size:1em;font-weight:bold;">ديسكتوب</span>
+            </div>
+            <span style="font-size:0.95em; color:#004990;">ديسكتوب (1440x900)</span>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Screenshot</h2>
+        <img src="${result.snapPath}" alt="Screenshot">
       </div>
     </body>
     </html>
