@@ -1,15 +1,54 @@
 {
-  "url": "https://google.com",
-  "title": "Google",
-  "snapPath": "snap-1763658885912.png",
-  "timestamp": "2025-11-20T17:14:52.181Z",
+  "url": "https://dga.gov.sa",
+  "title": "هيئة الحكومة الرقمية",
+  "snapPath": "snap-1763988815474.png",
+  "timestamp": "2025-11-24T13:06:28.139Z",
   "fonts": [
-    "Times",
-    "Arial, sans-serif",
-    "\"Google Sans Text\", Roboto, Helvetica, Arial, sans-serif",
-    "monospace"
+    "regularFont",
+    "boldFont",
+    "mediumFont",
+    "Rubik, -apple-system, BlinkMacSystemFont, \"avenir next\", avenir, \"helvetica neue\", helvetica, ubuntu, roboto, noto, \"segoe ui\", arial, sans-serif",
+    "Roboto",
+    "Bahij_Janna-Regular",
+    "FontAwesome",
+    "semiBoldFont",
+    "Source Sans Pro",
+    "Rubik",
+    "IBM Plex Sans Arabic",
+    "IBM Plex Arabic",
+    "IBM Plex Sans",
+    "IBMPlexSans",
+    "IBMPlexSansArabic"
   ],
-  "fontMatch": false,
+  "fontFaces": [
+    "regularFont",
+    "boldFont",
+    "mediumFont",
+    "Rubik",
+    "-apple-system",
+    "BlinkMacSystemFont",
+    "avenir next",
+    "avenir",
+    "helvetica neue",
+    "helvetica",
+    "ubuntu",
+    "roboto",
+    "noto",
+    "segoe ui",
+    "arial",
+    "sans-serif",
+    "Roboto",
+    "Bahij_Janna-Regular",
+    "FontAwesome",
+    "semiBoldFont",
+    "Source Sans Pro",
+    "IBM Plex Sans Arabic",
+    "IBM Plex Arabic",
+    "IBM Plex Sans",
+    "IBMPlexSans",
+    "IBMPlexSansArabic"
+  ],
+  "fontMatch": true,
   "colorAudit": [
     {
       "color": "rgb(0, 0, 0)",
@@ -18,16 +57,40 @@
       "match": false
     },
     {
-      "color": "rgb(31, 31, 31)",
-      "closest": "rgb(17,25,39)",
-      "distance": 17.204650534085253,
+      "color": "rgb(112, 111, 111)",
+      "closest": "rgb(108,115,127)",
+      "distance": 16.97056274847714,
       "match": true
     },
     {
-      "color": "rgb(26, 13, 171)",
+      "color": "rgb(252, 252, 253)",
+      "closest": "rgb(252,252,253)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(243, 244, 246)",
+      "closest": "rgb(243,244,246)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(22, 22, 22)",
+      "closest": "rgb(13,18,28)",
+      "distance": 11.532562594670797,
+      "match": true
+    },
+    {
+      "color": "rgb(27, 131, 84)",
+      "closest": "rgb(27,131,84)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(56, 66, 80)",
       "closest": "rgb(56,66,80)",
-      "distance": 109.4988584415381,
-      "match": false
+      "distance": 0,
+      "match": true
     },
     {
       "color": "rgb(255, 255, 255)",
@@ -36,112 +99,1092 @@
       "match": true
     },
     {
-      "color": "rgb(94, 94, 94)",
+      "color": "rgb(249, 250, 251)",
+      "closest": "rgb(249,250,251)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(31, 42, 55)",
+      "closest": "rgb(31,42,55)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(219, 161, 2)",
+      "closest": "rgb(219,161,2)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(247, 253, 249)",
+      "closest": "rgb(247,253,249)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(6, 118, 71)",
+      "closest": "rgb(22,106,69)",
+      "distance": 20.09975124224178,
+      "match": true
+    },
+    {
+      "color": "rgb(210, 214, 219)",
+      "closest": "rgb(210,214,219)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(108, 115, 127)",
+      "closest": "rgb(108,115,127)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(8, 93, 58)",
+      "closest": "rgb(20,87,58)",
+      "distance": 13.416407864998739,
+      "match": true
+    },
+    {
+      "color": "rgb(236, 253, 243)",
+      "closest": "rgb(243,252,246)",
+      "distance": 7.681145747868608,
+      "match": true
+    },
+    {
+      "color": "rgb(171, 239, 198)",
+      "closest": "rgb(184,234,203)",
+      "distance": 14.798648586948742,
+      "match": true
+    },
+    {
+      "color": "rgb(22, 114, 72)",
+      "closest": "rgb(22,106,69)",
+      "distance": 8.54400374531753,
+      "match": true
+    },
+    {
+      "color": "rgb(229, 231, 235)",
+      "closest": "rgb(229,231,235)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(255, 254, 242)",
+      "closest": "rgb(255,255,242)",
+      "distance": 1,
+      "match": true
+    },
+    {
+      "color": "rgb(252, 243, 189)",
+      "closest": "rgb(252,243,189)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(13, 18, 28)",
+      "closest": "rgb(13,18,28)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(117, 117, 117)",
+      "closest": "rgb(108,115,127)",
+      "distance": 13.601470508735444,
+      "match": true
+    },
+    {
+      "color": "rgb(7, 77, 49)",
+      "closest": "rgb(16,70,49)",
+      "distance": 11.40175425099138,
+      "match": true
+    },
+    {
+      "color": "rgba(255, 255, 255, 0.3)",
+      "closest": "rgb(252,252,253)",
+      "distance": 4.69041575982343,
+      "match": true
+    },
+    {
+      "color": "rgba(0, 0, 0, 0.5)",
+      "closest": "rgb(13,18,28)",
+      "distance": 35.73513677041127,
+      "match": false
+    },
+    {
+      "color": "rgb(22, 106, 69)",
+      "closest": "rgb(22,106,69)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(65, 64, 66)",
+      "closest": "rgb(56,66,80)",
+      "distance": 16.76305461424021,
+      "match": true
+    },
+    {
+      "color": "rgb(221, 221, 221)",
+      "closest": "rgb(210,214,219)",
+      "distance": 13.19090595827292,
+      "match": true
+    },
+    {
+      "color": "rgb(234, 246, 239)",
+      "closest": "rgb(243,244,246)",
+      "distance": 11.575836902790225,
+      "match": true
+    },
+    {
+      "color": "rgb(249, 174, 64)",
+      "closest": "rgb(247,213,77)",
+      "distance": 41.15823125451335,
+      "match": false
+    },
+    {
+      "color": "rgba(255, 255, 255, 0.2)",
+      "closest": "rgb(252,252,253)",
+      "distance": 4.69041575982343,
+      "match": true
+    },
+    {
+      "color": "rgb(128, 0, 0)",
+      "closest": "rgb(110,60,0)",
+      "distance": 62.6418390534633,
+      "match": false
+    },
+    {
+      "color": "rgb(255, 0, 0)",
+      "closest": "rgb(148,92,1)",
+      "distance": 141.1169727566461,
+      "match": false
+    },
+    {
+      "color": "rgb(255, 165, 0)",
+      "closest": "rgb(245,189,2)",
+      "distance": 26.076809620810597,
+      "match": true
+    },
+    {
+      "color": "rgb(255, 255, 0)",
+      "closest": "rgb(245,189,2)",
+      "distance": 66.783231428256,
+      "match": false
+    },
+    {
+      "color": "rgb(128, 128, 0)",
+      "closest": "rgb(148,92,1)",
+      "distance": 41.19465984809196,
+      "match": false
+    },
+    {
+      "color": "rgb(0, 128, 0)",
+      "closest": "rgb(20,87,58)",
+      "distance": 73.79024325749306,
+      "match": false
+    },
+    {
+      "color": "rgb(128, 0, 128)",
       "closest": "rgb(77,87,97)",
-      "distance": 18.627936010197157,
-      "match": true
+      "distance": 105.5035544424926,
+      "match": false
     },
     {
-      "color": "rgb(112, 117, 122)",
-      "closest": "rgb(108,115,127)",
-      "distance": 6.708203932499369,
-      "match": true
-    },
-    {
-      "color": "rgb(154, 160, 166)",
+      "color": "rgb(255, 0, 255)",
       "closest": "rgb(157,164,174)",
-      "distance": 9.433981132056603,
-      "match": true
-    },
-    {
-      "color": "rgba(0, 0, 0, 0)",
-      "closest": "rgb(13,18,28)",
-      "distance": 35.73513677041127,
+      "distance": 207.51144546747295,
       "match": false
     },
     {
-      "color": "rgba(0, 0, 0, 0.87)",
-      "closest": "rgb(13,18,28)",
-      "distance": 35.73513677041127,
+      "color": "rgb(0, 255, 0)",
+      "closest": "rgb(37,147,95)",
+      "distance": 148.51935900750448,
       "match": false
     },
     {
-      "color": "rgb(71, 71, 71)",
+      "color": "rgb(0, 128, 128)",
+      "closest": "rgb(27,131,84)",
+      "distance": 51.710733895391584,
+      "match": false
+    },
+    {
+      "color": "rgb(0, 255, 255)",
+      "closest": "rgb(84,192,138)",
+      "distance": 157.20687007888682,
+      "match": false
+    },
+    {
+      "color": "rgb(0, 0, 255)",
       "closest": "rgb(56,66,80)",
-      "distance": 18.193405398660254,
-      "match": true
+      "distance": 195.23575492209412,
+      "match": false
     },
     {
-      "color": "rgb(33, 33, 33)",
-      "closest": "rgb(17,25,39)",
-      "distance": 18.867962264113206,
-      "match": true
+      "color": "rgb(0, 0, 128)",
+      "closest": "rgb(31,42,55)",
+      "distance": 89.74408058473828,
+      "match": false
     },
     {
-      "color": "rgb(128, 128, 128)",
+      "color": "rgba(31, 175, 111, 0.42)",
+      "closest": "rgb(37,147,95)",
+      "distance": 32.802438933713454,
+      "match": false
+    },
+    {
+      "color": "rgb(109, 109, 109)",
       "closest": "rgb(108,115,127)",
-      "distance": 23.874672772626646,
+      "distance": 19,
       "match": true
     },
     {
-      "color": "rgb(32, 33, 36)",
-      "closest": "rgb(17,25,39)",
-      "distance": 17.26267650163207,
+      "color": "rgb(236, 236, 236)",
+      "closest": "rgb(229,231,235)",
+      "distance": 8.660254037844387,
       "match": true
     },
     {
-      "color": "rgb(60, 64, 67)",
+      "color": "rgb(68, 74, 82)",
       "closest": "rgb(56,66,80)",
-      "distance": 13.74772708486752,
+      "distance": 14.560219778561036,
       "match": true
+    },
+    {
+      "color": "rgb(218, 225, 232)",
+      "closest": "rgb(229,231,235)",
+      "distance": 12.884098726725126,
+      "match": true
+    },
+    {
+      "color": "rgb(102, 117, 155)",
+      "closest": "rgb(108,115,127)",
+      "distance": 28.705400188814647,
+      "match": true
+    }
+  ],
+  "logo": "logo.svg",
+  "favicon": "https://dga.gov.sa/themes/custom/dga/favicon.ico",
+  "digitalStamp": {
+    "present": true,
+    "reason": "keyword:الختم الرقمي",
+    "selectors": [
+      {
+        "selector": "[class*=\"stamp\"]",
+        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية\nكيف تتحقق "
+      },
+      {
+        "selector": "[class*=\"stamp\"]",
+        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية\nكيف تتحقق "
+      },
+      {
+        "selector": "[class*=\"stamp\"]",
+        "text": "كيف تتحقق "
+      },
+      {
+        "selector": "[class*=\"stamp\"]",
+        "text": "\n            \n                \n                    \n                    \n                        روابط المواقع الالكترون"
+      },
+      {
+        "selector": "[class*=\"stamp\"]",
+        "text": "\n                \n                    \n                    \n                        روابط المواقع الالكترونية الرسمية ال"
+      },
+      {
+        "selector": "[class*=\"stamp\"]",
+        "text": "\n                \n                مسجل لدى هيئة الحكومة الرقمية برقم : \n                20240520402\n            "
+      },
+      {
+        "selector": "[class*=\"digital\"]",
+        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية\nكيف تتحقق "
+      },
+      {
+        "selector": "[class*=\"digital\"]",
+        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية\nكيف تتحقق "
+      },
+      {
+        "selector": "[class*=\"digital\"]",
+        "text": "كيف تتحقق "
+      },
+      {
+        "selector": "[class*=\"digital\"]",
+        "text": "\n            \n                \n                    \n                    \n                        روابط المواقع الالكترون"
+      },
+      {
+        "selector": "[class*=\"digital\"]",
+        "text": "\n                \n                    \n                    \n                        روابط المواقع الالكترونية الرسمية ال"
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": ""
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": ""
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": ""
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": ""
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": ""
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": ""
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": ""
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": ""
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": ""
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": ""
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": "برنامج الحكومة الشاملة"
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": "برنامج \"نمو\" لتطوير الخريجين (النسخة الثانية)"
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": "برنامج تبني الحوسبة السحابية لدى الجهات الحكومية"
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": "الشمولية الرقمية"
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": "التميز الرقمي"
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": "مركز تفاعل المستفيدين (آمر)"
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": "\n\t\tمشاركة الصفحة\n    "
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": "مشاركة الصفحة"
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": "روابط ذات صلة\nالمنصة الوطنية\nمنصة البيانات المفتوحة\nمنصة المشاركة الإلكترونية\nبوابة الخدمات الإلكترونية (رقمي)\nتطبيق الم"
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": "روابط ذات صلة\nالمنصة الوطنية\nمنصة البيانات المفتوحة\nمنصة المشاركة الإلكترونية\nبوابة الخدمات الإلكترونية (رقمي)\nتطبيق الم"
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": "روابط ذات صلة\nالمنصة الوطنية\nمنصة البيانات المفتوحة\nمنصة المشاركة الإلكترونية\nبوابة الخدمات الإلكترونية (رقمي)\nتطبيق الم"
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": "روابط ذات صلة"
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": "المنصة الوطنية\nمنصة البيانات المفتوحة\nمنصة المشاركة الإلكترونية\nبوابة الخدمات الإلكترونية (رقمي)\nتطبيق المنصة الوطنية GO"
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": "أقسام مهمة\nنبذة عن الهيئة\nسياسة أمن المنصة\nسياسة الاستخدام الآمن\nحق الحصول على المعلومة\nسفراء التجربة الرقمية"
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": "أقسام مهمة"
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": "نبذة عن الهيئة\nسياسة أمن المنصة\nسياسة الاستخدام الآمن\nحق الحصول على المعلومة\nسفراء التجربة الرقمية"
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": "المساعدة والدعم\nتواصل معنا / تقديم شكوى\nالتوظيف\nالأسئلة الشائعة\nاتفاقية مستوى الخدمة\nالاشتراك في النشرة البريدية\nالإبلاغ"
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": "المساعدة والدعم"
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": "تواصل معنا / تقديم شكوى\nالتوظيف\nالأسئلة الشائعة\nاتفاقية مستوى الخدمة\nالاشتراك في النشرة البريدية\nالإبلاغ عن حالة فساد"
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": "تواصل معنا\n\nأدوات الإتاحة وامكانية الوصول\n\nدعم لغة الاشارة الحية "
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": "أدوات الإتاحة وامكانية الوصول\n\nدعم لغة الاشارة الحية "
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": ""
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": ""
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": ""
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": ""
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": ""
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": "دعم لغة الاشارة الحية "
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": ""
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": ""
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": "دعم لغة الاشارة الحية "
+      },
+      {
+        "selector": "[class*=\"dga\"]",
+        "text": "جميع الحقوق محفوظة لهيئة الحكومة الرقمية © 2025\n\nالشروط والأحكام\nسياسة الخصوصية\nخريطة الموقع"
+      },
+      {
+        "selector": "section",
+        "text": "الخدمات الأكثر استخداماً\nجميع الخدمات\nخدمة تصنيف المقاولين\n\nتتيح هذه الخدمة لمقاولي قطاع الاتصالات وتقنية المعلومات الذي"
+      },
+      {
+        "selector": "section",
+        "text": "الخدمات الأكثر استخداماً\nجميع الخدمات\nخدمة تصنيف المقاولين\n\nتتيح هذه الخدمة لمقاولي قطاع الاتصالات وتقنية المعلومات الذي"
+      },
+      {
+        "selector": "section",
+        "text": "الخدمات الأكثر استخداماً\nجميع الخدمات\nخدمة تصنيف المقاولين\n\nتتيح هذه الخدمة لمقاولي قطاع الاتصالات وتقنية المعلومات الذي"
+      },
+      {
+        "selector": "div",
+        "text": "خدمة تصنيف المقاولين\n\nتتيح هذه الخدمة لمقاولي قطاع الاتصالات وتقنية المعلومات الذين سبق تسجيلهم في منصة تجمع الحكومة الر"
+      },
+      {
+        "selector": "div",
+        "text": "خدمة تصنيف المقاولين\n\nتتيح هذه الخدمة لمقاولي قطاع الاتصالات وتقنية المعلومات الذين سبق تسجيلهم في منصة تجمع الحكومة الر"
+      },
+      {
+        "selector": "div",
+        "text": "خدمة تصنيف المقاولين\n\nتتيح هذه الخدمة لمقاولي قطاع الاتصالات وتقنية المعلومات الذين سبق تسجيلهم في منصة تجمع الحكومة الر"
+      },
+      {
+        "selector": "div",
+        "text": "خدمة تصنيف المقاولين\n\nتتيح هذه الخدمة لمقاولي قطاع الاتصالات وتقنية المعلومات الذين سبق تسجيلهم في منصة تجمع الحكومة الر"
+      },
+      {
+        "selector": "div",
+        "text": "خدمة تصنيف المقاولين\n\nتتيح هذه الخدمة لمقاولي قطاع الاتصالات وتقنية المعلومات الذين سبق تسجيلهم في منصة تجمع الحكومة الر"
+      },
+      {
+        "selector": "div",
+        "text": "خدمة تصنيف المقاولين\n\nتتيح هذه الخدمة لمقاولي قطاع الاتصالات وتقنية المعلومات الذين سبق تسجيلهم في منصة تجمع الحكومة الر"
+      },
+      {
+        "selector": "div",
+        "text": "خدمة تصنيف المقاولين\n\nتتيح هذه الخدمة لمقاولي قطاع الاتصالات وتقنية المعلومات الذين سبق تسجيلهم في منصة تجمع الحكومة الر"
+      },
+      {
+        "selector": "div",
+        "text": "خدمة تصنيف المقاولين\n\nتتيح هذه الخدمة لمقاولي قطاع الاتصالات وتقنية المعلومات الذين سبق تسجيلهم في منصة تجمع الحكومة الر"
+      },
+      {
+        "selector": "div",
+        "text": "خدمة تصنيف المقاولين\n\nتتيح هذه الخدمة لمقاولي قطاع الاتصالات وتقنية المعلومات الذين سبق تسجيلهم في منصة تجمع الحكومة الر"
+      },
+      {
+        "selector": "div",
+        "text": "إصدار الختم الرقمي\n\nتتيح الخدمة لمنسوبي الجهة الحكومية تقديم طلب لإنشاء الختم الرقمي وشهادة تسجيل المنصة من خلال الإجراء"
+      },
+      {
+        "selector": "div",
+        "text": "إصدار الختم الرقمي\n\nتتيح الخدمة لمنسوبي الجهة الحكومية تقديم طلب لإنشاء الختم الرقمي وشهادة تسجيل المنصة من خلال الإجراء"
+      },
+      {
+        "selector": "div",
+        "text": "إصدار الختم الرقمي\n\nتتيح الخدمة لمنسوبي الجهة الحكومية تقديم طلب لإنشاء الختم الرقمي وشهادة تسجيل المنصة من خلال الإجراء"
+      },
+      {
+        "selector": "div",
+        "text": "إصدار الختم الرقمي\n\nتتيح الخدمة لمنسوبي الجهة الحكومية تقديم طلب لإنشاء الختم الرقمي وشهادة تسجيل المنصة من خلال الإجراء"
+      },
+      {
+        "selector": "div",
+        "text": "إصدار الختم الرقمي\n\nتتيح الخدمة لمنسوبي الجهة الحكومية تقديم طلب لإنشاء الختم الرقمي وشهادة تسجيل المنصة من خلال الإجراء"
+      },
+      {
+        "selector": "div",
+        "text": "إصدار الختم الرقمي\n\nتتيح الخدمة لمنسوبي الجهة الحكومية تقديم طلب لإنشاء الختم الرقمي وشهادة تسجيل المنصة من خلال الإجراء"
+      },
+      {
+        "selector": "div",
+        "text": "إصدار الختم الرقمي\n\nتتيح الخدمة لمنسوبي الجهة الحكومية تقديم طلب لإنشاء الختم الرقمي وشهادة تسجيل المنصة من خلال الإجراء"
+      },
+      {
+        "selector": "div",
+        "text": "إصدار الختم الرقمي\n\nتتيح الخدمة لمنسوبي الجهة الحكومية تقديم طلب لإنشاء الختم الرقمي وشهادة تسجيل المنصة من خلال الإجراء"
+      },
+      {
+        "selector": "div",
+        "text": "إصدار الختم الرقمي\n\nتتيح الخدمة لمنسوبي الجهة الحكومية تقديم طلب لإنشاء الختم الرقمي وشهادة تسجيل المنصة من خلال الإجراء"
+      },
+      {
+        "selector": "span",
+        "text": "إصدار الختم الرقمي"
+      },
+      {
+        "selector": "span",
+        "text": "إصدار الختم الرقمي"
+      },
+      {
+        "selector": "span",
+        "text": "إصدار الختم الرقمي"
+      },
+      {
+        "selector": "p",
+        "text": "تتيح الخدمة لمنسوبي الجهة الحكومية تقديم طلب لإنشاء الختم الرقمي وشهادة تسجيل المنصة من خلال الإجراءات التي تتم على المن"
+      },
+      {
+        "selector": "p",
+        "text": "تتيح الخدمة لمنسوبي الجهة الحكومية تقديم طلب لإنشاء الختم الرقمي وشهادة تسجيل المنصة من خلال الإجراءات التي تتم على المن"
+      },
+      {
+        "selector": "p",
+        "text": "تتيح الخدمة لمنسوبي الجهة الحكومية تقديم طلب لإنشاء الختم الرقمي وشهادة تسجيل المنصة من خلال الإجراءات التي تتم على المن"
+      },
+      {
+        "selector": "section",
+        "text": "المواضيع الأكثر قراءة\n\nإصدار الختم الرقمي\nالمعايير الأساسية للتحول الرقمي\nإدارة المشروع الرقمي\nضوابط المشاركة الإلكتروني"
+      },
+      {
+        "selector": "section",
+        "text": "المواضيع الأكثر قراءة\n\nإصدار الختم الرقمي\nالمعايير الأساسية للتحول الرقمي\nإدارة المشروع الرقمي\nضوابط المشاركة الإلكتروني"
+      },
+      {
+        "selector": "section",
+        "text": "المواضيع الأكثر قراءة\n\nإصدار الختم الرقمي\nالمعايير الأساسية للتحول الرقمي\nإدارة المشروع الرقمي\nضوابط المشاركة الإلكتروني"
+      },
+      {
+        "selector": "div",
+        "text": "المواضيع الأكثر قراءة\n\nإصدار الختم الرقمي\nالمعايير الأساسية للتحول الرقمي\nإدارة المشروع الرقمي\nضوابط المشاركة الإلكتروني"
+      },
+      {
+        "selector": "div",
+        "text": "المواضيع الأكثر قراءة\n\nإصدار الختم الرقمي\nالمعايير الأساسية للتحول الرقمي\nإدارة المشروع الرقمي\nضوابط المشاركة الإلكتروني"
+      },
+      {
+        "selector": "div",
+        "text": "المواضيع الأكثر قراءة\n\nإصدار الختم الرقمي\nالمعايير الأساسية للتحول الرقمي\nإدارة المشروع الرقمي\nضوابط المشاركة الإلكتروني"
+      },
+      {
+        "selector": "div",
+        "text": "إصدار الختم الرقمي\nالمعايير الأساسية للتحول الرقمي\nإدارة المشروع الرقمي\nضوابط المشاركة الإلكترونية"
+      },
+      {
+        "selector": "div",
+        "text": "إصدار الختم الرقمي\nالمعايير الأساسية للتحول الرقمي\nإدارة المشروع الرقمي\nضوابط المشاركة الإلكترونية"
+      },
+      {
+        "selector": "div",
+        "text": "إصدار الختم الرقمي\nالمعايير الأساسية للتحول الرقمي\nإدارة المشروع الرقمي\nضوابط المشاركة الإلكترونية"
+      },
+      {
+        "selector": "a",
+        "text": "إصدار الختم الرقمي"
+      },
+      {
+        "selector": "a",
+        "text": "إصدار الختم الرقمي"
+      },
+      {
+        "selector": "a",
+        "text": "إصدار الختم الرقمي"
+      },
+      {
+        "selector": "div",
+        "text": "language selector\narabic\nتبديل السمة\nسمة داكنة\nسمة فاتحة\nسمة النظام\nأداة سهولة الوصول\nتكبير أزرار الأداة\nتكبير أزرار الأ"
+      },
+      {
+        "selector": "div",
+        "text": "language selector\narabic\nتبديل السمة\nسمة داكنة\nسمة فاتحة\nسمة النظام\nأداة سهولة الوصول\nتكبير أزرار الأداة\nتكبير أزرار الأ"
+      },
+      {
+        "selector": "div",
+        "text": "language selector\narabic\nتبديل السمة\nسمة داكنة\nسمة فاتحة\nسمة النظام\nأداة سهولة الوصول\nتكبير أزرار الأداة\nتكبير أزرار الأ"
+      },
+      {
+        "selector": "div",
+        "text": "تكبير أزرار الأداة\nتكبير أزرار الأداة\nأنماط المساعدة\nتجربة قراءة مريحة\nتغيير حجم المحتوى\nمكبر النص\nخط لقراءة أسهل\nخط الد"
+      },
+      {
+        "selector": "div",
+        "text": "تكبير أزرار الأداة\nتكبير أزرار الأداة\nأنماط المساعدة\nتجربة قراءة مريحة\nتغيير حجم المحتوى\nمكبر النص\nخط لقراءة أسهل\nخط الد"
+      },
+      {
+        "selector": "div",
+        "text": "تكبير أزرار الأداة\nتكبير أزرار الأداة\nأنماط المساعدة\nتجربة قراءة مريحة\nتغيير حجم المحتوى\nمكبر النص\nخط لقراءة أسهل\nخط الد"
+      },
+      {
+        "selector": "div",
+        "text": "اختر من القائمة\nالرئيسية\n20240520402\nenglish\nالبرامج\nالخدمات\nالمعرفة الرقمية\nأخبار الهيئة\nالحكومة الرقمية تُطلق برنامج “"
+      },
+      {
+        "selector": "div",
+        "text": "اختر من القائمة\nالرئيسية\n20240520402\nenglish\nالبرامج\nالخدمات\nالمعرفة الرقمية\nأخبار الهيئة\nالحكومة الرقمية تُطلق برنامج “"
+      },
+      {
+        "selector": "div",
+        "text": "اختر من القائمة\nالرئيسية\n20240520402\nenglish\nالبرامج\nالخدمات\nالمعرفة الرقمية\nأخبار الهيئة\nالحكومة الرقمية تُطلق برنامج “"
+      },
+      {
+        "selector": "div",
+        "text": "اختر من القائمة\nالرئيسية\n20240520402\nenglish\nالبرامج\nالخدمات\nالمعرفة الرقمية\nأخبار الهيئة\nالحكومة الرقمية تُطلق برنامج “"
+      },
+      {
+        "selector": "div",
+        "text": "اختر من القائمة\nالرئيسية\n20240520402\nenglish\nالبرامج\nالخدمات\nالمعرفة الرقمية\nأخبار الهيئة\nالحكومة الرقمية تُطلق برنامج “"
+      },
+      {
+        "selector": "div",
+        "text": "اختر من القائمة\nالرئيسية\n20240520402\nenglish\nالبرامج\nالخدمات\nالمعرفة الرقمية\nأخبار الهيئة\nالحكومة الرقمية تُطلق برنامج “"
+      },
+      {
+        "selector": "div",
+        "text": "اختر من القائمة\nالرئيسية\n20240520402\nenglish\nالبرامج\nالخدمات\nالمعرفة الرقمية\nأخبار الهيئة\nالحكومة الرقمية تُطلق برنامج “"
+      },
+      {
+        "selector": "div",
+        "text": "اختر من القائمة\nالرئيسية\n20240520402\nenglish\nالبرامج\nالخدمات\nالمعرفة الرقمية\nأخبار الهيئة\nالحكومة الرقمية تُطلق برنامج “"
+      },
+      {
+        "selector": "div",
+        "text": "اختر من القائمة\nالرئيسية\n20240520402\nenglish\nالبرامج\nالخدمات\nالمعرفة الرقمية\nأخبار الهيئة\nالحكومة الرقمية تُطلق برنامج “"
+      },
+      {
+        "selector": "div",
+        "text": "اختر من القائمة\nالرئيسية\n20240520402\nenglish\nالبرامج\nالخدمات\nالمعرفة الرقمية\nأخبار الهيئة\nالحكومة الرقمية تُطلق برنامج “"
+      },
+      {
+        "selector": "div",
+        "text": "اختر من القائمة\nالرئيسية\n20240520402\nenglish\nالبرامج\nالخدمات\nالمعرفة الرقمية\nأخبار الهيئة\nالحكومة الرقمية تُطلق برنامج “"
+      },
+      {
+        "selector": "div",
+        "text": "اختر من القائمة\nالرئيسية\n20240520402\nenglish\nالبرامج\nالخدمات\nالمعرفة الرقمية\nأخبار الهيئة\nالحكومة الرقمية تُطلق برنامج “"
+      },
+      {
+        "selector": "select",
+        "text": "اختر من القائمة\nالرئيسية\n20240520402\nenglish\nالبرامج\nالخدمات\nالمعرفة الرقمية\nأخبار الهيئة\nالحكومة الرقمية تُطلق برنامج “"
+      },
+      {
+        "selector": "select",
+        "text": "اختر من القائمة\nالرئيسية\n20240520402\nenglish\nالبرامج\nالخدمات\nالمعرفة الرقمية\nأخبار الهيئة\nالحكومة الرقمية تُطلق برنامج “"
+      },
+      {
+        "selector": "select",
+        "text": "اختر من القائمة\nالرئيسية\n20240520402\nenglish\nالبرامج\nالخدمات\nالمعرفة الرقمية\nأخبار الهيئة\nالحكومة الرقمية تُطلق برنامج “"
+      },
+      {
+        "selector": "option",
+        "text": "إصدار الختم الرقمي"
+      },
+      {
+        "selector": "option",
+        "text": "إصدار الختم الرقمي"
+      },
+      {
+        "selector": "option",
+        "text": "إصدار الختم الرقمي"
+      }
+    ],
+    "images": [
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/CountryFlags.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/arrow-down-green.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/link-icon.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/square-lock-password.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/DGA-logo-icon.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/CountryFlags.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/arrow-down-green.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/arrow-down-green.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/link-icon.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/square-lock-password.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/DGA-logo-icon.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/link-icon.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/square-lock-password.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/DGA-logo-icon.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/CountryFlags.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/arrow-down-green.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/link-icon.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/square-lock-password.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/DGA-logo-icon.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/CountryFlags.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/arrow-down-green.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/arrow-down-green.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/link-icon.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/square-lock-password.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/DGA-logo-icon.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/link-icon.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/square-lock-password.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/arrow-down.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/arrow-down.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/arrow-down.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/arrow-down.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/arrow-down.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/arrow-down.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/arrow-down.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/arrow-down.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/arrow-down.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/arrow-down.svg",
+      "https://dga.gov.sa/sites/default/files/2025-05/%D8%A8%D8%B1%D9%86%D8%A7%D9%85%D8%AC%20%D8%A7%D9%84%D8%B4%D9%85%D9%88%D9%84%D9%8A%D8%A9%20%D8%A7%D9%84%D8%B1%D9%82%D9%85%D9%8A%D8%A9.svg",
+      "https://dga.gov.sa/sites/default/files/2025-04/%D9%86%D9%85%D9%88.svg",
+      "https://dga.gov.sa/sites/default/files/2025-04/%D8%AA%D8%A8%D9%86%D9%8A%20%D8%A7%D9%84%D8%AD%D9%88%D8%B3%D8%A8%D8%A9%20%D8%A7%D9%84%D8%B3%D8%AD%D8%A7%D8%A8%D9%8A%D8%A9%20%D9%84%D8%AF%D9%89%20%D8%A7%D9%84%D8%AC%D9%87%D8%A7%D8%AA%20%D8%A7%D9%84%D8%AD%D9%83%D9%88%D9%85%D9%8A%D8%A9.svg",
+      "https://dga.gov.sa/sites/default/files/2025-04/%D8%A7%D9%84%D8%B4%D9%85%D9%88%D9%84%D9%8A%D8%A9%20%D8%A7%D9%84%D8%B1%D9%82%D9%85%D9%8A%D8%A9.svg",
+      "https://dga.gov.sa/sites/default/files/2025-06/%D8%A7%D9%84%D8%AA%D9%85%D9%8A%D8%B2%20%D8%A7%D9%84%D8%B1%D9%82%D9%85%D9%8A.svg",
+      "https://dga.gov.sa/sites/default/files/2025-04/amer.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/newDesign/down-arrow-white.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/newDesign/down-arrow-white.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/newDesign/down-arrow-white.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/x.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/linkedIn.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/youtube.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/facebook.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/accessibility-1.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/accessibility-3.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/accessibility-4.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/2030.webp",
+      "https://dga.gov.sa/themes/custom/dga/Images/newDesign/down-arrow-white.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/newDesign/down-arrow-white.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/newDesign/down-arrow-white.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/x.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/linkedIn.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/youtube.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/facebook.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/accessibility-1.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/accessibility-3.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/accessibility-4.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/newDesign/down-arrow-white.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/newDesign/down-arrow-white.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/newDesign/down-arrow-white.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/newDesign/down-arrow-white.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/newDesign/down-arrow-white.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/newDesign/down-arrow-white.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/x.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/linkedIn.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/youtube.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/facebook.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/accessibility-1.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/accessibility-3.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/accessibility-4.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/x.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/linkedIn.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/youtube.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/facebook.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/accessibility-1.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/accessibility-3.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/accessibility-4.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/x.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/linkedIn.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/youtube.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/facebook.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/x.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/linkedIn.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/youtube.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/facebook.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/accessibility-1.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/accessibility-3.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/accessibility-4.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/accessibility-1.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/accessibility-3.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/accessibility-4.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/2030.webp"
+    ],
+    "svg": null,
+    "qrCount": 0
+  },
+  "colorFailures": [
+    {
+      "color": "rgb(0, 0, 0)",
+      "screenshot": "color-fail-1763988821898-1.png",
+      "snippet": "<html dir=\"rtl\" lang=\"ar\" class=\" js\"><head>\n\t<link id=\"genesys-widgets-styles\" href=\"/themes/custom/dga/chat/widgets-ar.css\" type=\"text/css\" rel=\"stylesheet\" media=\"all\">\n\t<script id=\"genesys-widgets-script\" src=\"/themes/custom/dga/chat/cxbus.min_AR.js\" defer=\"\"></script>\n\t<script id=\"genesys-widgets-script1\" src=\"/themes/custom/dga/chat/chat_sidebtn_AR.js\" defer=\"\"></script>\n\t<script id=\"genesys",
+      "selector": null,
+      "rect": null
+    },
+    {
+      "color": "rgb(112, 111, 111)",
+      "screenshot": "color-fail-1763988823896-2.png",
+      "snippet": "<body class=\"home muneer-theme-system\" data-aos-easing=\"ease\" data-aos-duration=\"400\" data-aos-delay=\"0\" style=\"\">\n    <div class=\"digital-stamp-card\">\n        <div class=\"container digital-stamp-header\">\n            <img src=\"/themes/custom/dga/Images/NDS/CountryFlags.svg\" alt=\"Saudi Arabia Flag\">\n            <h6>موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية</h6>\n            <div class=\"bt",
+      "selector": null,
+      "rect": null
+    },
+    {
+      "color": "rgb(252, 252, 253)",
+      "screenshot": "color-fail-1763988824965-3.png",
+      "snippet": "<body class=\"home muneer-theme-system\" data-aos-easing=\"ease\" data-aos-duration=\"400\" data-aos-delay=\"0\" style=\"\">\n    <div class=\"digital-stamp-card\">\n        <div class=\"container digital-stamp-header\">\n            <img src=\"/themes/custom/dga/Images/NDS/CountryFlags.svg\" alt=\"Saudi Arabia Flag\">\n            <h6>موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية</h6>\n            <div class=\"bt",
+      "selector": null,
+      "rect": null
+    },
+    {
+      "color": "rgb(243, 244, 246)",
+      "screenshot": "color-fail-1763988826092-4.png",
+      "snippet": "<div class=\"digital-stamp-card\">\n        <div class=\"container digital-stamp-header\">\n            <img src=\"/themes/custom/dga/Images/NDS/CountryFlags.svg\" alt=\"Saudi Arabia Flag\">\n            <h6>موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية</h6>\n            <div class=\"btn-digital-stamp-card\">\n                <span>كيف تتحقق</span> \n                <img src=\"/themes/custom/dga/Images/NDS/",
+      "selector": null,
+      "rect": null
+    },
+    {
+      "color": "rgb(22, 22, 22)",
+      "screenshot": "color-fail-1763988827205-5.png",
+      "snippet": "<h6>موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية</h6>",
+      "selector": null,
+      "rect": null
+    },
+    {
+      "color": "rgb(27, 131, 84)",
+      "screenshot": "color-fail-1763988827337-6.png",
+      "snippet": "<span>كيف تتحقق</span>",
+      "selector": null,
+      "rect": null
+    },
+    {
+      "color": "rgb(219, 161, 2)",
+      "screenshot": "color-fail-1763988947638-11.png",
+      "snippet": "<h1 id=\"banner-heading\">أفــــــــــق رقــــمـــــــي واعـــــــــــد</h1>",
+      "selector": null,
+      "rect": null
+    },
+    {
+      "color": "rgb(247, 253, 249)",
+      "screenshot": "color-fail-1763988948224-12.png",
+      "snippet": "<section class=\"nds-news-section\">\n\t<div class=\"container\">\n\t\t<div class=\"d-flex justify-content-between nds-title-section\">\n\t\t\t<h4>آخر أخـــــبار الهيئـــــة</h4>\n\t\t\t<a href=\"https://dga.gov.sa//news\" class=\"nds-primary-btn-o\">أخبار الهيئة</a>\n\t\t</div>\n\t\t<div class=\"nds-news-container row\">\n\t\t\t\t\t\t\t            <div class=\"col-md-6\">\n\t\n\t\n\n\t\t\t\t<a href=\"/ar/news/dga-launches-cloud-pioneers-empower-go",
+      "selector": null,
+      "rect": null
+    },
+    {
+      "color": "rgb(6, 118, 71)",
+      "screenshot": "color-fail-1763988948847-13.png",
+      "snippet": "<a href=\"https://dga.gov.sa//news\" class=\"nds-primary-btn-o\">أخبار الهيئة</a>",
+      "selector": null,
+      "rect": null
+    },
+    {
+      "color": "rgb(210, 214, 219)",
+      "screenshot": "color-fail-1763988949300-14.png",
+      "snippet": "<a href=\"https://dga.gov.sa//news\" class=\"nds-primary-btn-o\">أخبار الهيئة</a>",
+      "selector": null,
+      "rect": null
+    },
+    {
+      "color": "rgb(108, 115, 127)",
+      "screenshot": "color-fail-1763988949474-15.png",
+      "snippet": "<p class=\"description\">تتيح هذه الخدمة لمقاولي قطاع الاتصالات وتقنية المعلومات الذين سبق تسجيلهم في منصة تجمع الحكومة الرقمية بالتقدم بطلب تصنيفهم للحصول على شهادة التصنيف الفني وذلك من خلال معايير فنية تعتمد على مدى كفا</p>",
+      "selector": null,
+      "rect": null
+    },
+    {
+      "color": "rgb(8, 93, 58)",
+      "screenshot": "color-fail-1763988950176-16.png",
+      "snippet": "<span class=\"tag-green\">تجمع الحكومة الرقمية</span>",
+      "selector": null,
+      "rect": null
+    },
+    {
+      "color": "rgb(236, 253, 243)",
+      "screenshot": "color-fail-1763988950463-17.png",
+      "snippet": "<span class=\"tag-green\">تجمع الحكومة الرقمية</span>",
+      "selector": null,
+      "rect": null
+    },
+    {
+      "color": "rgb(171, 239, 198)",
+      "screenshot": "color-fail-1763988950641-18.png",
+      "snippet": "<span class=\"tag-green\">تجمع الحكومة الرقمية</span>",
+      "selector": null,
+      "rect": null
+    },
+    {
+      "color": "rgb(22, 114, 72)",
+      "screenshot": "color-fail-1763988951010-19.png",
+      "snippet": "<h4>المعرفة الرقمية</h4>",
+      "selector": null,
+      "rect": null
+    },
+    {
+      "color": "rgb(229, 231, 235)",
+      "screenshot": "color-fail-1763988951616-20.png",
+      "snippet": "<a href=\"/ar/digital-knowledge/booklet-Humain-chat\" class=\"knowledge-card\">\n\t\t<img src=\"/themes/custom/dga/Images/NDS/document-attachment.svg\" alt=\"Document\">\n\t\t\n\t\t\t\t\n\t\t\n\t\t\n\t\t\t\t\t<div class=\"box\"><p class=\"title\">الدليل التعريفي هيوماين تشات</p>\n\t\t\t\t\n\t\t\n\t\t\n\t\t\t\t\n\t\t\n\t\t\t\t\t<span class=\"tag-yellow\"><img src=\"/themes/custom/dga/Images/NDS/document-yellow.svg\" alt=\"\">أدلة استرشادية</span>\n\t\t\t</div>\n\t\t\t<im",
+      "selector": null,
+      "rect": null
+    },
+    {
+      "color": "rgb(255, 254, 242)",
+      "screenshot": "color-fail-1763988952143-21.png",
+      "snippet": "<span class=\"tag-yellow\"><img src=\"/themes/custom/dga/Images/NDS/document-yellow.svg\" alt=\"\">أدلة استرشادية</span>",
+      "selector": null,
+      "rect": null
+    },
+    {
+      "color": "rgb(252, 243, 189)",
+      "screenshot": "color-fail-1763988952429-22.png",
+      "snippet": "<span class=\"tag-yellow\"><img src=\"/themes/custom/dga/Images/NDS/document-yellow.svg\" alt=\"\">أدلة استرشادية</span>",
+      "selector": null,
+      "rect": null
+    },
+    {
+      "color": "rgb(13, 18, 28)",
+      "screenshot": "color-fail-1763988952598-23.png",
+      "snippet": "<h4>الصفحات الأعلى زيارة</h4>",
+      "selector": null,
+      "rect": null
+    },
+    {
+      "color": "rgb(117, 117, 117)",
+      "screenshot": "color-fail-1763988953336-24.png",
+      "snippet": "<h6>تاريخ آخر تحديث لمحتوى الصفحة :  24/11/2025 15:14 بتوقيت المملكة العربية السعودية</h6>",
+      "selector": null,
+      "rect": null
+    },
+    {
+      "color": "rgb(7, 77, 49)",
+      "screenshot": "color-fail-1763988953846-25.png",
+      "snippet": "<footer class=\"dga-footer\">\n\t <div class=\"ds-footer-container\">\n\t\t<div class=\"dga-footer-body container\">\n\t\t\t<div class=\"dga-footer-section\">\n\t\t\t\t\t\t\t\t\t      <button class=\"dga-footer-section-bnt\">\n           روابط ذات صلة<img src=\"/themes/custom/dga/Images/newDesign/down-arrow-white.svg\" alt=\"روابط ذات صلة\" width=\"10\" height=\"7\">\n    </button>\n        \n    \n\n<div class=\"dga-footer-section-body\">\n ",
+      "selector": null,
+      "rect": null
+    },
+    {
+      "color": "rgba(255, 255, 255, 0.3)",
+      "screenshot": "color-fail-1763988954178-26.png",
+      "snippet": "<button class=\"dga-footer-section-bnt\">\n           روابط ذات صلة<img src=\"/themes/custom/dga/Images/newDesign/down-arrow-white.svg\" alt=\"روابط ذات صلة\" width=\"10\" height=\"7\">\n    </button>",
+      "selector": null,
+      "rect": null
+    },
+    {
+      "color": "rgb(22, 106, 69)",
+      "screenshot": "color-fail-1763988984396-28.png",
+      "snippet": "<button id=\"muneer-trigger-button\" class=\"icon-position-before\" aria-label=\"فتح أداة سهولة الوصول\" data-muneer-trigger=\"\"><span class=\"muneer-trigger-button-icon\"><svg height=\"32\" viewBox=\"0 0 512 512\" width=\"32\" xmlns=\"http://www.w3.org/2000/svg\"><path d=\"m256 112c30.9 0 56-25.1 56-56s-25.1-56-56-56-56 25.1-56 56 25.1 56 56 56z\"></path><path d=\"m432 112.8-.5.1-.4.1c-1 .3-2 .6-3 .9-18.6 5.5-108.9 ",
+      "selector": null,
+      "rect": null
+    },
+    {
+      "color": "rgb(65, 64, 66)",
+      "screenshot": "color-fail-1763988984946-29.png",
+      "snippet": "<div id=\"muneer-sidebar\" class=\"muneer-sidebar-right muneer-sidebar-shadow\" aria-hidden=\"true\" data-nosnippet=\"\" role=\"dialog\" aria-modal=\"true\" data-start=\"top\" dir=\"rtl\"><div id=\"muneer-popup-header\"><div id=\"muneer-popup-header--settings\"><div id=\"muneer-language-switcher\" class=\"choices-wrapper\"><label for=\"muneer-language-switcher--select\" class=\"muneer-invisible-label\">Language Selector</lab",
+      "selector": null,
+      "rect": null
+    },
+    {
+      "color": "rgba(31, 175, 111, 0.42)",
+      "screenshot": "color-fail-1763989495723-47.png",
+      "snippet": "<input type=\"text\" tabindex=\"0\" id=\"muneer-online-dictionary-search\" name=\"muneer-online-dictionary-search\" autocomplete=\"off\" data-muneer-t=\"search-placeholder-wikipedia\" placeholder=\"ابحث في القاموس على الإنترنت...\" aria-label=\"ابحث في القاموس على الإنترنت...\" style=\"\">",
+      "selector": null,
+      "rect": null
+    },
+    {
+      "color": "rgb(68, 74, 82)",
+      "screenshot": "color-fail-1763989556152-50.png",
+      "snippet": "<ul role=\"none\" class=\"cx-widget cx-sidebar px32 preset-blue cx-theme-light cx-desktop position-right\" data-gcb-service-node=\"true\" aria-label=\"تحتاج مساعدة؟\" style=\"width: 48px;\"><li role=\"none\" class=\"WebChat\" style=\"display: block;\">\n\t<div class=\"cx-sidebar-button i18n\" id=\"chat-popup\" role=\"button\" tabindex=\"0\" data-message-type=\"title\" title=\"محادثة \" aria-label=\"محادثة \">\n\t\t<div class=\"cx-ic",
+      "selector": null,
+      "rect": null
+    },
+    {
+      "color": "rgb(218, 225, 232)",
+      "screenshot": "color-fail-1763989556282-51.png",
+      "snippet": "<li role=\"none\" class=\"WebChat\" style=\"display: block;\">\n\t<div class=\"cx-sidebar-button i18n\" id=\"chat-popup\" role=\"button\" tabindex=\"0\" data-message-type=\"title\" title=\"محادثة \" aria-label=\"محادثة \">\n\t\t<div class=\"cx-icon\" role=\"img\" title=\"محادثة \"><svg version=\"1.1\" xmlns=\"http://www.w3.org/2000/svg\" xmlns:xlink=\"http://www.w3.org/1999/xlink\" xml:space=\"preserve\" viewBox=\"0 0 100 100\" focusable",
+      "selector": null,
+      "rect": null
     }
   ],
   "hasSearchBar": true,
   "spacings": [
     "0px",
-    "6px",
-    "4px",
     "8px",
-    "10px",
-    "12px",
-    "68px",
-    "20px",
+    "32px",
+    "38px",
     "auto",
-    "14px",
-    "-1px",
-    "2px",
-    "312px",
-    "223px",
-    "44px",
-    "-100px",
-    "276px",
-    "13px",
-    "3px",
-    "18px",
-    "60px",
-    "26px",
+    "40px",
+    "12px",
+    "28px",
+    "70px",
     "16px",
-    "1px",
-    "7px",
-    "-2px",
-    "-10px",
-    "11px",
     "-16px",
+    "10px",
+    "-897px",
+    "80px",
+    "64px",
+    "4px",
     "24px",
-    "15px",
+    "50px",
+    "1px",
     "30px",
-    "5px"
+    "-1140px",
+    "5px",
+    "294.703px",
+    "302.375px",
+    "247.109px",
+    "60px",
+    "-847px",
+    "9px",
+    "48px",
+    "13px",
+    "7px",
+    "6px",
+    "-1px",
+    "20px",
+    "22px",
+    "2px",
+    "100px",
+    "18px",
+    "-24px",
+    "35px",
+    "11px",
+    "-10px"
   ],
   "spacingMatches": [
-    4,
     8,
+    32,
+    40,
     12,
-    20,
     16,
-    24
+    80,
+    64,
+    4,
+    24,
+    48,
+    20
   ],
-  "spacingAccuracy": 23.076923076923077,
-  "screenshotMobile": "snap-1763658885983-mobile.png",
-  "screenshotTablet": "snap-1763658885983-tablet.png",
-  "screenshotDesktop": "snap-1763658885983-desktop.png"
+  "spacingAccuracy": 33.33333333333333,
+  "screenshotMobile": "snap-1763988816534-mobile.png",
+  "screenshotTablet": "snap-1763988816534-tablet.png",
+  "screenshotDesktop": "snap-1763988816534-desktop.png"
 }
