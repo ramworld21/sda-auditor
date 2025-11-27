@@ -4,6 +4,28 @@ import { exec } from 'child_process';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { logScanToExcel } from './src/utils/excelLogger.js';
+import pkg from 'pg';
+const { Pool } = pkg;
+
+// Setup Postgres pool
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL || 'postgresql://sda_auditor_db_user:jGOvYgeIjwNuKqJx5tcr4AkP9hbcRw5i@dpg-d4k99gqdbo4c73cr72b0-a/sda_auditor_db',
+  ssl: { rejectUnauthorized: false }
+});
+
+// Ensure table exists
+(async () => {
+  const createTableQuery = `
+    CREATE TABLE IF NOT EXISTS submissions (
+      id SERIAL PRIMARY KEY,
+      email VARCHAR(255) NOT NULL,
+      url TEXT,
+      fast_mode BOOLEAN,
+      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );
+  `;
+  await pool.query(createTableQuery);
+})();
 
 // Fix: define __dirname BEFORE using it
 const __filename = fileURLToPath(import.meta.url);
@@ -27,7 +49,7 @@ app.use(cors());
 app.use(express.json());
 
 // POST /scan - expects { url: "https://example.com", email: "user@example.com", fastMode: boolean }
-app.post('/scan', (req, res) => {
+app.post('/scan', async (req, res) => {
   const { url, email, fastMode } = req.body;
   console.log('📧 Received scan request:', { url, email, fastMode });
   
@@ -47,6 +69,17 @@ app.post('/scan', (req, res) => {
   const existingUserScan = Array.from(activeScans.values()).find(scan => scan.email === email && scan.inProgress);
   if (existingUserScan) {
     return res.status(429).json({ error: 'لديك فحص جاري بالفعل، يرجى الانتظار حتى ينتهي' });
+  }
+
+  // Save email to database
+  try {
+    await pool.query(
+      'INSERT INTO submissions(email, url, fast_mode) VALUES($1, $2, $3)',
+      [email, url, fastMode || false]
+    );
+    console.log('✅ Email saved to database');
+  } catch (dbErr) {
+    console.error('❌ Failed to save email to database:', dbErr);
   }
 
   // Log to Excel immediately
@@ -90,6 +123,17 @@ app.post('/scan', (req, res) => {
 // Lightweight health endpoint for frontend checks
 app.get('/health', (req, res) => {
   res.json({ ok: true });
+});
+
+// GET /emails - retrieve all submitted emails (for testing/verification)
+app.get('/emails', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT id, email, url, fast_mode, created_at FROM submissions ORDER BY created_at DESC');
+    res.json(result.rows);
+  } catch (err) {
+    console.error('❌ Failed to fetch emails:', err);
+    res.status(500).json({ error: 'Failed to fetch emails from database' });
+  }
 });
 
 // Generate a PDF of the latest HTML report using Playwright (server-side rendering)
