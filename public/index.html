@@ -3,6 +3,67 @@
   <head>
     <meta charset="UTF-8">
     <title>مدقق مواقع RAM World</title>
+    <style>
+@media (max-width:720px) {
+  #submit-section > div {
+    width:100% !important;
+    max-width:95% !important;
+    margin:0 auto 20px auto !important;
+    display:flex !important;
+    flex-direction:column !important;
+    align-items:center !important;
+    padding:16px !important;
+  }
+  #submit-section label {
+    flex-direction:column !important;
+    align-items:flex-start !important;
+    gap:12px !important;
+  }
+  #submit-section input[type="checkbox"] {
+    margin-right:0 !important;
+    margin-top:0 !important;
+  }
+}
+/* === Responsive submit box and features for mobile === */
+.submit-box {
+  background:white;
+  border:1px solid #e5e7eb;
+  border-radius:16px;
+  padding:20px;
+  max-width:720px;
+  width:100%;
+  margin:0 auto 24px auto;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  box-shadow:0 4px 18px rgba(0,0,0,0.06);
+  box-sizing:border-box;
+  transition:all 0.25s;
+}
+@media (max-width:430px) {
+  .submit-box {
+    padding:12px !important;
+    width:95% !important;
+    max-width:95% !important;
+    margin:12px auto !important;
+    flex-direction:column !important;
+    align-items:center !important;
+  }
+  .features-grid {
+    grid-template-columns:1fr !important;
+    gap:12px !important;
+    width:100% !important;
+    margin:0 auto !important;
+    padding:0 !important;
+  }
+  .feature-card {
+    padding:14px !important;
+    border-radius:10px !important;
+    text-align:center !important;
+    box-shadow:0 1px 4px rgba(0,0,0,0.08) !important;
+  }
+}
+</style>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link
       href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;600;700&display=swap"
@@ -77,9 +138,40 @@
     .form-container{background:#f8f9fa;padding:24px;margin:0;border-radius:10px;border:1px solid #e5e7eb}
     .form-section{background:white;border:1px solid #d1d5db;border-radius:10px;padding:20px;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,0.08)}
     .form-section:last-child{margin-bottom:0}
-    .features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
-    .features-box{max-width:100%;margin:24px 0;padding:0;border-radius:0;background:transparent;border:none;box-shadow:none}
-    .feature-card{background:white;border:1px solid #e5e7eb;border-radius:12px;padding:20px;text-align:center;box-shadow:0 1px 2px rgba(0,0,0,0.05)}
+    /* Desktop: 3 cards in a row */
+    .features-box {
+      display: flex;
+      justify-content: center;
+      width: 100%;
+      margin: 24px 0;
+      padding: 0 12px;
+      box-sizing: border-box;
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      max-width: 1024px;
+      width: 100%;
+      margin: 0 auto;
+      box-sizing: border-box;
+    }
+
+    .feature-card {
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: all 0.25s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+    }
     .feature-card .icon{width:56px;height:56px;border-radius:12px;background:var(--secondary-rgba-12);color:hsl(var(--secondary-foreground));display:inline-flex;align-items:center;justify-content:center;margin:0 auto 12px}
     .feature-card .icon svg{width:28px;height:28px;stroke:currentColor;fill:none;stroke-width:1.6}
     .logo{display:flex; align-items:center; gap:14px}
@@ -125,18 +217,37 @@
     .step.active .dot{background:var(--primary-color)}
     .muted{color:hsl(var(--muted-foreground))}
     footer{margin-top:18px;text-align:center;color:var(--muted);font-size:13px}
-    @media (max-width:768px){
+    /* Tablet: 2 cards */
+    @media (max-width:767px) {
+      .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+        max-width: 680px;
+        margin: 0 auto;
+        padding: 0 12px;
+      }
+    }
+
+    /* Mobile: 1 card per row */
+    @media (max-width:520px) {
+      .features-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+        max-width: 95%;
+        margin: 0 auto;
+        padding: 0 8px;
+      }
+    }
+    @media (max-width:768px) {
       .container{max-width:540px;padding:20px}
       .card{max-width:540px;padding:32px 28px}
       .hero h1{font-size:24px}
-      .features-grid{grid-template-columns:1fr;gap:14px}
     }
-    @media (max-width:520px){
+    @media (max-width:520px) {
       .container{padding:16px;max-width:100%}
       .card{padding:24px 20px;margin:16px auto;max-width:100%}
       .hero h1{font-size:20px}
       .hero p.lead{font-size:12px}
-      .features-grid{grid-template-columns:1fr}
       .form-section{padding:16px}
       .form-container{padding:18px}
     }
@@ -154,6 +265,138 @@
       #scan-panel-top .scan-actions { justify-content:center; flex-wrap:wrap; gap:6px }
       /* Make the report button easier to tap on small screens */
       #scan-panel-top .scan-actions button, #scan-panel-top button#open-report { width:100%; max-width:360px; margin:6px auto 0; display:block }
+    }
+
+    /* Mobile specific strict containment for 430px width */
+    @media (max-width:450px) {
+      html, body {
+        font-size:14px;
+        max-width:430px;
+        width:100%;
+        overflow-x:hidden;
+        overflow-y:auto;
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+      }
+
+      body {
+        min-height:100vh;
+      }
+
+      .container, .card {
+        max-width:100%;
+        padding:12px;
+        margin:0 auto;
+        /* Limit height to viewport, allow scrolling if needed */
+        max-height:100vh;
+        overflow-y:auto;
+        box-sizing:border-box;
+      }
+
+      .card {
+        box-sizing:border-box;
+        width:100%;
+        margin:0 auto;
+        padding:12px;
+        border-radius:12px;
+      }
+
+      .hero {
+        padding:12px 0;
+      }
+
+      .hero h1 {
+        font-size:18px;
+        line-height:1.2;
+      }
+
+      .hero p.lead {
+        font-size:12px;
+        margin:6px 0 12px 0;
+      }
+
+      .form-container {
+        padding:12px;
+      }
+
+      .form-section {
+        padding:10px;
+        margin-bottom:10px;
+      }
+
+      #submit-section > .submit-box {
+        padding:10px;
+        width:100% !important;
+        max-width:100% !important;
+        margin:8px auto !important;
+      }
+
+      button.primary {
+        font-size:14px;
+        padding:10px 16px;
+        width:100%;
+      }
+
+      .features-box {
+        padding:0 6px;
+      }
+
+      .features-grid {
+        grid-template-columns:1fr !important;
+        gap:10px !important;
+        width:100% !important;
+        margin:0 auto !important;
+        padding:0 !important;
+      }
+
+      .feature-card {
+        padding:12px !important;
+        border-radius:10px;
+        box-shadow:0 1px 3px rgba(0,0,0,0.06);
+        text-align:center;
+      }
+
+      .feature-card .icon {
+        width:40px;
+        height:40px;
+      }
+
+      .feature-card .icon svg {
+        width:20px;
+        height:20px;
+      }
+
+      .search {
+        min-width:auto;
+        width:100%;
+        padding:8px;
+      }
+
+      .search input {
+        font-size:14px;
+        padding:8px;
+      }
+
+      #scan-panel-top, #scan-panel {
+        padding:8px;
+        margin:8px 0;
+      }
+
+      .step svg {
+        width:32px;
+        height:32px;
+      }
+
+      .step .dot {
+        width:8px;
+        height:8px;
+      }
+
+      footer {
+        font-size:11px;
+        margin:8px 0;
+      }
     }
   </style>
   </head>
@@ -263,13 +506,11 @@
                   </div>
                 </div>
 
-                <!-- Submit Section (Hidden by default) -->
+                <!-- Submit Section -->
                 <div id="submit-section" style="display:none">
-                  <!-- Scan Mode Option -->
-                  <div style="background:linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);padding:20px;border-radius:12px;margin-bottom:20px;border:2px solid #e2e8f0;box-shadow:0 2px 8px rgba(15,23,42,0.06)">
+                  <div class="submit-box">
                     <label style="display:flex;align-items:flex-start;gap:14px;cursor:pointer;user-select:none">
-                      <input type="checkbox" id="fast-mode" name="fast-mode"
-                        style="width:20px;height:20px;margin-top:2px;cursor:pointer;accent-color:var(--primary-color);border-radius:4px;flex-shrink:0" />
+                      <input type="checkbox" id="fast-mode" name="fast-mode" />
                       <div style="flex:1">
                         <div style="font-weight:700;color:#0f172a;font-size:15px;margin-bottom:10px;display:flex;align-items:center;gap:8px">
                           الوضع السريع (Fast Mode)
@@ -297,18 +538,11 @@
                         </div>
                       </div>
                     </label>
+                    <button class="primary" type="submit" id="scan-button">
+                      <svg viewBox="0 0 24 24" style="width:22px;height:22px;display:inline-block;margin-top: 20px !important;vertical-align:middle;margin-left:10px" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" /></svg>
+                      ابدأ الفحص
+                    </button>
                   </div>
-                  
-                  <button class="primary" type="submit" id="scan-button"
-                    style="width:100%;padding:16px 24px;font-size:17px;font-weight:700;border-radius:10px;box-shadow:0 4px 14px rgba(6,44,110,0.25);transition:all 0.3s;background:linear-gradient(135deg, var(--primary-color) 0%, #0a3d8f 100%);position:relative;overflow:hidden"
-                    onmouseover="this.style.transform='translateY(-2px)';this.style.boxShadow='0 6px 20px rgba(6,44,110,0.35)'"
-                    onmouseout="this.style.transform='translateY(0)';this.style.boxShadow='0 4px 14px rgba(6,44,110,0.25)'">
-                    <svg viewBox="0 0 24 24"
-                      style="width:22px;height:22px;display:inline-block;vertical-align:middle;margin-left:10px"
-                      fill="currentColor"><path
-                        d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" /></svg>
-                    ابدأ الفحص
-                  </button>
                 </div>
 
               </form>
@@ -645,4 +879,3 @@
     });
   </script>
   </body>
-</html>

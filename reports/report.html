@@ -1,9 +1,9 @@
 
     <!DOCTYPE html>
-    <html lang="en" dir="rtl">
+    <html lang="ar" dir="rtl">
     <head>
       <meta charset="UTF-8">
-      <title>تقرير الفحص - Dulani</title>
+      <title>تقرير الفحص - وزارة التجارة</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
@@ -172,7 +172,7 @@
     <body>
       <div id="report-root">
       <div class="header">
-        <img src="logo.jpeg" alt="Entity Logo" style="height:48px;max-width:120px;object-fit:contain;">
+        <img src="logo.svg" alt="Entity Logo" style="height:48px;max-width:120px;object-fit:contain;">
         <span class="report-title">تقرير الفحص</span>
         <img src="https://ramworld.net/Ramworld_Logo_Main.png" alt="Ramworld Logo" style="height:48px;max-width:120px;object-fit:contain;">
       </div>
@@ -186,20 +186,20 @@
           </div>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:24px">
             <div style="background:linear-gradient(135deg,#e6fff7,#fff);padding:16px;border-radius:10px;border:2px solid #16a34a;text-align:center">
-              <div style="font-size:2em;font-weight:700;color:#16a34a">50.0%</div>
+              <div style="font-size:2em;font-weight:700;color:#16a34a">61.7%</div>
               <div style="color:#15803d;margin-top:4px">دقة الألوان</div>
             </div>
             <div style="background:linear-gradient(135deg,#eff6ff,#fff);padding:16px;border-radius:10px;border:2px solid var(--accent);text-align:center">
-              <div style="font-size:2em;font-weight:700;color:var(--accent)">21.4%</div>
+              <div style="font-size:2em;font-weight:700;color:var(--accent)">19.0%</div>
               <div style="color:var(--primary);margin-top:4px">دقة المسافات</div>
             </div>
             <div style="background:linear-gradient(135deg,#e6fff7,#fff);padding:16px;border-radius:10px;border:2px solid #16a34a;text-align:center">
               <div style="font-size:1.8em;font-weight:700;color:#16a34a">✓</div>
               <div style="color:#15803d;margin-top:4px">خط IBM Plex</div>
             </div>
-            <div style="background:linear-gradient(135deg,#ffe6e6,#fff);padding:16px;border-radius:10px;border:2px solid #dc2626;text-align:center">
-              <div style="font-size:1.8em;font-weight:700;color:#dc2626">✗</div>
-              <div style="color:#991b1b;margin-top:4px">ختم التحقق</div>
+            <div style="background:linear-gradient(135deg,#e6fff7,#fff);padding:16px;border-radius:10px;border:2px solid #16a34a;text-align:center">
+              <div style="font-size:1.8em;font-weight:700;color:#16a34a">✓</div>
+              <div style="color:#15803d;margin-top:4px">ختم التحقق</div>
             </div>
           </div>
         </div>
@@ -211,8 +211,8 @@
         
         <div class="card">
           <h2>جدول مطابقة الألوان</h2>
-          <div class="meta"><strong>Color Accuracy:</strong> 50.0%</div>
-          <div class="accuracy-bar"><div class="accuracy-fill" style="width:50.0%;background:var(--accent)"></div><span class="accuracy-label" style="color:var(--accent)">50.0%</span></div>
+          <div class="meta"><strong>Color Accuracy:</strong> 61.7%</div>
+          <div class="accuracy-bar"><div class="accuracy-fill" style="width:61.7%;background:#16a34a"></div><span class="accuracy-label" style="color:#16a34a">61.7%</span></div>
           <div class="dropdown" style="margin-bottom:12px">
             <label for="color-filter" style="margin-left:8px;font-weight:600;color:var(--primary)">تصفية الألوان:</label>
             <select id="color-filter" onchange="filterColorTable(this.value)">
@@ -240,17 +240,10 @@
                 </tr>
               
                 <tr class="color-table-row match" data-match="correct">
-                  <td><span class="swatch" style="background:rgb(229, 231, 235)"></span>rgb(229, 231, 235)</td>
-                  <td><span class="swatch" style="background:rgb(229,231,235)"></span>rgb(229,231,235)</td>
-                  <td>0.0</td>
+                  <td><span class="swatch" style="background:rgb(51, 51, 51)"></span>rgb(51, 51, 51)</td>
+                  <td><span class="swatch" style="background:rgb(31,42,55)"></span>rgb(31,42,55)</td>
+                  <td>22.3</td>
                   <td>✔️</td>
-                </tr>
-              
-                <tr class="color-table-row no-match" data-match="wrong">
-                  <td><span class="swatch" style="background:rgba(0, 0, 0, 0.87)"></span>rgba(0, 0, 0, 0.87)</td>
-                  <td><span class="swatch" style="background:rgb(13,18,28)"></span>rgb(13,18,28)</td>
-                  <td>35.7</td>
-                  <td>❌</td>
                 </tr>
               
                 <tr class="color-table-row match" data-match="correct">
@@ -261,73 +254,402 @@
                 </tr>
               
                 <tr class="color-table-row match" data-match="correct">
-                  <td><span class="swatch" style="background:rgb(240, 240, 240)"></span>rgb(240, 240, 240)</td>
-                  <td><span class="swatch" style="background:rgb(243,244,246)"></span>rgb(243,244,246)</td>
-                  <td>7.8</td>
+                  <td><span class="swatch" style="background:rgb(233, 233, 233)"></span>rgb(233, 233, 233)</td>
+                  <td><span class="swatch" style="background:rgb(229,231,235)"></span>rgb(229,231,235)</td>
+                  <td>4.9</td>
                   <td>✔️</td>
                 </tr>
               
                 <tr class="color-table-row no-match" data-match="wrong">
-                  <td><span class="swatch" style="background:rgb(246, 125, 16)"></span>rgb(246, 125, 16)</td>
-                  <td><span class="swatch" style="background:rgb(219,161,2)"></span>rgb(219,161,2)</td>
-                  <td>47.1</td>
-                  <td>❌</td>
-                </tr>
-              
-                <tr class="color-table-row no-match" data-match="wrong">
-                  <td><span class="swatch" style="background:rgb(243, 164, 20)"></span>rgb(243, 164, 20)</td>
-                  <td><span class="swatch" style="background:rgb(219,161,2)"></span>rgb(219,161,2)</td>
-                  <td>30.1</td>
-                  <td>❌</td>
-                </tr>
-              
-                <tr class="color-table-row no-match" data-match="wrong">
-                  <td><span class="swatch" style="background:rgb(20, 52, 91)"></span>rgb(20, 52, 91)</td>
-                  <td><span class="swatch" style="background:rgb(31,42,55)"></span>rgb(31,42,55)</td>
-                  <td>38.9</td>
+                  <td><span class="swatch" style="background:rgb(255, 0, 0)"></span>rgb(255, 0, 0)</td>
+                  <td><span class="swatch" style="background:rgb(148,92,1)"></span>rgb(148,92,1)</td>
+                  <td>141.1</td>
                   <td>❌</td>
                 </tr>
               
                 <tr class="color-table-row match" data-match="correct">
-                  <td><span class="swatch" style="background:rgb(128, 128, 128)"></span>rgb(128, 128, 128)</td>
+                  <td><span class="swatch" style="background:rgb(243, 244, 246)"></span>rgb(243, 244, 246)</td>
+                  <td><span class="swatch" style="background:rgb(243,244,246)"></span>rgb(243,244,246)</td>
+                  <td>0.0</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgb(22, 22, 22)"></span>rgb(22, 22, 22)</td>
+                  <td><span class="swatch" style="background:rgb(13,18,28)"></span>rgb(13,18,28)</td>
+                  <td>11.5</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgb(27, 131, 84)"></span>rgb(27, 131, 84)</td>
+                  <td><span class="swatch" style="background:rgb(27,131,84)"></span>rgb(27,131,84)</td>
+                  <td>0.0</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgb(6, 118, 71)"></span>rgb(6, 118, 71)</td>
+                  <td><span class="swatch" style="background:rgb(22,106,69)"></span>rgb(22,106,69)</td>
+                  <td>20.1</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgb(56, 66, 80)"></span>rgb(56, 66, 80)</td>
+                  <td><span class="swatch" style="background:rgb(56,66,80)"></span>rgb(56,66,80)</td>
+                  <td>0.0</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row no-match" data-match="wrong">
+                  <td><span class="swatch" style="background:rgb(51, 122, 183)"></span>rgb(51, 122, 183)</td>
                   <td><span class="swatch" style="background:rgb(108,115,127)"></span>rgb(108,115,127)</td>
-                  <td>23.9</td>
-                  <td>✔️</td>
-                </tr>
-              
-                <tr class="color-table-row no-match" data-match="wrong">
-                  <td><span class="swatch" style="background:rgb(15, 186, 184)"></span>rgb(15, 186, 184)</td>
-                  <td><span class="swatch" style="background:rgb(84,192,138)"></span>rgb(84,192,138)</td>
-                  <td>83.1</td>
+                  <td>80.2</td>
                   <td>❌</td>
                 </tr>
               
                 <tr class="color-table-row match" data-match="correct">
-                  <td><span class="swatch" style="background:rgb(240, 242, 245)"></span>rgb(240, 242, 245)</td>
-                  <td><span class="swatch" style="background:rgb(243,244,246)"></span>rgb(243,244,246)</td>
+                  <td><span class="swatch" style="background:rgba(255, 255, 255, 0.4)"></span>rgba(255, 255, 255, 0.4)</td>
+                  <td><span class="swatch" style="background:rgb(252,252,253)"></span>rgb(252,252,253)</td>
+                  <td>4.7</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row no-match" data-match="wrong">
+                  <td><span class="swatch" style="background:rgba(0, 136, 131, 0.85)"></span>rgba(0, 136, 131, 0.85)</td>
+                  <td><span class="swatch" style="background:rgb(37,147,95)"></span>rgb(37,147,95)</td>
+                  <td>52.8</td>
+                  <td>❌</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgb(12, 59, 54)"></span>rgb(12, 59, 54)</td>
+                  <td><span class="swatch" style="background:rgb(16,70,49)"></span>rgb(16,70,49)</td>
+                  <td>12.7</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgba(255, 255, 255, 0)"></span>rgba(255, 255, 255, 0)</td>
+                  <td><span class="swatch" style="background:rgb(252,252,253)"></span>rgb(252,252,253)</td>
+                  <td>4.7</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row no-match" data-match="wrong">
+                  <td><span class="swatch" style="background:rgb(136, 136, 136)"></span>rgb(136, 136, 136)</td>
+                  <td><span class="swatch" style="background:rgb(108,115,127)"></span>rgb(108,115,127)</td>
+                  <td>36.1</td>
+                  <td>❌</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgb(119, 119, 119)"></span>rgb(119, 119, 119)</td>
+                  <td><span class="swatch" style="background:rgb(108,115,127)"></span>rgb(108,115,127)</td>
+                  <td>14.2</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row no-match" data-match="wrong">
+                  <td><span class="swatch" style="background:rgb(41, 142, 189)"></span>rgb(41, 142, 189)</td>
+                  <td><span class="swatch" style="background:rgb(84,192,138)"></span>rgb(84,192,138)</td>
+                  <td>83.4</td>
+                  <td>❌</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgba(248, 248, 248, 0.95)"></span>rgba(248, 248, 248, 0.95)</td>
+                  <td><span class="swatch" style="background:rgb(249,250,251)"></span>rgb(249,250,251)</td>
                   <td>3.7</td>
                   <td>✔️</td>
                 </tr>
               
+                <tr class="color-table-row no-match" data-match="wrong">
+                  <td><span class="swatch" style="background:rgb(0, 175, 169)"></span>rgb(0, 175, 169)</td>
+                  <td><span class="swatch" style="background:rgb(37,147,95)"></span>rgb(37,147,95)</td>
+                  <td>87.3</td>
+                  <td>❌</td>
+                </tr>
+              
                 <tr class="color-table-row match" data-match="correct">
-                  <td><span class="swatch" style="background:rgb(226, 230, 235)"></span>rgb(226, 230, 235)</td>
-                  <td><span class="swatch" style="background:rgb(229,231,235)"></span>rgb(229,231,235)</td>
-                  <td>3.2</td>
+                  <td><span class="swatch" style="background:rgb(221, 221, 221)"></span>rgb(221, 221, 221)</td>
+                  <td><span class="swatch" style="background:rgb(210,214,219)"></span>rgb(210,214,219)</td>
+                  <td>13.2</td>
                   <td>✔️</td>
                 </tr>
               
                 <tr class="color-table-row match" data-match="correct">
-                  <td><span class="swatch" style="background:rgb(71, 72, 74)"></span>rgb(71, 72, 74)</td>
-                  <td><span class="swatch" style="background:rgb(56,66,80)"></span>rgb(56,66,80)</td>
-                  <td>17.2</td>
+                  <td><span class="swatch" style="background:rgb(102, 102, 102)"></span>rgb(102, 102, 102)</td>
+                  <td><span class="swatch" style="background:rgb(108,115,127)"></span>rgb(108,115,127)</td>
+                  <td>28.8</td>
                   <td>✔️</td>
                 </tr>
               
                 <tr class="color-table-row no-match" data-match="wrong">
-                  <td><span class="swatch" style="background:rgba(0, 0, 0, 0.6)"></span>rgba(0, 0, 0, 0.6)</td>
+                  <td><span class="swatch" style="background:rgb(10, 101, 98)"></span>rgb(10, 101, 98)</td>
+                  <td><span class="swatch" style="background:rgb(22,106,69)"></span>rgb(22,106,69)</td>
+                  <td>31.8</td>
+                  <td>❌</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgb(231, 242, 248)"></span>rgb(231, 242, 248)</td>
+                  <td><span class="swatch" style="background:rgb(243,244,246)"></span>rgb(243,244,246)</td>
+                  <td>12.3</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgba(255, 255, 255, 0.6)"></span>rgba(255, 255, 255, 0.6)</td>
+                  <td><span class="swatch" style="background:rgb(252,252,253)"></span>rgb(252,252,253)</td>
+                  <td>4.7</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row no-match" data-match="wrong">
+                  <td><span class="swatch" style="background:rgb(19, 136, 132)"></span>rgb(19, 136, 132)</td>
+                  <td><span class="swatch" style="background:rgb(37,147,95)"></span>rgb(37,147,95)</td>
+                  <td>42.6</td>
+                  <td>❌</td>
+                </tr>
+              
+                <tr class="color-table-row no-match" data-match="wrong">
+                  <td><span class="swatch" style="background:rgb(90, 174, 176)"></span>rgb(90, 174, 176)</td>
+                  <td><span class="swatch" style="background:rgb(84,192,138)"></span>rgb(84,192,138)</td>
+                  <td>42.5</td>
+                  <td>❌</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgba(255, 255, 255, 0.9)"></span>rgba(255, 255, 255, 0.9)</td>
+                  <td><span class="swatch" style="background:rgb(252,252,253)"></span>rgb(252,252,253)</td>
+                  <td>4.7</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgba(255, 255, 255, 0.5)"></span>rgba(255, 255, 255, 0.5)</td>
+                  <td><span class="swatch" style="background:rgb(252,252,253)"></span>rgb(252,252,253)</td>
+                  <td>4.7</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row no-match" data-match="wrong">
+                  <td><span class="swatch" style="background:rgb(230, 107, 46)"></span>rgb(230, 107, 46)</td>
+                  <td><span class="swatch" style="background:rgb(184,123,2)"></span>rgb(184,123,2)</td>
+                  <td>65.6</td>
+                  <td>❌</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgb(244, 246, 245)"></span>rgb(244, 246, 245)</td>
+                  <td><span class="swatch" style="background:rgb(243,244,246)"></span>rgb(243,244,246)</td>
+                  <td>2.4</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgb(125, 134, 139)"></span>rgb(125, 134, 139)</td>
+                  <td><span class="swatch" style="background:rgb(108,115,127)"></span>rgb(108,115,127)</td>
+                  <td>28.2</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgb(85, 85, 85)"></span>rgb(85, 85, 85)</td>
+                  <td><span class="swatch" style="background:rgb(77,87,97)"></span>rgb(77,87,97)</td>
+                  <td>14.6</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row no-match" data-match="wrong">
+                  <td><span class="swatch" style="background:rgb(10, 102, 99)"></span>rgb(10, 102, 99)</td>
+                  <td><span class="swatch" style="background:rgb(22,106,69)"></span>rgb(22,106,69)</td>
+                  <td>32.6</td>
+                  <td>❌</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgb(238, 238, 238)"></span>rgb(238, 238, 238)</td>
+                  <td><span class="swatch" style="background:rgb(243,244,246)"></span>rgb(243,244,246)</td>
+                  <td>11.2</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgb(246, 246, 246)"></span>rgb(246, 246, 246)</td>
+                  <td><span class="swatch" style="background:rgb(243,244,246)"></span>rgb(243,244,246)</td>
+                  <td>3.6</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgb(225, 225, 225)"></span>rgb(225, 225, 225)</td>
+                  <td><span class="swatch" style="background:rgb(229,231,235)"></span>rgb(229,231,235)</td>
+                  <td>12.3</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgb(153, 153, 153)"></span>rgb(153, 153, 153)</td>
+                  <td><span class="swatch" style="background:rgb(157,164,174)"></span>rgb(157,164,174)</td>
+                  <td>24.0</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgb(170, 170, 170)"></span>rgb(170, 170, 170)</td>
+                  <td><span class="swatch" style="background:rgb(157,164,174)"></span>rgb(157,164,174)</td>
+                  <td>14.9</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row no-match" data-match="wrong">
+                  <td><span class="swatch" style="background:rgb(200, 74, 61)"></span>rgb(200, 74, 61)</td>
+                  <td><span class="swatch" style="background:rgb(184,123,2)"></span>rgb(184,123,2)</td>
+                  <td>78.3</td>
+                  <td>❌</td>
+                </tr>
+              
+                <tr class="color-table-row no-match" data-match="wrong">
+                  <td><span class="swatch" style="background:rgb(246, 130, 119)"></span>rgb(246, 130, 119)</td>
+                  <td><span class="swatch" style="background:rgb(247,213,77)"></span>rgb(247,213,77)</td>
+                  <td>93.0</td>
+                  <td>❌</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgb(68, 68, 68)"></span>rgb(68, 68, 68)</td>
+                  <td><span class="swatch" style="background:rgb(56,66,80)"></span>rgb(56,66,80)</td>
+                  <td>17.1</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgba(255, 255, 255, 0.85)"></span>rgba(255, 255, 255, 0.85)</td>
+                  <td><span class="swatch" style="background:rgb(252,252,253)"></span>rgb(252,252,253)</td>
+                  <td>4.7</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgb(204, 204, 204)"></span>rgb(204, 204, 204)</td>
+                  <td><span class="swatch" style="background:rgb(210,214,219)"></span>rgb(210,214,219)</td>
+                  <td>19.0</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgb(236, 236, 236)"></span>rgb(236, 236, 236)</td>
+                  <td><span class="swatch" style="background:rgb(229,231,235)"></span>rgb(229,231,235)</td>
+                  <td>8.7</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgb(234, 233, 233)"></span>rgb(234, 233, 233)</td>
+                  <td><span class="swatch" style="background:rgb(229,231,235)"></span>rgb(229,231,235)</td>
+                  <td>5.7</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgb(227, 227, 227)"></span>rgb(227, 227, 227)</td>
+                  <td><span class="swatch" style="background:rgb(229,231,235)"></span>rgb(229,231,235)</td>
+                  <td>9.2</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row no-match" data-match="wrong">
+                  <td><span class="swatch" style="background:rgba(0, 175, 169, 0.5)"></span>rgba(0, 175, 169, 0.5)</td>
+                  <td><span class="swatch" style="background:rgb(37,147,95)"></span>rgb(37,147,95)</td>
+                  <td>87.3</td>
+                  <td>❌</td>
+                </tr>
+              
+                <tr class="color-table-row no-match" data-match="wrong">
+                  <td><span class="swatch" style="background:rgb(21, 136, 133)"></span>rgb(21, 136, 133)</td>
+                  <td><span class="swatch" style="background:rgb(37,147,95)"></span>rgb(37,147,95)</td>
+                  <td>42.7</td>
+                  <td>❌</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgba(255, 255, 255, 0.25)"></span>rgba(255, 255, 255, 0.25)</td>
+                  <td><span class="swatch" style="background:rgb(252,252,253)"></span>rgb(252,252,253)</td>
+                  <td>4.7</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row no-match" data-match="wrong">
+                  <td><span class="swatch" style="background:rgb(0, 104, 101)"></span>rgb(0, 104, 101)</td>
+                  <td><span class="swatch" style="background:rgb(22,106,69)"></span>rgb(22,106,69)</td>
+                  <td>38.9</td>
+                  <td>❌</td>
+                </tr>
+              
+                <tr class="color-table-row no-match" data-match="wrong">
+                  <td><span class="swatch" style="background:rgb(6, 117, 114)"></span>rgb(6, 117, 114)</td>
+                  <td><span class="swatch" style="background:rgb(27,131,84)"></span>rgb(27,131,84)</td>
+                  <td>39.2</td>
+                  <td>❌</td>
+                </tr>
+              
+                <tr class="color-table-row no-match" data-match="wrong">
+                  <td><span class="swatch" style="background:rgb(32, 157, 153)"></span>rgb(32, 157, 153)</td>
+                  <td><span class="swatch" style="background:rgb(37,147,95)"></span>rgb(37,147,95)</td>
+                  <td>59.1</td>
+                  <td>❌</td>
+                </tr>
+              
+                <tr class="color-table-row no-match" data-match="wrong">
+                  <td><span class="swatch" style="background:rgba(0, 0, 0, 0.15)"></span>rgba(0, 0, 0, 0.15)</td>
                   <td><span class="swatch" style="background:rgb(13,18,28)"></span>rgb(13,18,28)</td>
                   <td>35.7</td>
                   <td>❌</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgb(97, 179, 161)"></span>rgb(97, 179, 161)</td>
+                  <td><span class="swatch" style="background:rgb(84,192,138)"></span>rgb(84,192,138)</td>
+                  <td>29.4</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row no-match" data-match="wrong">
+                  <td><span class="swatch" style="background:rgb(0, 128, 0)"></span>rgb(0, 128, 0)</td>
+                  <td><span class="swatch" style="background:rgb(20,87,58)"></span>rgb(20,87,58)</td>
+                  <td>73.8</td>
+                  <td>❌</td>
+                </tr>
+              
+                <tr class="color-table-row no-match" data-match="wrong">
+                  <td><span class="swatch" style="background:rgba(0, 0, 0, 0.2)"></span>rgba(0, 0, 0, 0.2)</td>
+                  <td><span class="swatch" style="background:rgb(13,18,28)"></span>rgb(13,18,28)</td>
+                  <td>35.7</td>
+                  <td>❌</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgb(222, 226, 230)"></span>rgb(222, 226, 230)</td>
+                  <td><span class="swatch" style="background:rgb(229,231,235)"></span>rgb(229,231,235)</td>
+                  <td>9.9</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row no-match" data-match="wrong">
+                  <td><span class="swatch" style="background:rgba(0, 0, 0, 0.9)"></span>rgba(0, 0, 0, 0.9)</td>
+                  <td><span class="swatch" style="background:rgb(13,18,28)"></span>rgb(13,18,28)</td>
+                  <td>35.7</td>
+                  <td>❌</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgb(241, 214, 0)"></span>rgb(241, 214, 0)</td>
+                  <td><span class="swatch" style="background:rgb(245,189,2)"></span>rgb(245,189,2)</td>
+                  <td>25.4</td>
+                  <td>✔️</td>
                 </tr>
               
             </tbody>
@@ -341,67 +663,24 @@
             
               <div style="width:220px;background:#fff;border:1px solid #eee;padding:8px;border-radius:10px;box-shadow:0 4px 12px rgba(2,6,23,0.04);">
                 <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;"><div class="swatch" style="background:rgb(0, 0, 0);width:28px;height:28px;border-radius:6px;border:1px solid #ddd"></div><div style="font-size:13px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">rgb(0, 0, 0)</div></div>
-                <img src="color-fail-1764251558896-1.png" style="width:100%;height:120px;object-fit:cover;border-radius:8px;cursor:pointer" onclick="showFullScreenshot('color-fail-1764251558896-1.png')">
-                <div style="margin-top:8px;font-size:12px;color:var(--muted);max-height:48px;overflow:hidden">&lt;html dir="rtl" lang="ar"&gt;&lt;head&gt;&lt;meta charset="utf-8"&gt;&lt;link rel="icon" href="/favicon.ico"&gt;&lt;meta name="viewport" content="initial-scale=1, width=device-width"&gt;&lt;title&gt;Dulani&lt;/title&gt;&lt;meta name="description" content="نساعدك لتنمية أعمالك تقديم حزمة متكاملة من الخدمات المساندة الغير مالية للمشاريع التي تواجه تحديات و ذلك من خلال خبرات علمية وعملية"&gt;&lt;link rel="icon" href="/favicon.ico"&gt;&lt;meta name="next</div>
+                <img src="color-fail-1764266033593-1.png" style="width:100%;height:120px;object-fit:cover;border-radius:8px;cursor:pointer" onclick="showFullScreenshot('color-fail-1764266033593-1.png')">
+                <div style="margin-top:8px;font-size:12px;color:var(--muted);max-height:48px;overflow:hidden">&lt;html lang="ar-AR" dir="rtl" style="" class="js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generate</div>
                 <div style="margin-top:8px;font-size:12px;color:var(--muted)"><strong>Selector:</strong> <code style="font-size:12px">N/A</code></div>
                 <div style="margin-top:4px;font-size:12px;color:var(--muted)"><strong>Rect:</strong> N/A</div>
-                <div style="margin-top:8px"><a href="color-fail-1764251558896-1.png" target="_blank" class="btn" style="display:inline-block;padding:8px 10px;font-size:13px">فتح الصورة</a></div>
+                <div style="margin-top:8px"><a href="color-fail-1764266033593-1.png" target="_blank" class="btn" style="display:inline-block;padding:8px 10px;font-size:13px">فتح الصورة</a></div>
               </div>
             
               <div style="width:220px;background:#fff;border:1px solid #eee;padding:8px;border-radius:10px;box-shadow:0 4px 12px rgba(2,6,23,0.04);">
-                <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;"><div class="swatch" style="background:rgba(0, 0, 0, 0.87);width:28px;height:28px;border-radius:6px;border:1px solid #ddd"></div><div style="font-size:13px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">rgba(0, 0, 0, 0.87)</div></div>
-                <img src="color-fail-1764251561602-2.png" style="width:100%;height:120px;object-fit:cover;border-radius:8px;cursor:pointer" onclick="showFullScreenshot('color-fail-1764251561602-2.png')">
-                <div style="margin-top:8px;font-size:12px;color:var(--muted);max-height:48px;overflow:hidden">&lt;body style="overflow-y: auto;"&gt;&lt;noscript&gt;&lt;iframe src="https://www.googletagmanager.com/ns.html?id=GTM-54MZ55VR" height="0" width="0" style="display:none;visibility:hidden"&gt;&lt;/iframe&gt;&lt;/noscript&gt;&lt;div id="__next"&gt;&lt;div class=" z-50 nav_____  fixed top-0 shadow w-full py-2 px-8 bg-[#F0F0F0] "&gt;&lt;nav class="flex transition-all duration-300 items-center"&gt;&lt;a href="/"&gt;&lt;div role="button" class="relative" styl</div>
+                <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;"><div class="swatch" style="background:rgb(51, 122, 183);width:28px;height:28px;border-radius:6px;border:1px solid #ddd"></div><div style="font-size:13px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">rgb(51, 122, 183)</div></div>
+                <img src="color-fail-1764266043847-3.png" style="width:100%;height:120px;object-fit:cover;border-radius:8px;cursor:pointer" onclick="showFullScreenshot('color-fail-1764266043847-3.png')">
+                <div style="margin-top:8px;font-size:12px;color:var(--muted);max-height:48px;overflow:hidden">&lt;a title="vision 2030" href="https://www.vision2030.gov.sa/ar"&gt;&lt;span style="display: none;"&gt;vission&lt;/span&gt;
+                                                &lt;img src="/Style%20Library/ar-sa/Styles/images/visionlogo.svg" alt="" class="vissionlogoImg"&gt;
+                                            &lt;/a&gt;</div>
                 <div style="margin-top:8px;font-size:12px;color:var(--muted)"><strong>Selector:</strong> <code style="font-size:12px">N/A</code></div>
                 <div style="margin-top:4px;font-size:12px;color:var(--muted)"><strong>Rect:</strong> N/A</div>
-                <div style="margin-top:8px"><a href="color-fail-1764251561602-2.png" target="_blank" class="btn" style="display:inline-block;padding:8px 10px;font-size:13px">فتح الصورة</a></div>
+                <div style="margin-top:8px"><a href="color-fail-1764266043847-3.png" target="_blank" class="btn" style="display:inline-block;padding:8px 10px;font-size:13px">فتح الصورة</a></div>
               </div>
             
-          </div>
-          
-          <div id="failures-hidden" style="margin-top:12px;display:none;flex-wrap:wrap;gap:12px">
-            
-              <div style="width:220px;background:#fff;border:1px solid #eee;padding:8px;border-radius:10px;box-shadow:0 4px 12px rgba(2,6,23,0.04);">
-                <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;"><div class="swatch" style="background:rgb(246, 125, 16);width:28px;height:28px;border-radius:6px;border:1px solid #ddd"></div><div style="font-size:13px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">rgb(246, 125, 16)</div></div>
-                <img src="color-fail-1764251563338-3.png" style="width:100%;height:120px;object-fit:cover;border-radius:8px;cursor:pointer" onclick="showFullScreenshot('color-fail-1764251563338-3.png')">
-                <div style="margin-top:8px;font-size:12px;color:var(--muted);max-height:48px;overflow:hidden">&lt;div class="font-bold  text-custom-orange"&gt;الرئيسية&lt;/div&gt;</div>
-                <div style="margin-top:8px;font-size:12px;color:var(--muted)"><strong>Selector:</strong> <code style="font-size:12px">N/A</code></div>
-                <div style="margin-top:4px;font-size:12px;color:var(--muted)"><strong>Rect:</strong> N/A</div>
-                <div style="margin-top:8px"><a href="color-fail-1764251563338-3.png" target="_blank" class="btn" style="display:inline-block;padding:8px 10px;font-size:13px">فتح الصورة</a></div>
-              </div>
-            
-              <div style="width:220px;background:#fff;border:1px solid #eee;padding:8px;border-radius:10px;box-shadow:0 4px 12px rgba(2,6,23,0.04);">
-                <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;"><div class="swatch" style="background:rgb(243, 164, 20);width:28px;height:28px;border-radius:6px;border:1px solid #ddd"></div><div style="font-size:13px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">rgb(243, 164, 20)</div></div>
-                <img src="color-fail-1764251563419-4.png" style="width:100%;height:120px;object-fit:cover;border-radius:8px;cursor:pointer" onclick="showFullScreenshot('color-fail-1764251563419-4.png')">
-                <div style="margin-top:8px;font-size:12px;color:var(--muted);max-height:48px;overflow:hidden">&lt;button class="self-center py-3 px-8 ltr:mr-[auto] mr-8 ltr:ml-8 font-extrabold text-white bg-[#F3A414] hover:bg-custom-orange rounded-full border"&gt;تسجيل الدخول&lt;/button&gt;</div>
-                <div style="margin-top:8px;font-size:12px;color:var(--muted)"><strong>Selector:</strong> <code style="font-size:12px">N/A</code></div>
-                <div style="margin-top:4px;font-size:12px;color:var(--muted)"><strong>Rect:</strong> N/A</div>
-                <div style="margin-top:8px"><a href="color-fail-1764251563419-4.png" target="_blank" class="btn" style="display:inline-block;padding:8px 10px;font-size:13px">فتح الصورة</a></div>
-              </div>
-            
-              <div style="width:220px;background:#fff;border:1px solid #eee;padding:8px;border-radius:10px;box-shadow:0 4px 12px rgba(2,6,23,0.04);">
-                <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;"><div class="swatch" style="background:rgb(20, 52, 91);width:28px;height:28px;border-radius:6px;border:1px solid #ddd"></div><div style="font-size:13px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">rgb(20, 52, 91)</div></div>
-                <img src="color-fail-1764251563503-5.png" style="width:100%;height:120px;object-fit:cover;border-radius:8px;cursor:pointer" onclick="showFullScreenshot('color-fail-1764251563503-5.png')">
-                <div style="margin-top:8px;font-size:12px;color:var(--muted);max-height:48px;overflow:hidden">&lt;button class="py-2 px-5 mt-6 lg:mt-0 text-white bg-custome-blue rounded-lg"&gt;English&lt;/button&gt;</div>
-                <div style="margin-top:8px;font-size:12px;color:var(--muted)"><strong>Selector:</strong> <code style="font-size:12px">N/A</code></div>
-                <div style="margin-top:4px;font-size:12px;color:var(--muted)"><strong>Rect:</strong> N/A</div>
-                <div style="margin-top:8px"><a href="color-fail-1764251563503-5.png" target="_blank" class="btn" style="display:inline-block;padding:8px 10px;font-size:13px">فتح الصورة</a></div>
-              </div>
-            
-          </div>
-          <div class="actions">
-            <button class="btn" id="show-more-btn" onclick="(function(){
-              const hidden = document.getElementById('failures-hidden');
-              if (!hidden) return;
-              const visible = hidden.style.display !== 'none';
-              if (visible) {
-                hidden.style.display = 'none';
-                document.getElementById('show-more-btn').innerText = 'أظهار المزيد';
-              } else {
-                hidden.style.display = 'flex';
-                document.getElementById('show-more-btn').innerText = 'إخفاء';
-              }
-            })()">أظهار المزيد</button>
           </div>
           
         </div>
@@ -411,19 +690,19 @@
         <div class="card">
           <h2>عناصر التصميم الأساسية</h2>
           <div class="three-col-grid">
-            <div style="background:linear-gradient(135deg,#ffe6e6,#fff);padding:20px;border-radius:12px;border:2px solid #dc2626;text-align:center">
-              <div style="font-size:3em;margin-bottom:8px">✗</div>
-              <h3 style="color:#dc2626;margin:0 0 8px 0;font-size:1.1em">ختم التحقق</h3>
-              <div class="meta" style="color:#991b1b">غير موجود</div>
-              
+            <div style="background:linear-gradient(135deg,#e6fff7,#fff);padding:20px;border-radius:12px;border:2px solid #16a34a;text-align:center">
+              <div style="font-size:3em;margin-bottom:8px">✓</div>
+              <h3 style="color:#16a34a;margin:0 0 8px 0;font-size:1.1em">ختم التحقق</h3>
+              <div class="meta" style="color:#15803d">تم الكشف</div>
+              <div style="margin-top:12px;padding:10px;background:rgba(255,255,255,0.6);border-radius:8px;font-size:0.85em;color:#15803d">موقع حكومي موثق: يحتوي على النص الرسمي + رقم + علم المملكة</div>
+            </div>
+            <div style="background:linear-gradient(135deg,#e6fff7,#fff);padding:20px;border-radius:12px;border:2px solid #16a34a;text-align:center">
+              <div style="font-size:3em;margin-bottom:8px">✓</div>
+              <h3 style="color:#16a34a;margin:0 0 8px 0;font-size:1.1em">شريط البحث</h3>
+              <div class="meta" style="color:#15803d">تم الكشف</div>
             </div>
             <div style="background:linear-gradient(135deg,#ffe6e6,#fff);padding:20px;border-radius:12px;border:2px solid #dc2626;text-align:center">
-              <div style="font-size:3em;margin-bottom:8px">✗</div>
-              <h3 style="color:#dc2626;margin:0 0 8px 0;font-size:1.1em">شريط البحث</h3>
-              <div class="meta" style="color:#991b1b">غير موجود</div>
-            </div>
-            <div style="background:linear-gradient(135deg,#ffe6e6,#fff);padding:20px;border-radius:12px;border:2px solid #dc2626;text-align:center">
-              <div style="font-size:2.5em;margin-bottom:8px;color:#dc2626;font-weight:700">21.4%</div>
+              <div style="font-size:2.5em;margin-bottom:8px;color:#dc2626;font-weight:700">19.0%</div>
               <h3 style="color:#dc2626;margin:0 0 8px 0;font-size:1.1em">دقة المسافات</h3>
               <div class="meta" style="color:#991b1b">يحتاج تحسين</div>
             </div>
@@ -438,20 +717,20 @@
           </h2>
           <div style="color:#0f1724;line-height:1.8;margin-top:16px">
             
-                <div style="margin-bottom:20px;padding:20px;background:white;border-radius:12px;border-right:4px solid #dc2626;box-shadow:0 2px 8px rgba(0,0,0,0.08)">
+                <div style="margin-bottom:20px;padding:20px;background:white;border-radius:12px;border-right:4px solid #f59e0b;box-shadow:0 2px 8px rgba(0,0,0,0.08)">
                   <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
                     <span style="font-size:2em">🎨</span>
                     <div style="flex:1">
                       <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
-                        <h3 style="margin:0;color:#dc2626;font-size:1.2em">تحسين توافق الألوان</h3>
-                        <span style="background:#dc2626;color:white;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700">عالي</span>
+                        <h3 style="margin:0;color:#f59e0b;font-size:1.2em">تحسينات بسيطة على الألوان</h3>
+                        <span style="background:#f59e0b;color:white;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700">متوسط</span>
                       </div>
                     </div>
                   </div>
-                  <p style="margin:0 0 12px 0;color:#4b5563;line-height:1.7">دقة الألوان الحالية (50.0%) أقل من المستوى المطلوب. يُنصح بمراجعة لوحة الألوان المستخدمة في الموقع وتحديثها لتطابق ألوان الهوية الموحدة للحكومة الرقمية.</p>
-                  <div style="background:#f9fafb;padding:12px 16px;border-radius:8px;border-right:3px solid #dc2626">
+                  <p style="margin:0 0 12px 0;color:#4b5563;line-height:1.7">دقة الألوان جيدة (61.7%) لكن يمكن تحسينها. راجع الألوان غير المتوافقة المدرجة في التقرير وقم بتعديلها.</p>
+                  <div style="background:#f9fafb;padding:12px 16px;border-radius:8px;border-right:3px solid #f59e0b">
                     <strong style="color:#1f2937">الإجراء المقترح:</strong>
-                    <div style="color:#4b5563;margin-top:6px">استخدام الألوان المعتمدة من نظام التصميم الموحد فقط في جميع عناصر الموقع</div>
+                    <div style="color:#4b5563;margin-top:6px">مراجعة وتصحيح الألوان المحددة في قسم "ألوان غير متوافقة"</div>
                   </div>
                 </div>
               
@@ -465,27 +744,10 @@
                       </div>
                     </div>
                   </div>
-                  <p style="margin:0 0 12px 0;color:#4b5563;line-height:1.7">دقة المسافات (21.4%) تحتاج إلى تحسين كبير. المسافات غير المتسقة تؤثر على تجربة المستخدم والمظهر الاحترافي للموقع.</p>
+                  <p style="margin:0 0 12px 0;color:#4b5563;line-height:1.7">دقة المسافات (19.0%) تحتاج إلى تحسين كبير. المسافات غير المتسقة تؤثر على تجربة المستخدم والمظهر الاحترافي للموقع.</p>
                   <div style="background:#f9fafb;padding:12px 16px;border-radius:8px;border-right:3px solid #dc2626">
                     <strong style="color:#1f2937">الإجراء المقترح:</strong>
                     <div style="color:#4b5563;margin-top:6px">تطبيق نظام المسافات الموحد (4px, 8px, 12px, 16px, 24px, 32px, 48px) في جميع العناصر</div>
-                  </div>
-                </div>
-              
-                <div style="margin-bottom:20px;padding:20px;background:white;border-radius:12px;border-right:4px solid #dc2626;box-shadow:0 2px 8px rgba(0,0,0,0.08)">
-                  <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
-                    <span style="font-size:2em">🔒</span>
-                    <div style="flex:1">
-                      <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
-                        <h3 style="margin:0;color:#dc2626;font-size:1.2em">إضافة ختم التحقق</h3>
-                        <span style="background:#dc2626;color:white;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700">عالي</span>
-                      </div>
-                    </div>
-                  </div>
-                  <p style="margin:0 0 12px 0;color:#4b5563;line-height:1.7">الموقع لا يحتوي على ختم/شريط المصادقة الرسمي. هذا العنصر إلزامي للمواقع الحكومية للتأكيد على الهوية الرسمية.</p>
-                  <div style="background:#f9fafb;padding:12px 16px;border-radius:8px;border-right:3px solid #dc2626">
-                    <strong style="color:#1f2937">الإجراء المقترح:</strong>
-                    <div style="color:#4b5563;margin-top:6px">إضافة شريط التحقق الرسمي مع العلم السعودي والنص "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية"</div>
                   </div>
                 </div>
               
@@ -516,20 +778,20 @@
             
               <div class="responsive-cell">
                 <div class="meta">جوال (375x812)</div>
-                <img src="snap-1764251552914-mobile.png" style="width:100%;height:auto;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.08);background:#fff;" alt="جوال (375x812)">
-                <div style="margin-top:8px;"><button class="btn" onclick="showFullScreenshot('snap-1764251552914-mobile.png')">عرض</button> <button class="btn" onclick="downloadImage('snap-1764251552914-mobile.png','mobile-screenshot.png')">تحميل</button></div>
+                <img src="snap-1764266028312-mobile.png" style="width:100%;height:auto;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.08);background:#fff;" alt="جوال (375x812)">
+                <div style="margin-top:8px;"><button class="btn" onclick="showFullScreenshot('snap-1764266028312-mobile.png')">عرض</button> <button class="btn" onclick="downloadImage('snap-1764266028312-mobile.png','mobile-screenshot.png')">تحميل</button></div>
               </div>
             
               <div class="responsive-cell">
                 <div class="meta">تابلت (768x1024)</div>
-                <img src="snap-1764251552914-tablet.png" style="width:100%;height:auto;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.08);background:#fff;" alt="تابلت (768x1024)">
-                <div style="margin-top:8px;"><button class="btn" onclick="showFullScreenshot('snap-1764251552914-tablet.png')">عرض</button> <button class="btn" onclick="downloadImage('snap-1764251552914-tablet.png','tablet-screenshot.png')">تحميل</button></div>
+                <img src="snap-1764266028312-tablet.png" style="width:100%;height:auto;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.08);background:#fff;" alt="تابلت (768x1024)">
+                <div style="margin-top:8px;"><button class="btn" onclick="showFullScreenshot('snap-1764266028312-tablet.png')">عرض</button> <button class="btn" onclick="downloadImage('snap-1764266028312-tablet.png','tablet-screenshot.png')">تحميل</button></div>
               </div>
             
               <div class="responsive-cell">
                 <div class="meta">ديسكتوب (1440x900)</div>
-                <img src="snap-1764251552914-desktop.png" style="width:100%;height:auto;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.08);background:#fff;" alt="ديسكتوب (1440x900)">
-                <div style="margin-top:8px;"><button class="btn" onclick="showFullScreenshot('snap-1764251552914-desktop.png')">عرض</button> <button class="btn" onclick="downloadImage('snap-1764251552914-desktop.png','desktop-screenshot.png')">تحميل</button></div>
+                <img src="snap-1764266028312-desktop.png" style="width:100%;height:auto;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.08);background:#fff;" alt="ديسكتوب (1440x900)">
+                <div style="margin-top:8px;"><button class="btn" onclick="showFullScreenshot('snap-1764266028312-desktop.png')">عرض</button> <button class="btn" onclick="downloadImage('snap-1764266028312-desktop.png','desktop-screenshot.png')">تحميل</button></div>
               </div>
             
           </div>
@@ -540,13 +802,13 @@
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:16px">
             <div>
               <h3 style="color:var(--primary);font-size:1.1rem;margin-bottom:12px">معاينة الصفحة</h3>
-              <img src="snap-1764251550969.png" class="thumbnail" alt="Full Screenshot" onclick="showFullScreenshot('snap-1764251550969.png')" style="width:100%;height:auto;max-height:300px;object-fit:contain;border:2px solid var(--accent);border-radius:12px;cursor:pointer;transition:transform 0.2s" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+              <img src="snap-1764266027992.png" class="thumbnail" alt="Full Screenshot" onclick="showFullScreenshot('snap-1764266027992.png')" style="width:100%;height:auto;max-height:300px;object-fit:contain;border:2px solid var(--accent);border-radius:12px;cursor:pointer;transition:transform 0.2s" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
               <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
-                <button class="btn" onclick="showFullScreenshot('snap-1764251550969.png')" style="flex:1;min-width:140px">
+                <button class="btn" onclick="showFullScreenshot('snap-1764266027992.png')" style="flex:1;min-width:140px">
                   <svg viewBox="0 0 24 24" style="width:16px;height:16px;margin-left:6px;display:inline-block;vertical-align:middle" fill="currentColor"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
                   عرض بالحجم الكامل
                 </button>
-                <button class="btn" onclick="downloadImage('snap-1764251550969.png','full-screenshot.png')" style="flex:1;min-width:140px;background:#16a34a">
+                <button class="btn" onclick="downloadImage('snap-1764266027992.png','full-screenshot.png')" style="flex:1;min-width:140px;background:#16a34a">
                   <svg viewBox="0 0 24 24" style="width:16px;height:16px;margin-left:6px;display:inline-block;vertical-align:middle" fill="currentColor"><path d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2z"/></svg>
                   تحميل PNG
                 </button>
@@ -651,11 +913,11 @@
         window.addEventListener('DOMContentLoaded', function() {
           const ctx = document.getElementById('accuracyChart');
           if (ctx && window.Chart) {
-            const colorAcc = 50.0;
-            const spacingAcc = 21.4;
+            const colorAcc = 61.7;
+            const spacingAcc = 19.0;
             const fontScore = 100;
-            const stampScore = 0;
-            const searchScore = 0;
+            const stampScore = 100;
+            const searchScore = 100;
             
             new Chart(ctx, {
               type: 'doughnut',

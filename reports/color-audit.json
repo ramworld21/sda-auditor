@@ -1,17 +1,20 @@
 {
-  "url": "https://dulani.gov.sa",
-  "title": "Dulani",
-  "snapPath": "snap-1764251550969.png",
-  "timestamp": "2025-11-27T13:52:43.729Z",
+  "url": "https://mc.gov.sa",
+  "title": "وزارة التجارة",
+  "snapPath": "snap-1764266027992.png",
+  "timestamp": "2025-11-27T17:54:24.462Z",
   "fonts": [
-    "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
-    "\"Baloo Bhaijaan 2\", sans-serif",
-    "Effra_Medium",
-    "Baloo Bhaijaan 2",
-    "swiper-icons",
-    "Effra_Regular",
-    "Effra_Bold",
-    "Cairo",
+    "Times",
+    "DroidArabicKufi, arial, sans-serif",
+    "DroidArabicKufi-Bold, arial, sans-serif",
+    "\"Segoe UI\", Tahoma, \"Microsoft Sans Serif\", sans-serif",
+    "verdana, arial, sans-serif",
+    "Glyphicons Halflings",
+    "mci-icons",
+    "DroidArabicKufi",
+    "DroidArabicKufi-Bold",
+    "Open Sans",
+    "Righteous",
     "IBM Plex Sans Arabic",
     "IBM Plex Arabic",
     "IBM Plex Sans",
@@ -19,26 +22,19 @@
     "IBMPlexSansArabic"
   ],
   "fontFaces": [
-    "ui-sans-serif",
-    "system-ui",
-    "-apple-system",
-    "BlinkMacSystemFont",
-    "Segoe UI",
-    "Roboto",
-    "Helvetica Neue",
-    "Arial",
-    "Noto Sans",
+    "Times",
+    "DroidArabicKufi",
+    "arial",
     "sans-serif",
-    "Apple Color Emoji",
-    "Segoe UI Emoji",
-    "Segoe UI Symbol",
-    "Noto Color Emoji",
-    "Baloo Bhaijaan 2",
-    "Effra_Medium",
-    "swiper-icons",
-    "Effra_Regular",
-    "Effra_Bold",
-    "Cairo",
+    "DroidArabicKufi-Bold",
+    "Segoe UI",
+    "Tahoma",
+    "Microsoft Sans Serif",
+    "verdana",
+    "Glyphicons Halflings",
+    "mci-icons",
+    "Open Sans",
+    "Righteous",
     "IBM Plex Sans Arabic",
     "IBM Plex Arabic",
     "IBM Plex Sans",
@@ -54,16 +50,10 @@
       "match": false
     },
     {
-      "color": "rgb(229, 231, 235)",
-      "closest": "rgb(229,231,235)",
-      "distance": 0,
+      "color": "rgb(51, 51, 51)",
+      "closest": "rgb(31,42,55)",
+      "distance": 22.293496809607955,
       "match": true
-    },
-    {
-      "color": "rgba(0, 0, 0, 0.87)",
-      "closest": "rgb(13,18,28)",
-      "distance": 35.73513677041127,
-      "match": false
     },
     {
       "color": "rgb(255, 255, 255)",
@@ -72,161 +62,489 @@
       "match": true
     },
     {
-      "color": "rgb(240, 240, 240)",
-      "closest": "rgb(243,244,246)",
-      "distance": 7.810249675906654,
+      "color": "rgb(233, 233, 233)",
+      "closest": "rgb(229,231,235)",
+      "distance": 4.898979485566356,
       "match": true
     },
     {
-      "color": "rgb(246, 125, 16)",
-      "closest": "rgb(219,161,2)",
-      "distance": 47.12748667179272,
+      "color": "rgb(255, 0, 0)",
+      "closest": "rgb(148,92,1)",
+      "distance": 141.1169727566461,
       "match": false
     },
     {
-      "color": "rgb(243, 164, 20)",
-      "closest": "rgb(219,161,2)",
-      "distance": 30.14962686336267,
-      "match": false
+      "color": "rgb(243, 244, 246)",
+      "closest": "rgb(243,244,246)",
+      "distance": 0,
+      "match": true
     },
     {
-      "color": "rgb(20, 52, 91)",
-      "closest": "rgb(31,42,55)",
-      "distance": 38.948684188300895,
-      "match": false
+      "color": "rgb(22, 22, 22)",
+      "closest": "rgb(13,18,28)",
+      "distance": 11.532562594670797,
+      "match": true
     },
     {
-      "color": "rgb(128, 128, 128)",
+      "color": "rgb(27, 131, 84)",
+      "closest": "rgb(27,131,84)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(6, 118, 71)",
+      "closest": "rgb(22,106,69)",
+      "distance": 20.09975124224178,
+      "match": true
+    },
+    {
+      "color": "rgb(56, 66, 80)",
+      "closest": "rgb(56,66,80)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(51, 122, 183)",
       "closest": "rgb(108,115,127)",
-      "distance": 23.874672772626646,
-      "match": true
-    },
-    {
-      "color": "rgb(15, 186, 184)",
-      "closest": "rgb(84,192,138)",
-      "distance": 83.14445261110329,
+      "distance": 80.2122185206219,
       "match": false
     },
     {
-      "color": "rgb(240, 242, 245)",
-      "closest": "rgb(243,244,246)",
+      "color": "rgba(255, 255, 255, 0.4)",
+      "closest": "rgb(252,252,253)",
+      "distance": 4.69041575982343,
+      "match": true
+    },
+    {
+      "color": "rgba(0, 136, 131, 0.85)",
+      "closest": "rgb(37,147,95)",
+      "distance": 52.78257288158659,
+      "match": false
+    },
+    {
+      "color": "rgb(12, 59, 54)",
+      "closest": "rgb(16,70,49)",
+      "distance": 12.727922061357855,
+      "match": true
+    },
+    {
+      "color": "rgba(255, 255, 255, 0)",
+      "closest": "rgb(252,252,253)",
+      "distance": 4.69041575982343,
+      "match": true
+    },
+    {
+      "color": "rgb(136, 136, 136)",
+      "closest": "rgb(108,115,127)",
+      "distance": 36.138621999185304,
+      "match": false
+    },
+    {
+      "color": "rgb(119, 119, 119)",
+      "closest": "rgb(108,115,127)",
+      "distance": 14.177446878757825,
+      "match": true
+    },
+    {
+      "color": "rgb(41, 142, 189)",
+      "closest": "rgb(84,192,138)",
+      "distance": 83.36666000266533,
+      "match": false
+    },
+    {
+      "color": "rgba(248, 248, 248, 0.95)",
+      "closest": "rgb(249,250,251)",
       "distance": 3.7416573867739413,
       "match": true
     },
     {
-      "color": "rgb(226, 230, 235)",
+      "color": "rgb(0, 175, 169)",
+      "closest": "rgb(37,147,95)",
+      "distance": 87.34414691323055,
+      "match": false
+    },
+    {
+      "color": "rgb(221, 221, 221)",
+      "closest": "rgb(210,214,219)",
+      "distance": 13.19090595827292,
+      "match": true
+    },
+    {
+      "color": "rgb(102, 102, 102)",
+      "closest": "rgb(108,115,127)",
+      "distance": 28.809720581775867,
+      "match": true
+    },
+    {
+      "color": "rgb(10, 101, 98)",
+      "closest": "rgb(22,106,69)",
+      "distance": 31.78049716414141,
+      "match": false
+    },
+    {
+      "color": "rgb(231, 242, 248)",
+      "closest": "rgb(243,244,246)",
+      "distance": 12.328828005937952,
+      "match": true
+    },
+    {
+      "color": "rgba(255, 255, 255, 0.6)",
+      "closest": "rgb(252,252,253)",
+      "distance": 4.69041575982343,
+      "match": true
+    },
+    {
+      "color": "rgb(19, 136, 132)",
+      "closest": "rgb(37,147,95)",
+      "distance": 42.59107887809371,
+      "match": false
+    },
+    {
+      "color": "rgb(90, 174, 176)",
+      "closest": "rgb(84,192,138)",
+      "distance": 42.473521163190604,
+      "match": false
+    },
+    {
+      "color": "rgba(255, 255, 255, 0.9)",
+      "closest": "rgb(252,252,253)",
+      "distance": 4.69041575982343,
+      "match": true
+    },
+    {
+      "color": "rgba(255, 255, 255, 0.5)",
+      "closest": "rgb(252,252,253)",
+      "distance": 4.69041575982343,
+      "match": true
+    },
+    {
+      "color": "rgb(230, 107, 46)",
+      "closest": "rgb(184,123,2)",
+      "distance": 65.63535632568775,
+      "match": false
+    },
+    {
+      "color": "rgb(244, 246, 245)",
+      "closest": "rgb(243,244,246)",
+      "distance": 2.449489742783178,
+      "match": true
+    },
+    {
+      "color": "rgb(125, 134, 139)",
+      "closest": "rgb(108,115,127)",
+      "distance": 28.178005607210743,
+      "match": true
+    },
+    {
+      "color": "rgb(85, 85, 85)",
+      "closest": "rgb(77,87,97)",
+      "distance": 14.560219778561036,
+      "match": true
+    },
+    {
+      "color": "rgb(10, 102, 99)",
+      "closest": "rgb(22,106,69)",
+      "distance": 32.55764119219941,
+      "match": false
+    },
+    {
+      "color": "rgb(238, 238, 238)",
+      "closest": "rgb(243,244,246)",
+      "distance": 11.180339887498949,
+      "match": true
+    },
+    {
+      "color": "rgb(246, 246, 246)",
+      "closest": "rgb(243,244,246)",
+      "distance": 3.605551275463989,
+      "match": true
+    },
+    {
+      "color": "rgb(225, 225, 225)",
       "closest": "rgb(229,231,235)",
-      "distance": 3.1622776601683795,
+      "distance": 12.328828005937952,
       "match": true
     },
     {
-      "color": "rgb(71, 72, 74)",
+      "color": "rgb(153, 153, 153)",
+      "closest": "rgb(157,164,174)",
+      "distance": 24.041630560342615,
+      "match": true
+    },
+    {
+      "color": "rgb(170, 170, 170)",
+      "closest": "rgb(157,164,174)",
+      "distance": 14.866068747318506,
+      "match": true
+    },
+    {
+      "color": "rgb(200, 74, 61)",
+      "closest": "rgb(184,123,2)",
+      "distance": 78.34538914320358,
+      "match": false
+    },
+    {
+      "color": "rgb(246, 130, 119)",
+      "closest": "rgb(247,213,77)",
+      "distance": 93.02687783646186,
+      "match": false
+    },
+    {
+      "color": "rgb(68, 68, 68)",
       "closest": "rgb(56,66,80)",
-      "distance": 17.233687939614086,
+      "distance": 17.08800749063506,
       "match": true
     },
     {
-      "color": "rgba(0, 0, 0, 0.6)",
+      "color": "rgba(255, 255, 255, 0.85)",
+      "closest": "rgb(252,252,253)",
+      "distance": 4.69041575982343,
+      "match": true
+    },
+    {
+      "color": "rgb(204, 204, 204)",
+      "closest": "rgb(210,214,219)",
+      "distance": 19,
+      "match": true
+    },
+    {
+      "color": "rgb(236, 236, 236)",
+      "closest": "rgb(229,231,235)",
+      "distance": 8.660254037844387,
+      "match": true
+    },
+    {
+      "color": "rgb(234, 233, 233)",
+      "closest": "rgb(229,231,235)",
+      "distance": 5.744562646538029,
+      "match": true
+    },
+    {
+      "color": "rgb(227, 227, 227)",
+      "closest": "rgb(229,231,235)",
+      "distance": 9.16515138991168,
+      "match": true
+    },
+    {
+      "color": "rgba(0, 175, 169, 0.5)",
+      "closest": "rgb(37,147,95)",
+      "distance": 87.34414691323055,
+      "match": false
+    },
+    {
+      "color": "rgb(21, 136, 133)",
+      "closest": "rgb(37,147,95)",
+      "distance": 42.67317658670374,
+      "match": false
+    },
+    {
+      "color": "rgba(255, 255, 255, 0.25)",
+      "closest": "rgb(252,252,253)",
+      "distance": 4.69041575982343,
+      "match": true
+    },
+    {
+      "color": "rgb(0, 104, 101)",
+      "closest": "rgb(22,106,69)",
+      "distance": 38.88444419044716,
+      "match": false
+    },
+    {
+      "color": "rgb(6, 117, 114)",
+      "closest": "rgb(27,131,84)",
+      "distance": 39.20459156782532,
+      "match": false
+    },
+    {
+      "color": "rgb(32, 157, 153)",
+      "closest": "rgb(37,147,95)",
+      "distance": 59.06775770248944,
+      "match": false
+    },
+    {
+      "color": "rgba(0, 0, 0, 0.15)",
       "closest": "rgb(13,18,28)",
       "distance": 35.73513677041127,
       "match": false
+    },
+    {
+      "color": "rgb(97, 179, 161)",
+      "closest": "rgb(84,192,138)",
+      "distance": 29.444863728670914,
+      "match": true
+    },
+    {
+      "color": "rgb(0, 128, 0)",
+      "closest": "rgb(20,87,58)",
+      "distance": 73.79024325749306,
+      "match": false
+    },
+    {
+      "color": "rgba(0, 0, 0, 0.2)",
+      "closest": "rgb(13,18,28)",
+      "distance": 35.73513677041127,
+      "match": false
+    },
+    {
+      "color": "rgb(222, 226, 230)",
+      "closest": "rgb(229,231,235)",
+      "distance": 9.9498743710662,
+      "match": true
+    },
+    {
+      "color": "rgba(0, 0, 0, 0.9)",
+      "closest": "rgb(13,18,28)",
+      "distance": 35.73513677041127,
+      "match": false
+    },
+    {
+      "color": "rgb(241, 214, 0)",
+      "closest": "rgb(245,189,2)",
+      "distance": 25.39685019840059,
+      "match": true
     }
   ],
-  "logo": "logo.jpeg",
-  "favicon": "https://dulani.gov.sa/favicon.ico",
+  "logo": "logo.svg",
+  "favicon": "https://mc.gov.sa/Style%20Library/ar-sa/Styles/images/favicon.png",
   "digitalStamp": {
-    "present": false,
-    "reason": "غير موثق - ناقص: النص الرسمي, رقم, علم السعودية",
-    "selectors": [],
-    "images": [],
+    "present": true,
+    "reason": "موقع حكومي موثق: يحتوي على النص الرسمي + رقم + علم المملكة",
+    "selectors": [
+      {
+        "selector": "form",
+        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية\nكيف تتحقق \n  \nتسجيل الدخول\nأسئلة شائعة\nEn\nعن الوزارة\nالفروع\nالأنظمة واللوائح\nالأدلة والإجراءات\nال"
+      },
+      {
+        "selector": "div",
+        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية\nكيف تتحقق \n  \nتسجيل الدخول\nأسئلة شائعة\nEn\nعن الوزارة\nالفروع\nالأنظمة واللوائح\nالأدلة والإجراءات\nال"
+      },
+      {
+        "selector": "div",
+        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية\nكيف تتحقق \n  \nتسجيل الدخول\nأسئلة شائعة\nEn\nعن الوزارة\nالفروع\nالأنظمة واللوائح\nالأدلة والإجراءات\nال"
+      },
+      {
+        "selector": "div",
+        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية\nكيف تتحقق "
+      },
+      {
+        "selector": "div",
+        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية\nكيف تتحقق "
+      },
+      {
+        "selector": "div",
+        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية\nكيف تتحقق "
+      },
+      {
+        "selector": "div",
+        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية\nكيف تتحقق "
+      },
+      {
+        "selector": "div",
+        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية\nكيف تتحقق "
+      },
+      {
+        "selector": "h6",
+        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية"
+      }
+    ],
+    "images": [
+      "https://mc.gov.sa/ar/RelatedSites/Socpa_new_logl.png",
+      "https://mc.gov.sa/ar/RelatedSites/Edemad.png",
+      "https://mc.gov.sa/ar/RelatedSites/SASO.jpg",
+      "https://mc.gov.sa/ar/RelatedSites/AMMAL.png"
+    ],
     "svg": null,
     "qrCount": 0
   },
   "colorFailures": [
     {
       "color": "rgb(0, 0, 0)",
-      "screenshot": "color-fail-1764251558896-1.png",
-      "snippet": "<html dir=\"rtl\" lang=\"ar\"><head><meta charset=\"utf-8\"><link rel=\"icon\" href=\"/favicon.ico\"><meta name=\"viewport\" content=\"initial-scale=1, width=device-width\"><title>Dulani</title><meta name=\"description\" content=\"نساعدك لتنمية أعمالك تقديم حزمة متكاملة من الخدمات المساندة الغير مالية للمشاريع التي تواجه تحديات و ذلك من خلال خبرات علمية وعملية\"><link rel=\"icon\" href=\"/favicon.ico\"><meta name=\"next",
+      "screenshot": "color-fail-1764266033593-1.png",
+      "snippet": "<html lang=\"ar-AR\" dir=\"rtl\" style=\"\" class=\"js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generate",
       "selector": null,
       "rect": null
     },
     {
-      "color": "rgba(0, 0, 0, 0.87)",
-      "screenshot": "color-fail-1764251561602-2.png",
-      "snippet": "<body style=\"overflow-y: auto;\"><noscript><iframe src=\"https://www.googletagmanager.com/ns.html?id=GTM-54MZ55VR\" height=\"0\" width=\"0\" style=\"display:none;visibility:hidden\"></iframe></noscript><div id=\"__next\"><div class=\" z-50 nav_____  fixed top-0 shadow w-full py-2 px-8 bg-[#F0F0F0] \"><nav class=\"flex transition-all duration-300 items-center\"><a href=\"/\"><div role=\"button\" class=\"relative\" styl",
-      "selector": null,
-      "rect": null
-    },
-    {
-      "color": "rgb(246, 125, 16)",
-      "screenshot": "color-fail-1764251563338-3.png",
-      "snippet": "<div class=\"font-bold  text-custom-orange\">الرئيسية</div>",
-      "selector": null,
-      "rect": null
-    },
-    {
-      "color": "rgb(243, 164, 20)",
-      "screenshot": "color-fail-1764251563419-4.png",
-      "snippet": "<button class=\"self-center py-3 px-8 ltr:mr-[auto] mr-8 ltr:ml-8 font-extrabold text-white bg-[#F3A414] hover:bg-custom-orange rounded-full border\">تسجيل الدخول</button>",
-      "selector": null,
-      "rect": null
-    },
-    {
-      "color": "rgb(20, 52, 91)",
-      "screenshot": "color-fail-1764251563503-5.png",
-      "snippet": "<button class=\"py-2 px-5 mt-6 lg:mt-0 text-white bg-custome-blue rounded-lg\">English</button>",
+      "color": "rgb(51, 122, 183)",
+      "screenshot": "color-fail-1764266043847-3.png",
+      "snippet": "<a title=\"vision 2030\" href=\"https://www.vision2030.gov.sa/ar\"><span style=\"display: none;\">vission</span>\n                                                <img src=\"/Style%20Library/ar-sa/Styles/images/visionlogo.svg\" alt=\"\" class=\"vissionlogoImg\">\n                                            </a>",
       "selector": null,
       "rect": null
     }
   ],
-  "hasSearchBar": false,
+  "hasSearchBar": true,
   "spacings": [
     "0px",
-    "6px",
-    "24px",
-    "36px",
-    "9px",
-    "65.7656px",
-    "15px",
-    "12px",
-    "auto",
-    "72px",
-    "82px",
-    "84px",
-    "60px",
-    "42px",
-    "48px",
-    "21px",
-    "30px",
-    "343.5px",
-    "46.5px",
-    "-27px",
-    "180px",
-    "150px",
-    "-24px",
-    "3px",
-    "-30px",
-    "108px",
-    "96px",
-    "391.2px",
     "20px",
-    "-11px",
+    "55px",
+    "15px",
+    "-15px",
+    "8px",
+    "32px",
+    "40px",
+    "14px",
     "16px",
-    "168px",
+    "12px",
+    "28px",
+    "5px",
+    "26px",
+    "10px",
+    "17px",
+    "2px",
+    "3px",
+    "4px",
+    "-65px",
+    "-1px",
+    "auto",
+    "9px",
+    "60px",
+    "30px",
+    "25px",
+    "290px",
+    "-50px",
+    "75px",
+    "35px",
+    "-30px",
+    "11px",
+    "4.51562px",
+    "-2px",
+    "0.5%",
+    "-7px",
+    "1.09375px",
+    "6.59375px",
+    "22px",
+    "-25px",
+    "50px",
+    "45px",
+    "38px",
+    "-3px",
+    "152px",
+    "-22px",
     "18px",
-    "62.9062px",
-    "-1px"
+    "1px",
+    "6px",
+    "7px",
+    "19px",
+    "24px",
+    "23px",
+    "-16px",
+    "-295px",
+    "70px",
+    "37px",
+    "1%"
   ],
   "spacingMatches": [
-    24,
-    12,
-    48,
-    96,
     20,
-    16
+    8,
+    32,
+    40,
+    16,
+    12,
+    4,
+    24
   ],
-  "spacingAccuracy": 21.428571428571427,
-  "screenshotMobile": "snap-1764251552914-mobile.png",
-  "screenshotTablet": "snap-1764251552914-tablet.png",
-  "screenshotDesktop": "snap-1764251552914-desktop.png"
+  "spacingAccuracy": 19.047619047619047,
+  "screenshotMobile": "snap-1764266028312-mobile.png",
+  "screenshotTablet": "snap-1764266028312-tablet.png",
+  "screenshotDesktop": "snap-1764266028312-desktop.png"
 }
