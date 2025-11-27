@@ -264,61 +264,78 @@ export async function auditColors(url, fastMode = false) {
   });
 
   // Detect DGA-style digital stamp / authenticated bar structures
+  // Valid stamp must have: Saudi flag + number + official text
   let digitalStamp = { present: false, reason: null, selectors: [], images: [], svg: null, qrCount: 0 };
   try {
     digitalStamp = await page.evaluate(() => {
       const result = { present: false, reason: null, selectors: [], images: [], svg: null, qrCount: 0 };
       try {
-        const textCandidates = [];
-        // Common Arabic/English keywords related to digital stamp
-        const keywords = ['ختم', 'الختم', 'ختم رقمي', 'الختم الرقمي', 'digital stamp', 'digital-stamp', 'digital stamp'];
-        // Search for elements whose id/class contains stamp/digital/dga
-        const selList = ['[class*="stamp"]','[id*="stamp"]','[class*="digital"]','[id*="digital"]','[class*="dga"]','[id*="dga"]','[class*="seal"]','[id*="seal"]'];
-        selList.forEach(s => {
-          document.querySelectorAll(s).forEach(el => {
-            try {
-              result.selectors.push({ selector: s, text: (el.innerText || '').slice(0,120) });
-              // collect images inside
-              el.querySelectorAll('img').forEach(img => { try { if (img.src) result.images.push(img.src); } catch(e){} });
-              // collect inline svgs
-              el.querySelectorAll('svg').forEach(svg => { try { result.svg = (new XMLSerializer()).serializeToString(svg); } catch(e){} });
-            } catch(e){}
-          });
-        });
+        // Required text for official Saudi government stamp
+        const requiredText = 'موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية';
+        let hasRequiredText = false;
+        let hasNumber = false;
+        let hasSaudiFlag = false;
 
-        // Search for textual matches anywhere
+        // Search for the exact required text
         document.querySelectorAll('body *').forEach(el => {
           try {
-            const t = (el.innerText || '').toLowerCase();
-            if (!t) return;
-            for (const k of keywords) {
-              if (t.indexOf(k) !== -1) {
-                result.present = true;
-                result.reason = `keyword:${k}`;
-                result.selectors.push({ selector: el.tagName.toLowerCase(), text: t.slice(0,120) });
-              }
+            const text = el.innerText || '';
+            if (text.includes(requiredText)) {
+              hasRequiredText = true;
+              result.selectors.push({ selector: el.tagName.toLowerCase(), text: text.slice(0,150) });
             }
           } catch(e){}
         });
 
-        // Look for qr-code images (common patterns)
+        // Look for numbers in close proximity to stamp text
+        if (hasRequiredText) {
+          document.querySelectorAll('body *').forEach(el => {
+            try {
+              const text = el.innerText || '';
+              // Look for numbers (digits)
+              if (/\d+/.test(text) && text.length < 50) {
+                hasNumber = true;
+              }
+            } catch(e){}
+          });
+        }
+
+        // Look for Saudi flag (common patterns: saudi flag images, svg with green/white colors)
         document.querySelectorAll('img').forEach(img => {
           try {
             const src = img.getAttribute('src') || '';
-            if (/qr|qrcode|qr-code|barcode/i.test(src)) {
-              result.qrCount += 1; result.images.push(new URL(src, location.href).href);
-            }
-            // also consider data URIs that are likely qr (small square images)
-            if (src.startsWith('data:image') && img.naturalWidth && img.naturalHeight && Math.abs(img.naturalWidth - img.naturalHeight) < 10 && img.naturalWidth < 400) {
-              result.qrCount += 1; result.images.push(src);
+            const alt = img.getAttribute('alt') || '';
+            // Saudi flag patterns
+            if (/flag|علم|saudi|السعود/i.test(src) || /flag|علم|saudi|السعود/i.test(alt)) {
+              hasSaudiFlag = true;
+              result.images.push(new URL(src, location.href).href);
             }
           } catch(e){}
         });
 
-        // If we found selector matches or images or qr codes, mark present
-        if (result.selectors.length > 0 || result.images.length > 0 || result.qrCount > 0) {
+        // Check SVG elements for Saudi flag (green fill, specific patterns)
+        document.querySelectorAll('svg').forEach(svg => {
+          try {
+            const svgStr = (new XMLSerializer()).serializeToString(svg);
+            // Look for green color typical of Saudi flag
+            if (/fill.*#0.*5.*5/i.test(svgStr) || /fill.*green/i.test(svgStr)) {
+              hasSaudiFlag = true;
+              result.svg = svgStr.slice(0, 500);
+            }
+          } catch(e){}
+        });
+
+        // Stamp is only verified if ALL three conditions are met
+        if (hasRequiredText && hasNumber && hasSaudiFlag) {
           result.present = true;
-          if (!result.reason) result.reason = 'structure_or_images_detected';
+          result.reason = 'موقع حكومي موثق: يحتوي على النص الرسمي + رقم + علم المملكة';
+        } else {
+          result.present = false;
+          const missing = [];
+          if (!hasRequiredText) missing.push('النص الرسمي');
+          if (!hasNumber) missing.push('رقم');
+          if (!hasSaudiFlag) missing.push('علم السعودية');
+          result.reason = `غير موثق - ناقص: ${missing.join(', ')}`;
         }
       } catch (e) {
         // ignore
@@ -333,8 +350,9 @@ export async function auditColors(url, fastMode = false) {
   const colorFailures = [];
   try {
     if (!fastMode) {
-    // Use a Set to avoid duplicate color strings
-    const uniqueColors = Array.from(new Set(colors || [])).filter(Boolean);
+    // Only capture colors that don't match (from colorAudit results)
+    const failingColors = (colorAudit || []).filter(r => !r.match).map(r => r.color);
+    const uniqueColors = Array.from(new Set(failingColors)).filter(Boolean);
     let idx = 0;
     for (const c of uniqueColors) {
       try {
@@ -551,8 +569,6 @@ export async function auditColors(url, fastMode = false) {
     // ignore logo discovery errors
   }
 
-  await browser.close();
-
   // Load brand colors (flattened)
   const tokens = JSON.parse(fs.readFileSync('./src/config/sda.tokens.json', 'utf-8'));
   const brandColors = Object.values(tokens.colors)
@@ -617,6 +633,92 @@ export async function auditColors(url, fastMode = false) {
     console.log('IBM Plex variant NOT detected among page font families. Collected:', fontFaces.join(', '));
   }
 
+  // Capture element screenshots for failing colors (now that colorAudit is available)
+  try {
+    if (!fastMode) {
+      const failingColors = colorAudit.filter(r => !r.match).map(r => r.color);
+      const uniqueColors = Array.from(new Set(failingColors)).filter(Boolean).slice(0, 5); // Limit to first 5 to avoid timeouts
+      let idx = 0;
+      for (const c of uniqueColors) {
+        try {
+          const handle = await page.evaluateHandle((col) => {
+            try {
+              const els = document.querySelectorAll('*');
+              for (const el of els) {
+                try {
+                  const s = getComputedStyle(el);
+                  if (!s) continue;
+                  const props = [s.color, s.backgroundColor, s.borderTopColor, s.borderRightColor, s.borderBottomColor, s.borderLeftColor, s.outlineColor];
+                  for (const p of props) {
+                    if (!p) continue;
+                    if (p.trim() === col.trim()) {
+                      el.scrollIntoView({ block: 'center', inline: 'center' });
+                      return el;
+                    }
+                  }
+                } catch (e) {}
+              }
+            } catch (e) {}
+            return null;
+          }, c);
+          const el = handle && handle.asElement ? handle.asElement() : null;
+          if (el) {
+            idx += 1;
+            const safeName = `color-fail-${Date.now()}-${idx}.png`;
+            const reportsDir = path.join(process.cwd(), 'reports');
+            if (!fs.existsSync(reportsDir)) fs.mkdirSync(reportsDir);
+            const outPath = path.join(reportsDir, safeName);
+            try {
+              const info = await page.evaluate((node) => {
+                function cssPath(el) {
+                  if (!(el instanceof Element)) return '';
+                  const path = [];
+                  while (el && el.nodeType === Node.ELEMENT_NODE) {
+                    let selector = el.nodeName.toLowerCase();
+                    if (el.id) {
+                      selector += '#' + el.id;
+                      path.unshift(selector);
+                      break;
+                    }
+                    if (el.className && typeof el.className === 'string') {
+                      selector += '.' + el.className.split(' ').filter(Boolean).join('.');
+                    }
+                    let sib = el;
+                    let nth = 1;
+                    while (sib = sib.previousElementSibling) {
+                      if (sib.nodeName.toLowerCase() === selector) nth++;
+                    }
+                    selector += `:nth-of-type(${nth})`;
+                    path.unshift(selector);
+                    el = el.parentElement;
+                  }
+                  return path.join(' > ');
+                }
+                const rect = el.getBoundingClientRect ? el.getBoundingClientRect() : null;
+                return { selector: cssPath(node), outerHTML: node.outerHTML, rect: rect ? { x: rect.x, y: rect.y, width: rect.width, height: rect.height } : null };
+              }, el).catch(()=>({ selector: null, outerHTML: null, rect: null }));
+              await el.screenshot({ path: outPath, timeout: 10000 }); // 10 second timeout
+              const snippet = info && info.outerHTML ? String(info.outerHTML).slice(0,400) : await (await el.getProperty('outerHTML')).jsonValue().catch(()=>null);
+              colorFailures.push({ color: c, screenshot: safeName, snippet: snippet ? String(snippet).slice(0,400) : null, selector: info.selector, rect: info.rect });
+            } catch (e) {
+              // Screenshot failed, skip this color
+            }
+            try { await handle.dispose(); } catch(e){}
+          } else {
+            try { await handle.dispose(); } catch(e){}
+          }
+        } catch (e) {
+          // Error processing color, continue
+        }
+      }
+    }
+  } catch (e) {
+    // Overall capture error, continue with empty colorFailures
+  }
+
+  // Close browser after all screenshots are captured
+  await browser.close();
+
   const result = {
     url,
     title,
@@ -635,9 +737,9 @@ export async function auditColors(url, fastMode = false) {
     spacings,
     spacingMatches,
     spacingAccuracy,
-    screenshotMobile: screenshotMobileFile,
-    screenshotTablet: screenshotTabletFile,
-    screenshotDesktop: screenshotDesktopFile
+    screenshotMobile: fastMode ? '' : screenshotMobileFile,
+    screenshotTablet: fastMode ? '' : screenshotTabletFile,
+    screenshotDesktop: fastMode ? '' : screenshotDesktopFile
   };
 
   // Ensure reports directory exists

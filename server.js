@@ -3,10 +3,14 @@ import cors from 'cors';
 import { exec } from 'child_process';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { logScanToExcel } from './src/utils/excelLogger.js';
 
 // Fix: define __dirname BEFORE using it
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// Track active scans to handle concurrent requests
+const activeScans = new Map();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -22,18 +26,64 @@ app.get("/", (req, res) => {
 app.use(cors());
 app.use(express.json());
 
-// POST /scan - expects { url: "https://example.com" }
+// POST /scan - expects { url: "https://example.com", email: "user@example.com", fastMode: boolean }
 app.post('/scan', (req, res) => {
-  const { url, fastMode } = req.body;
+  const { url, email, fastMode } = req.body;
+  console.log('📧 Received scan request:', { url, email, fastMode });
+  
   if (!url) return res.status(400).json({ error: 'Missing URL' });
+  if (!email) return res.status(400).json({ error: 'Missing email' });
+
+  // Validate email format
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({ error: 'Invalid email format' });
+  }
+
+  // Generate unique scan ID for concurrent handling
+  const scanId = `${email}-${Date.now()}`;
+  
+  // Check if user has an active scan
+  const existingUserScan = Array.from(activeScans.values()).find(scan => scan.email === email && scan.inProgress);
+  if (existingUserScan) {
+    return res.status(429).json({ error: 'لديك فحص جاري بالفعل، يرجى الانتظار حتى ينتهي' });
+  }
+
+  // Log to Excel immediately
+  try {
+    console.log('📝 Attempting to log to Excel...');
+    logScanToExcel(email, url, fastMode);
+    console.log('✅ Successfully logged to Excel');
+  } catch (error) {
+    console.error('❌ Failed to log to Excel:', error);
+    // Continue with scan even if logging fails
+  }
+
+  // Mark scan as in progress
+  activeScans.set(scanId, { email, url, inProgress: true, timestamp: Date.now() });
 
   const fastFlag = fastMode ? '--fast' : '';
   const cmd = `node cli.js "${url}" ${fastFlag}`.trim();
-  exec(cmd, { cwd: __dirname }, (err, stdout, stderr) => {
+  
+  exec(cmd, { cwd: __dirname, maxBuffer: 10 * 1024 * 1024 }, (err, stdout, stderr) => {
+    // Mark scan as complete
+    const scanData = activeScans.get(scanId);
+    if (scanData) {
+      scanData.inProgress = false;
+    }
+    
+    // Clean up old completed scans (older than 5 minutes)
+    const fiveMinutesAgo = Date.now() - 5 * 60 * 1000;
+    for (const [id, scan] of activeScans.entries()) {
+      if (!scan.inProgress && scan.timestamp < fiveMinutesAgo) {
+        activeScans.delete(id);
+      }
+    }
+
     if (err) {
       return res.status(500).json({ error: stderr || err.message });
     }
-    res.json({ result: stdout });
+    res.json({ result: stdout, scanId });
   });
 });
 
@@ -46,12 +96,33 @@ app.get('/health', (req, res) => {
 app.get('/report-pdf', async (req, res) => {
   try {
     const { chromium } = await import('playwright');
-    const browser = await chromium.launch({ args: ['--no-sandbox'] });
+    const browser = await chromium.launch({ 
+      args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
+    });
     const page = await browser.newPage();
     // Load the hosted report HTML so relative assets resolve correctly
     const reportUrl = `${req.protocol}://${req.get('host')}/reports/report.html`;
-    await page.goto(reportUrl, { waitUntil: 'networkidle' });
-    const pdfBuffer = await page.pdf({ format: 'A4', printBackground: true, margin: { top: '18mm', bottom: '18mm', left: '12mm', right: '12mm' } });
+    await page.goto(reportUrl, { waitUntil: 'networkidle', timeout: 60000 });
+    
+    // Expand hidden sections for export
+    await page.evaluate(() => {
+      const hidden = document.getElementById('failures-hidden');
+      if (hidden) hidden.style.display = 'flex';
+      const filter = document.getElementById('color-filter');
+      if (filter) {
+        filter.value = 'all';
+        const rows = document.querySelectorAll('.color-table-row');
+        rows.forEach(row => { row.style.display = 'table-row'; row.style.opacity = '1'; });
+      }
+    });
+    
+    const pdfBuffer = await page.pdf({ 
+      format: 'A4', 
+      printBackground: true, 
+      margin: { top: '15mm', bottom: '15mm', left: '15mm', right: '15mm' },
+      preferCSSPageSize: false,
+      displayHeaderFooter: false
+    });
     await browser.close();
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', 'attachment; filename="audit-report.pdf"');
