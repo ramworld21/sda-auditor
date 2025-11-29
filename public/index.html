@@ -2,7 +2,8 @@
 <html lang="ar" dir="rtl">
   <head>
     <meta charset="UTF-8">
-    <title>مدقق مواقع RAM World</title>
+    <title>مدقق كود المنصات الموحد</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <style>
 @media (max-width:720px) {
   #submit-section > div {
@@ -660,45 +661,38 @@
       targets.forEach(t => { t.textContent = ''; if(busy){ const loader = document.createElement('span'); loader.className='loader'; t.appendChild(loader); } const span = document.createElement('span'); span.textContent = text; span.style.marginInlineStart='8px'; t.appendChild(span); });
     }
 
-    // Helper: show the "open report" button and set its link to the backend reports path
-    // The button will be placed inside the compact scan panel (`#scan-panel-top`) and centered.
-    function showReportButton() {
-      let btn = document.getElementById('open-report');
+    // Helper: Ensures the "عرض التقرير" button exists in the DOM at page load,
+    // and updates its enabled state and click action after a successful scan.
+    function showReportButton(reportUrl) {
       const panelTop = document.getElementById('scan-panel-top');
-      // If the button does not exist, create it
+      if (!panelTop) return;
+
+      // Ensure scan-actions container exists
+      let actions = panelTop.querySelector('.scan-actions');
+      if (!actions) {
+        actions = document.createElement('div');
+        actions.className = 'scan-actions';
+        panelTop.appendChild(actions);
+      }
+
+      // Ensure the button exists
+      let btn = document.getElementById('open-report');
       if (!btn) {
         btn = document.createElement('button');
         btn.id = 'open-report';
         btn.className = 'ghost';
         btn.type = 'button';
         btn.textContent = 'عرض التقرير';
-        btn.setAttribute('aria-hidden', 'false');
-        btn.onclick = () => window.open(`${backendUrl}/reports/report.html`, '_blank');
+        btn.disabled = true; // initially disabled
+        actions.appendChild(btn);
       }
 
-      // Ensure the compact scan panel is visible
-      if (panelTop) {
-        panelTop.classList.remove('hidden');
-        panelTop.setAttribute('aria-hidden', 'false');
-        // create or reuse an actions container inside panelTop
-        let actions = panelTop.querySelector('.scan-actions');
-        if (!actions) {
-          actions = document.createElement('div');
-          actions.className = 'scan-actions';
-          panelTop.appendChild(actions);
-        }
-        // Avoid duplicating the button inside the container
-        if (!actions.contains(btn)) {
-          actions.appendChild(btn);
-        }
-        btn.classList.remove('hidden');
-        try{ btn.focus(); }catch(e){}
-      } else {
-        // Fallback: place near the search card
-        const searchCard = document.querySelector('.search-card');
-        if (searchCard && searchCard.parentNode && !document.getElementById('open-report')) {
-          searchCard.parentNode.insertBefore(btn, searchCard.nextSibling);
-        }
+      // If a valid report URL is provided, enable button and attach onclick
+      if (reportUrl) {
+        btn.disabled = false;
+        btn.onclick = () => {
+          window.open(`${backendUrl}${reportUrl}`, '_blank');
+        };
       }
     }
 
@@ -711,22 +705,17 @@
         // Try a lightweight HEAD first (fast)
         const r = await fetch(`${backendUrl}/reports/report.html`, { method: 'HEAD' });
         if (r && r.ok) {
-          showReportButton();
+          // do not call showReportButton here
           return;
         }
-      } catch (e) {
-        // proceed to health fallback
-      }
+      } catch (e) {}
 
-      // Fallback: if the backend is alive, show the button (report may exist)
       try {
         const h = await fetch(`${backendUrl}/health`, { method: 'GET' });
         if (h && h.ok) {
-          showReportButton();
+          // do not call showReportButton here
         }
-      } catch (e) {
-        // Still ignore — leave button hidden
-      }
+      } catch (e) {}
     }
 
     // Email validation and form field visibility control
@@ -806,8 +795,10 @@
       console.error('Email form elements not found:', { emailInput, urlSection, submitSection });
     }
 
-    // Do NOT auto-show the report button on load — only show after a successful scan
-    // (checkReportAvailable intentionally not called here)
+    // Initialize the button on page load (always present but disabled)
+    document.addEventListener('DOMContentLoaded', () => {
+      showReportButton(); // creates disabled button in DOM
+    });
 
     form.addEventListener('submit', async (e)=>{
       e.preventDefault();
@@ -829,15 +820,23 @@
         setStatus('الرجاء إدخال رابط الموقع', false);
         return;
       }
-      // Normalize: if user enters domain only, add https://
       let url = raw;
+      // Normalize URL by adding https:// if missing
       if (!/^https?:\/\//i.test(url)) {
-        // Basic domain validation (very light): contains at least one dot and no spaces
-        if (!/^[\w.-]+\.[a-z]{2,}$/i.test(url)) {
-          setStatus('الرجاء إدخال دومين صالح مثل example.gov.sa', false);
-          return;
-        }
         url = 'https://' + url;
+      }
+      // Extract hostname for validation
+      let hostname;
+      try {
+        hostname = new URL(url).hostname.toLowerCase();
+      } catch (e) {
+        setStatus('الرجاء إدخال رابط صالح', false);
+        return;
+      }
+      // Allow only .sa, .gov.sa, .org.sa
+      if (!hostname.endsWith('.sa') && !hostname.endsWith('.gov.sa') && !hostname.endsWith('.org.sa')) {
+        setStatus('الرجاء إدخال موقع ينتهي بـ .sa أو .gov.sa أو .org.sa', false);
+        return;
       }
       // Show normalized URL to the user
       setStatus('جاري الفحص: ' + url, true);
@@ -866,15 +865,20 @@
           return;
         }
 
-  const fastMode = !!document.getElementById('fast-mode').checked;
-  const res = await fetch(`${backendUrl}/scan`, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({url, fastMode, email})});
+        const fastMode = !!document.getElementById('fast-mode').checked;
+        const res = await fetch(`${backendUrl}/scan`, {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({url, fastMode, email})});
         if(res.ok){
+          const data = await res.json();
           setStatus('تم الفحص بنجاح');
           step3.classList.add('active');
-          showReportButton();
+          showReportButton(data.reportUrl); // enables button and sets click action
         } else {
           const data = await res.json().catch(()=>({error:'خطأ في الخادم'}));
-          setStatus('فشل الفحص: ' + (data.error || 'خطأ غير معروف'));
+          let message = data.error || 'خطأ غير معروف';
+          if(message.toLowerCase().includes('undetectable') || message.toLowerCase().includes('غير قابل للكشف')){
+            message += ' — يرجى التأكد من صحة رابط الموقع وإعادة المحاولة';
+          }
+          setStatus('فشل الفحص: ' + message);
         }
       }catch(err){
         // Provide more helpful guidance for common errors (CORS, network, mixed-content)

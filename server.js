@@ -1,3 +1,5 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import express from 'express';
 import cors from 'cors';
 import { exec } from 'child_process';
@@ -5,11 +7,50 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { logScanToExcel } from './src/utils/excelLogger.js';
 import pkg from 'pg';
+import fs from 'fs';
+
+function generateHTMLReport(url, cliOutput) {
+  return `
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<title>تقرير الفحص</title>
+<style>
+  body { font-family: Arial, sans-serif; background:#f7f7f7; padding:20px; }
+  .box { background:white; padding:20px; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.1); }
+  h1 { margin-top:0; }
+  .section { margin-bottom:20px; }
+  .section h2 { margin-bottom:10px; font-size:20px; }
+  .good { color:green; font-weight:bold; }
+  .bad { color:red; font-weight:bold; }
+</style>
+</head>
+<body>
+<div class="box">
+  <h1>تقرير فحص الموقع</h1>
+  <div class="section">
+    <h2>الرابط</h2>
+    <p>${url}</p>
+  </div>
+  <div class="section">
+    <h2>مخرجات الفحص</h2>
+    <pre>${cliOutput}</pre>
+  </div>
+  <div class="section">
+    <h2>إجمالي الحالة</h2>
+    <p class="good">✔ تم إنشاء التقرير بنجاح</p>
+  </div>
+</div>
+</body>
+</html>
+`;
+}
 const { Pool } = pkg;
 
 // Setup Postgres pool
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL || 'postgresql://sda_auditor_db_user:jGOvYgeIjwNuKqJx5tcr4AkP9hbcRw5i@dpg-d4k99gqdbo4c73cr72b0-a/sda_auditor_db',
+  connectionString: process.env.DATABASE_URL,
   ssl: { rejectUnauthorized: false }
 });
 
@@ -52,19 +93,18 @@ app.use(express.json());
 app.post('/scan', async (req, res) => {
   const { url, email, fastMode } = req.body;
   console.log('📧 Received scan request:', { url, email, fastMode });
-  
+
   if (!url) return res.status(400).json({ error: 'Missing URL' });
   if (!email) return res.status(400).json({ error: 'Missing email' });
 
-  // Validate email format
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
     return res.status(400).json({ error: 'Invalid email format' });
   }
 
-  // Generate unique scan ID for concurrent handling
+  // Generate unique scan ID
   const scanId = `${email}-${Date.now()}`;
-  
+
   // Check if user has an active scan
   const existingUserScan = Array.from(activeScans.values()).find(scan => scan.email === email && scan.inProgress);
   if (existingUserScan) {
@@ -77,19 +117,15 @@ app.post('/scan', async (req, res) => {
       'INSERT INTO submissions(email, url, fast_mode) VALUES($1, $2, $3)',
       [email, url, fastMode || false]
     );
-    console.log('✅ Email saved to database');
   } catch (dbErr) {
     console.error('❌ Failed to save email to database:', dbErr);
   }
 
-  // Log to Excel immediately
+  // Log to Excel
   try {
-    console.log('📝 Attempting to log to Excel...');
     logScanToExcel(email, url, fastMode);
-    console.log('✅ Successfully logged to Excel');
   } catch (error) {
     console.error('❌ Failed to log to Excel:', error);
-    // Continue with scan even if logging fails
   }
 
   // Mark scan as in progress
@@ -97,26 +133,42 @@ app.post('/scan', async (req, res) => {
 
   const fastFlag = fastMode ? '--fast' : '';
   const cmd = `node cli.js "${url}" ${fastFlag}`.trim();
-  
+
   exec(cmd, { cwd: __dirname, maxBuffer: 10 * 1024 * 1024 }, (err, stdout, stderr) => {
-    // Mark scan as complete
     const scanData = activeScans.get(scanId);
-    if (scanData) {
-      scanData.inProgress = false;
-    }
-    
-    // Clean up old completed scans (older than 5 minutes)
+    if (scanData) scanData.inProgress = false;
+
+    // Cleanup old scans
     const fiveMinutesAgo = Date.now() - 5 * 60 * 1000;
     for (const [id, scan] of activeScans.entries()) {
-      if (!scan.inProgress && scan.timestamp < fiveMinutesAgo) {
-        activeScans.delete(id);
-      }
+      if (!scan.inProgress && scan.timestamp < fiveMinutesAgo) activeScans.delete(id);
     }
 
     if (err) {
-      return res.status(500).json({ error: stderr || err.message });
+      const errorMsg = stderr || err.message || 'فشل الفحص';
+      return res.status(500).json({ error: errorMsg });
     }
-    res.json({ result: stdout, scanId });
+
+    try {
+      // Create folder per website
+      const sanitizedDomain = url.replace(/^https?:\/\//, '').replace(/[\/:?&]/g, '_');
+      const reportDir = path.join(__dirname, 'reports', sanitizedDomain + '_scan');
+      fs.mkdirSync(reportDir, { recursive: true });
+      const reportPath = path.join(reportDir, 'report.html');
+
+      try {
+        const finalReport = generateHTMLReport(url, stdout); // pass URL and cli results
+        fs.writeFileSync(reportPath, finalReport, 'utf-8');
+        const reportUrl = `/reports/report.html`;
+        return res.json({ success: true, reportUrl });
+      } catch (reportErr) {
+        console.error('❌ Failed to generate report:', reportErr);
+        return res.status(500).json({ error: 'فشل إنشاء التقرير' });
+      }
+    } catch (fsErr) {
+      console.error('❌ Failed to write report file:', fsErr);
+      return res.status(500).json({ error: 'فشل حفظ التقرير على الخادم' });
+    }
   });
 });
 

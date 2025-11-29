@@ -1,20 +1,12 @@
 {
-  "url": "https://mc.gov.sa",
-  "title": "وزارة التجارة",
-  "snapPath": "snap-1764266027992.png",
-  "timestamp": "2025-11-27T17:54:24.462Z",
+  "url": "https://dga.gov.sa",
+  "title": "هيئة الحكومة الرقمية",
+  "snapPath": "snap-1764414112982.png",
+  "timestamp": "2025-11-29T11:01:54.138Z",
   "fonts": [
-    "Times",
-    "DroidArabicKufi, arial, sans-serif",
-    "DroidArabicKufi-Bold, arial, sans-serif",
-    "\"Segoe UI\", Tahoma, \"Microsoft Sans Serif\", sans-serif",
-    "verdana, arial, sans-serif",
-    "Glyphicons Halflings",
-    "mci-icons",
-    "DroidArabicKufi",
-    "DroidArabicKufi-Bold",
-    "Open Sans",
-    "Righteous",
+    "regularFont",
+    "boldFont",
+    "mediumFont",
     "IBM Plex Sans Arabic",
     "IBM Plex Arabic",
     "IBM Plex Sans",
@@ -22,19 +14,9 @@
     "IBMPlexSansArabic"
   ],
   "fontFaces": [
-    "Times",
-    "DroidArabicKufi",
-    "arial",
-    "sans-serif",
-    "DroidArabicKufi-Bold",
-    "Segoe UI",
-    "Tahoma",
-    "Microsoft Sans Serif",
-    "verdana",
-    "Glyphicons Halflings",
-    "mci-icons",
-    "Open Sans",
-    "Righteous",
+    "regularFont",
+    "boldFont",
+    "mediumFont",
     "IBM Plex Sans Arabic",
     "IBM Plex Arabic",
     "IBM Plex Sans",
@@ -50,28 +32,16 @@
       "match": false
     },
     {
-      "color": "rgb(51, 51, 51)",
-      "closest": "rgb(31,42,55)",
-      "distance": 22.293496809607955,
+      "color": "rgb(112, 111, 111)",
+      "closest": "rgb(108,115,127)",
+      "distance": 16.97056274847714,
       "match": true
     },
     {
-      "color": "rgb(255, 255, 255)",
+      "color": "rgb(252, 252, 253)",
       "closest": "rgb(252,252,253)",
-      "distance": 4.69041575982343,
+      "distance": 0,
       "match": true
-    },
-    {
-      "color": "rgb(233, 233, 233)",
-      "closest": "rgb(229,231,235)",
-      "distance": 4.898979485566356,
-      "match": true
-    },
-    {
-      "color": "rgb(255, 0, 0)",
-      "closest": "rgb(148,92,1)",
-      "distance": 141.1169727566461,
-      "match": false
     },
     {
       "color": "rgb(243, 244, 246)",
@@ -92,348 +62,132 @@
       "match": true
     },
     {
-      "color": "rgb(6, 118, 71)",
-      "closest": "rgb(22,106,69)",
-      "distance": 20.09975124224178,
-      "match": true
-    },
-    {
       "color": "rgb(56, 66, 80)",
       "closest": "rgb(56,66,80)",
       "distance": 0,
       "match": true
     },
     {
-      "color": "rgb(51, 122, 183)",
-      "closest": "rgb(108,115,127)",
-      "distance": 80.2122185206219,
-      "match": false
-    },
-    {
-      "color": "rgba(255, 255, 255, 0.4)",
+      "color": "rgb(255, 255, 255)",
       "closest": "rgb(252,252,253)",
       "distance": 4.69041575982343,
       "match": true
     },
     {
-      "color": "rgba(0, 136, 131, 0.85)",
-      "closest": "rgb(37,147,95)",
-      "distance": 52.78257288158659,
-      "match": false
-    },
-    {
-      "color": "rgb(12, 59, 54)",
-      "closest": "rgb(16,70,49)",
-      "distance": 12.727922061357855,
-      "match": true
-    },
-    {
-      "color": "rgba(255, 255, 255, 0)",
-      "closest": "rgb(252,252,253)",
-      "distance": 4.69041575982343,
-      "match": true
-    },
-    {
-      "color": "rgb(136, 136, 136)",
-      "closest": "rgb(108,115,127)",
-      "distance": 36.138621999185304,
-      "match": false
-    },
-    {
-      "color": "rgb(119, 119, 119)",
-      "closest": "rgb(108,115,127)",
-      "distance": 14.177446878757825,
-      "match": true
-    },
-    {
-      "color": "rgb(41, 142, 189)",
-      "closest": "rgb(84,192,138)",
-      "distance": 83.36666000266533,
-      "match": false
-    },
-    {
-      "color": "rgba(248, 248, 248, 0.95)",
+      "color": "rgb(249, 250, 251)",
       "closest": "rgb(249,250,251)",
-      "distance": 3.7416573867739413,
+      "distance": 0,
       "match": true
     },
     {
-      "color": "rgb(0, 175, 169)",
-      "closest": "rgb(37,147,95)",
-      "distance": 87.34414691323055,
-      "match": false
+      "color": "rgb(31, 42, 55)",
+      "closest": "rgb(31,42,55)",
+      "distance": 0,
+      "match": true
     },
     {
-      "color": "rgb(221, 221, 221)",
+      "color": "rgb(219, 161, 2)",
+      "closest": "rgb(219,161,2)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(247, 253, 249)",
+      "closest": "rgb(247,253,249)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(6, 118, 71)",
+      "closest": "rgb(22,106,69)",
+      "distance": 20.09975124224178,
+      "match": true
+    },
+    {
+      "color": "rgb(210, 214, 219)",
       "closest": "rgb(210,214,219)",
-      "distance": 13.19090595827292,
+      "distance": 0,
       "match": true
     },
     {
-      "color": "rgb(102, 102, 102)",
+      "color": "rgb(108, 115, 127)",
       "closest": "rgb(108,115,127)",
-      "distance": 28.809720581775867,
+      "distance": 0,
       "match": true
     },
     {
-      "color": "rgb(10, 101, 98)",
-      "closest": "rgb(22,106,69)",
-      "distance": 31.78049716414141,
-      "match": false
-    },
-    {
-      "color": "rgb(231, 242, 248)",
-      "closest": "rgb(243,244,246)",
-      "distance": 12.328828005937952,
-      "match": true
-    },
-    {
-      "color": "rgba(255, 255, 255, 0.6)",
-      "closest": "rgb(252,252,253)",
-      "distance": 4.69041575982343,
-      "match": true
-    },
-    {
-      "color": "rgb(19, 136, 132)",
-      "closest": "rgb(37,147,95)",
-      "distance": 42.59107887809371,
-      "match": false
-    },
-    {
-      "color": "rgb(90, 174, 176)",
-      "closest": "rgb(84,192,138)",
-      "distance": 42.473521163190604,
-      "match": false
-    },
-    {
-      "color": "rgba(255, 255, 255, 0.9)",
-      "closest": "rgb(252,252,253)",
-      "distance": 4.69041575982343,
-      "match": true
-    },
-    {
-      "color": "rgba(255, 255, 255, 0.5)",
-      "closest": "rgb(252,252,253)",
-      "distance": 4.69041575982343,
-      "match": true
-    },
-    {
-      "color": "rgb(230, 107, 46)",
-      "closest": "rgb(184,123,2)",
-      "distance": 65.63535632568775,
-      "match": false
-    },
-    {
-      "color": "rgb(244, 246, 245)",
-      "closest": "rgb(243,244,246)",
-      "distance": 2.449489742783178,
-      "match": true
-    },
-    {
-      "color": "rgb(125, 134, 139)",
-      "closest": "rgb(108,115,127)",
-      "distance": 28.178005607210743,
-      "match": true
-    },
-    {
-      "color": "rgb(85, 85, 85)",
-      "closest": "rgb(77,87,97)",
-      "distance": 14.560219778561036,
-      "match": true
-    },
-    {
-      "color": "rgb(10, 102, 99)",
-      "closest": "rgb(22,106,69)",
-      "distance": 32.55764119219941,
-      "match": false
-    },
-    {
-      "color": "rgb(238, 238, 238)",
-      "closest": "rgb(243,244,246)",
-      "distance": 11.180339887498949,
-      "match": true
-    },
-    {
-      "color": "rgb(246, 246, 246)",
-      "closest": "rgb(243,244,246)",
-      "distance": 3.605551275463989,
-      "match": true
-    },
-    {
-      "color": "rgb(225, 225, 225)",
-      "closest": "rgb(229,231,235)",
-      "distance": 12.328828005937952,
-      "match": true
-    },
-    {
-      "color": "rgb(153, 153, 153)",
-      "closest": "rgb(157,164,174)",
-      "distance": 24.041630560342615,
-      "match": true
-    },
-    {
-      "color": "rgb(170, 170, 170)",
-      "closest": "rgb(157,164,174)",
-      "distance": 14.866068747318506,
-      "match": true
-    },
-    {
-      "color": "rgb(200, 74, 61)",
-      "closest": "rgb(184,123,2)",
-      "distance": 78.34538914320358,
-      "match": false
-    },
-    {
-      "color": "rgb(246, 130, 119)",
-      "closest": "rgb(247,213,77)",
-      "distance": 93.02687783646186,
-      "match": false
-    },
-    {
-      "color": "rgb(68, 68, 68)",
-      "closest": "rgb(56,66,80)",
-      "distance": 17.08800749063506,
-      "match": true
-    },
-    {
-      "color": "rgba(255, 255, 255, 0.85)",
-      "closest": "rgb(252,252,253)",
-      "distance": 4.69041575982343,
-      "match": true
-    },
-    {
-      "color": "rgb(204, 204, 204)",
-      "closest": "rgb(210,214,219)",
-      "distance": 19,
-      "match": true
-    },
-    {
-      "color": "rgb(236, 236, 236)",
-      "closest": "rgb(229,231,235)",
-      "distance": 8.660254037844387,
-      "match": true
-    },
-    {
-      "color": "rgb(234, 233, 233)",
-      "closest": "rgb(229,231,235)",
-      "distance": 5.744562646538029,
-      "match": true
-    },
-    {
-      "color": "rgb(227, 227, 227)",
-      "closest": "rgb(229,231,235)",
-      "distance": 9.16515138991168,
-      "match": true
-    },
-    {
-      "color": "rgba(0, 175, 169, 0.5)",
-      "closest": "rgb(37,147,95)",
-      "distance": 87.34414691323055,
-      "match": false
-    },
-    {
-      "color": "rgb(21, 136, 133)",
-      "closest": "rgb(37,147,95)",
-      "distance": 42.67317658670374,
-      "match": false
-    },
-    {
-      "color": "rgba(255, 255, 255, 0.25)",
-      "closest": "rgb(252,252,253)",
-      "distance": 4.69041575982343,
-      "match": true
-    },
-    {
-      "color": "rgb(0, 104, 101)",
-      "closest": "rgb(22,106,69)",
-      "distance": 38.88444419044716,
-      "match": false
-    },
-    {
-      "color": "rgb(6, 117, 114)",
-      "closest": "rgb(27,131,84)",
-      "distance": 39.20459156782532,
-      "match": false
-    },
-    {
-      "color": "rgb(32, 157, 153)",
-      "closest": "rgb(37,147,95)",
-      "distance": 59.06775770248944,
-      "match": false
-    },
-    {
-      "color": "rgba(0, 0, 0, 0.15)",
-      "closest": "rgb(13,18,28)",
-      "distance": 35.73513677041127,
-      "match": false
-    },
-    {
-      "color": "rgb(97, 179, 161)",
-      "closest": "rgb(84,192,138)",
-      "distance": 29.444863728670914,
-      "match": true
-    },
-    {
-      "color": "rgb(0, 128, 0)",
+      "color": "rgb(8, 93, 58)",
       "closest": "rgb(20,87,58)",
-      "distance": 73.79024325749306,
-      "match": false
-    },
-    {
-      "color": "rgba(0, 0, 0, 0.2)",
-      "closest": "rgb(13,18,28)",
-      "distance": 35.73513677041127,
-      "match": false
-    },
-    {
-      "color": "rgb(222, 226, 230)",
-      "closest": "rgb(229,231,235)",
-      "distance": 9.9498743710662,
+      "distance": 13.416407864998739,
       "match": true
     },
     {
-      "color": "rgba(0, 0, 0, 0.9)",
-      "closest": "rgb(13,18,28)",
-      "distance": 35.73513677041127,
-      "match": false
+      "color": "rgb(236, 253, 243)",
+      "closest": "rgb(243,252,246)",
+      "distance": 7.681145747868608,
+      "match": true
     },
     {
-      "color": "rgb(241, 214, 0)",
-      "closest": "rgb(245,189,2)",
-      "distance": 25.39685019840059,
+      "color": "rgb(171, 239, 198)",
+      "closest": "rgb(184,234,203)",
+      "distance": 14.798648586948742,
+      "match": true
+    },
+    {
+      "color": "rgb(22, 114, 72)",
+      "closest": "rgb(22,106,69)",
+      "distance": 8.54400374531753,
+      "match": true
+    },
+    {
+      "color": "rgb(229, 231, 235)",
+      "closest": "rgb(229,231,235)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(255, 254, 242)",
+      "closest": "rgb(255,255,242)",
+      "distance": 1,
+      "match": true
+    },
+    {
+      "color": "rgb(252, 243, 189)",
+      "closest": "rgb(252,243,189)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(13, 18, 28)",
+      "closest": "rgb(13,18,28)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(117, 117, 117)",
+      "closest": "rgb(108,115,127)",
+      "distance": 13.601470508735444,
+      "match": true
+    },
+    {
+      "color": "rgb(7, 77, 49)",
+      "closest": "rgb(16,70,49)",
+      "distance": 11.40175425099138,
+      "match": true
+    },
+    {
+      "color": "rgba(255, 255, 255, 0.3)",
+      "closest": "rgb(252,252,253)",
+      "distance": 4.69041575982343,
       "match": true
     }
   ],
   "logo": "logo.svg",
-  "favicon": "https://mc.gov.sa/Style%20Library/ar-sa/Styles/images/favicon.png",
+  "favicon": "https://dga.gov.sa/themes/custom/dga/favicon.ico",
   "digitalStamp": {
     "present": true,
     "reason": "موقع حكومي موثق: يحتوي على النص الرسمي + رقم + علم المملكة",
     "selectors": [
-      {
-        "selector": "form",
-        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية\nكيف تتحقق \n  \nتسجيل الدخول\nأسئلة شائعة\nEn\nعن الوزارة\nالفروع\nالأنظمة واللوائح\nالأدلة والإجراءات\nال"
-      },
-      {
-        "selector": "div",
-        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية\nكيف تتحقق \n  \nتسجيل الدخول\nأسئلة شائعة\nEn\nعن الوزارة\nالفروع\nالأنظمة واللوائح\nالأدلة والإجراءات\nال"
-      },
-      {
-        "selector": "div",
-        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية\nكيف تتحقق \n  \nتسجيل الدخول\nأسئلة شائعة\nEn\nعن الوزارة\nالفروع\nالأنظمة واللوائح\nالأدلة والإجراءات\nال"
-      },
-      {
-        "selector": "div",
-        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية\nكيف تتحقق "
-      },
-      {
-        "selector": "div",
-        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية\nكيف تتحقق "
-      },
-      {
-        "selector": "div",
-        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية\nكيف تتحقق "
-      },
       {
         "selector": "div",
         "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية\nكيف تتحقق "
@@ -448,103 +202,58 @@
       }
     ],
     "images": [
-      "https://mc.gov.sa/ar/RelatedSites/Socpa_new_logl.png",
-      "https://mc.gov.sa/ar/RelatedSites/Edemad.png",
-      "https://mc.gov.sa/ar/RelatedSites/SASO.jpg",
-      "https://mc.gov.sa/ar/RelatedSites/AMMAL.png"
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/CountryFlags.svg"
     ],
     "svg": null,
     "qrCount": 0
   },
-  "colorFailures": [
-    {
-      "color": "rgb(0, 0, 0)",
-      "screenshot": "color-fail-1764266033593-1.png",
-      "snippet": "<html lang=\"ar-AR\" dir=\"rtl\" style=\"\" class=\"js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generate",
-      "selector": null,
-      "rect": null
-    },
-    {
-      "color": "rgb(51, 122, 183)",
-      "screenshot": "color-fail-1764266043847-3.png",
-      "snippet": "<a title=\"vision 2030\" href=\"https://www.vision2030.gov.sa/ar\"><span style=\"display: none;\">vission</span>\n                                                <img src=\"/Style%20Library/ar-sa/Styles/images/visionlogo.svg\" alt=\"\" class=\"vissionlogoImg\">\n                                            </a>",
-      "selector": null,
-      "rect": null
-    }
-  ],
+  "colorFailures": [],
   "hasSearchBar": true,
   "spacings": [
     "0px",
-    "20px",
-    "55px",
-    "15px",
-    "-15px",
     "8px",
     "32px",
+    "38px",
+    "auto",
     "40px",
-    "14px",
-    "16px",
     "12px",
     "28px",
-    "5px",
-    "26px",
-    "10px",
-    "17px",
-    "2px",
-    "3px",
-    "4px",
-    "-65px",
-    "-1px",
-    "auto",
-    "9px",
-    "60px",
-    "30px",
-    "25px",
-    "290px",
-    "-50px",
-    "75px",
-    "35px",
-    "-30px",
-    "11px",
-    "4.51562px",
-    "-2px",
-    "0.5%",
-    "-7px",
-    "1.09375px",
-    "6.59375px",
-    "22px",
-    "-25px",
-    "50px",
-    "45px",
-    "38px",
-    "-3px",
-    "152px",
-    "-22px",
-    "18px",
-    "1px",
-    "6px",
-    "7px",
-    "19px",
-    "24px",
-    "23px",
-    "-16px",
-    "-295px",
     "70px",
-    "37px",
-    "1%"
+    "16px",
+    "-16px",
+    "10px",
+    "-897px",
+    "80px",
+    "64px",
+    "4px",
+    "24px",
+    "50px",
+    "1px",
+    "30px",
+    "-1140px",
+    "5px",
+    "109.766px",
+    "302.547px",
+    "300.203px",
+    "60px",
+    "-847px",
+    "9px",
+    "48px"
   ],
   "spacingMatches": [
-    20,
     8,
     32,
     40,
-    16,
     12,
+    16,
+    80,
+    64,
     4,
-    24
+    24,
+    48
   ],
-  "spacingAccuracy": 19.047619047619047,
-  "screenshotMobile": "snap-1764266028312-mobile.png",
-  "screenshotTablet": "snap-1764266028312-tablet.png",
-  "screenshotDesktop": "snap-1764266028312-desktop.png"
+  "spacingAccuracy": 43.47826086956522,
+  "screenshotMobile": "",
+  "screenshotTablet": "",
+  "screenshotDesktop": ""
 }

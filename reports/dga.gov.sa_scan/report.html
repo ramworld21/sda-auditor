@@ -1,0 +1,37 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8" />
+<title>تقرير الفحص</title>
+<style>
+  body { font-family: Arial, sans-serif; background:#f7f7f7; padding:20px; }
+  .box { background:white; padding:20px; border-radius:10px; box-shadow:0 2px 6px rgba(0,0,0,0.1); }
+  h1 { margin-top:0; }
+  .section { margin-bottom:20px; }
+  .section h2 { margin-bottom:10px; font-size:20px; }
+  .good { color:green; font-weight:bold; }
+  .bad { color:red; font-weight:bold; }
+</style>
+</head>
+<body>
+<div class="box">
+  <h1>تقرير فحص الموقع</h1>
+  <div class="section">
+    <h2>الرابط</h2>
+    <p>https://dga.gov.sa</p>
+  </div>
+  <div class="section">
+    <h2>مخرجات الفحص</h2>
+    <pre>IBM Plex variant detected among page font families: regularFont, boldFont, mediumFont, IBM Plex Sans Arabic, IBM Plex Arabic, IBM Plex Sans, IBMPlexSans, IBMPlexSansArabic
+✅ HTML report saved in reports/report.html
+Color audit done. JSON + HTML reports generated.
+</pre>
+  </div>
+  <div class="section">
+    <h2>إجمالي الحالة</h2>
+    <p class="good">✔ تم إنشاء التقرير بنجاح</p>
+  </div>
+</div>
+</body>
+</html>
