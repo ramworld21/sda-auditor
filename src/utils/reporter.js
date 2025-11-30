@@ -20,11 +20,12 @@ export function generateHTMLReport(result) {
       }
     }
     if (!entityLogo) entityLogo = 'https://via.placeholder.com/80x48?text=Logo';
-  const fullScreenshot = result.snapPath || '';
+  // Use absolute paths under /reports so assets load when report is in a subfolder
+  const fullScreenshot = result.snapPath ? `/reports/${result.snapPath}` : '';
   const responsiveScreens = [
-    { label: 'جوال (375x812)', src: result.screenshotMobile || '', key: 'mobile' },
-    { label: 'تابلت (768x1024)', src: result.screenshotTablet || '', key: 'tablet' },
-    { label: 'ديسكتوب (1440x900)', src: result.screenshotDesktop || '', key: 'desktop' }
+    { label: 'جوال (375x812)', src: result.screenshotMobile ? `/reports/${result.screenshotMobile}` : '', key: 'mobile' },
+    { label: 'تابلت (768x1024)', src: result.screenshotTablet ? `/reports/${result.screenshotTablet}` : '', key: 'tablet' },
+    { label: 'ديسكتوب (1440x900)', src: result.screenshotDesktop ? `/reports/${result.screenshotDesktop}` : '', key: 'desktop' }
   ].filter(s => s.src);
   // Determine document language and direction
   const isRTL = (s) => /[\u0591-\u08FF]/.test(s || '');
@@ -53,20 +54,84 @@ export function generateHTMLReport(result) {
         .header img { height: 42px; }
         .report-title { font-size: 1.6rem; color: var(--primary); font-weight: 700; margin: 0; }
         @media print {
-          @page { size: A4; margin: 15mm; }
-          * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-          body { padding-top: 0; padding-bottom: 0; background: white; }
-          .header { position: relative; page-break-after: avoid; }
-          .footer { position: relative; page-break-before: avoid; margin-top: 20px; }
-          .container { max-width: 100%; }
-          .card { page-break-inside: avoid; margin-bottom: 20px; }
-          h2, h3 { page-break-after: avoid; }
-          table { page-break-inside: auto; }
-          tr { page-break-inside: avoid; page-break-after: auto; }
-          img { max-width: 100%; height: auto; }
+          @page { 
+            size: A4; 
+            margin: 12mm 15mm; 
+          }
+          * { 
+            -webkit-print-color-adjust: exact !important; 
+            print-color-adjust: exact !important;
+            color-adjust: exact !important;
+          }
+          body { 
+            padding: 0; 
+            margin: 0;
+            background: white !important; 
+            font-size: 11pt;
+          }
+          .header { 
+            position: relative; 
+            page-break-after: avoid; 
+            margin-bottom: 8mm;
+            background: white !important;
+          }
+          .footer { 
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 20mm;
+            background: white;
+            border-top: 2px solid var(--primary);
+            padding: 10px 15mm;
+          }
+          .container { 
+            max-width: 100%; 
+            padding: 0;
+            margin: 0;
+            padding-bottom: 25mm; /* Space for fixed footer */
+          }
+          .card { 
+            page-break-inside: avoid; 
+            margin-bottom: 12px;
+            box-shadow: none;
+            border: 1px solid #e5e7eb;
+          }
+          h2 { 
+            page-break-after: avoid; 
+            font-size: 14pt;
+            margin-top: 0;
+          }
+          h3 { 
+            page-break-after: avoid;
+            font-size: 12pt;
+          }
+          table { 
+            page-break-inside: auto;
+            font-size: 10pt;
+          }
+          tr { 
+            page-break-inside: avoid; 
+            page-break-after: auto; 
+          }
+          img { 
+            max-width: 100%; 
+            height: auto;
+            page-break-inside: avoid;
+          }
+          .responsive-grid { 
+            grid-template-columns: 1fr 1fr 1fr; 
+          }
+          .responsive-cell img {
+            max-height: 180px;
+            object-fit: contain;
+          }
+          .three-col-grid {
+            grid-template-columns: 1fr 1fr 1fr;
+          }
         }
         .container { max-width: 980px; margin: 18px auto; padding: 18px; }
-        .card { background: white; padding: 1.25rem; border-radius: 12px; box-shadow: 0 6px 24px rgba(15,23,36,0.06); margin-bottom: 1.25rem; border: 1px solid rgba(15,23,36,0.04); }
+        .card { background: white; padding: 16px 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(15,23,36,0.08); margin-bottom: 16px; border: 1px solid #e5e7eb; }
         h2 { color: var(--primary); margin-top: 0; }
         .meta { color: var(--muted); font-size: 0.98em; margin-bottom: 8px; }
         .swatch { display: inline-block; width: 24px; height: 24px; border: 1px solid #aaa; vertical-align: middle; margin-right: 8px; border-radius: 6px; }
@@ -97,7 +162,7 @@ export function generateHTMLReport(result) {
         .actions { display: flex; gap: 12px; margin-top: 10px; }
         .btn { background: var(--accent); color: #fff; border: none; border-radius: 8px; padding: 10px 18px; font-size: 1em; cursor: pointer; font-weight: 600; transition: background .18s; }
         .btn:hover { background: #1ca1c2; }
-        .footer { background: linear-gradient(135deg, #f8f9fa, #fff); border-top: 3px solid var(--primary); padding: 24px 32px; display: flex; align-items: center; justify-content: space-between; font-size: 0.95em; color: var(--muted); position: relative; box-shadow: 0 -4px 12px rgba(0,0,0,0.04); }
+        .footer { background: white; border-top: 2px solid var(--primary); padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; font-size: 0.9em; color: var(--muted); position: relative; }
         .footer .info { display: flex; flex-direction: column; gap: 6px; }
         .footer .info strong { color: var(--primary); font-weight: 700; font-size: 1.1em; }
         .footer img { height: 42px; margin-left: 18px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
@@ -145,7 +210,8 @@ export function generateHTMLReport(result) {
           document.body.appendChild(loadingDiv);
           
           try {
-            const resp = await fetch(origin + '/report-pdf');
+            const currentPath = (window.location && window.location.pathname) ? window.location.pathname : '/reports/report.html';
+            const resp = await fetch(origin + '/report-pdf?path=' + encodeURIComponent(currentPath));
             if (resp.ok) {
               const blob = await resp.blob();
               const url = URL.createObjectURL(blob);
@@ -213,7 +279,7 @@ export function generateHTMLReport(result) {
         <!-- Interactive Accuracy Chart -->
         <div class="card">
           <h2>نظرة عامة على دقة التوافق</h2>
-          <div style="max-width:600px;margin:20px auto;position:relative;height:350px">
+          <div style="max-width:500px;margin:20px auto;position:relative;height:300px">
             <canvas id="accuracyChart"></canvas>
           </div>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:24px">
@@ -282,7 +348,7 @@ export function generateHTMLReport(result) {
             ${result.colorFailures.slice(0,2).map(cf => `
               <div style="width:220px;background:#fff;border:1px solid #eee;padding:8px;border-radius:10px;box-shadow:0 4px 12px rgba(2,6,23,0.04);">
                 <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;"><div class="swatch" style="background:${cf.color};width:28px;height:28px;border-radius:6px;border:1px solid #ddd"></div><div style="font-size:13px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">${cf.color}</div></div>
-                <img src="${cf.screenshot}" style="width:100%;height:120px;object-fit:cover;border-radius:8px;cursor:pointer" onclick="showFullScreenshot('${cf.screenshot}')">
+                <img src="/reports/${cf.screenshot}" style="width:100%;height:120px;object-fit:cover;border-radius:8px;cursor:pointer" onclick="showFullScreenshot('/reports/${cf.screenshot}')">
                 <div style="margin-top:8px;font-size:12px;color:var(--muted);max-height:48px;overflow:hidden">${cf.snippet ? cf.snippet.replace(/</g,'&lt;').replace(/>/g,'&gt;') : ''}</div>
                 <div style="margin-top:8px;font-size:12px;color:var(--muted)"><strong>Selector:</strong> <code style="font-size:12px">${cf.selector || 'N/A'}</code></div>
                 <div style="margin-top:4px;font-size:12px;color:var(--muted)"><strong>Rect:</strong> ${cf.rect ? `x:${Math.round(cf.rect.x)}, y:${Math.round(cf.rect.y)}, w:${Math.round(cf.rect.width)}, h:${Math.round(cf.rect.height)}` : 'N/A'}</div>
@@ -295,7 +361,7 @@ export function generateHTMLReport(result) {
             ${result.colorFailures.slice(2).map(cf => `
               <div style="width:220px;background:#fff;border:1px solid #eee;padding:8px;border-radius:10px;box-shadow:0 4px 12px rgba(2,6,23,0.04);">
                 <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;"><div class="swatch" style="background:${cf.color};width:28px;height:28px;border-radius:6px;border:1px solid #ddd"></div><div style="font-size:13px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">${cf.color}</div></div>
-                <img src="${cf.screenshot}" style="width:100%;height:120px;object-fit:cover;border-radius:8px;cursor:pointer" onclick="showFullScreenshot('${cf.screenshot}')">
+                <img src="/reports/${cf.screenshot}" style="width:100%;height:120px;object-fit:cover;border-radius:8px;cursor:pointer" onclick="showFullScreenshot('/reports/${cf.screenshot}')">
                 <div style="margin-top:8px;font-size:12px;color:var(--muted);max-height:48px;overflow:hidden">${cf.snippet ? cf.snippet.replace(/</g,'&lt;').replace(/>/g,'&gt;') : ''}</div>
                 <div style="margin-top:8px;font-size:12px;color:var(--muted)"><strong>Selector:</strong> <code style="font-size:12px">${cf.selector || 'N/A'}</code></div>
                 <div style="margin-top:4px;font-size:12px;color:var(--muted)"><strong>Rect:</strong> ${cf.rect ? `x:${Math.round(cf.rect.x)}, y:${Math.round(cf.rect.y)}, w:${Math.round(cf.rect.width)}, h:${Math.round(cf.rect.height)}` : 'N/A'}</div>
@@ -576,7 +642,8 @@ export function generateHTMLReport(result) {
           document.body.appendChild(loadingDiv);
           
           try {
-            const resp = await fetch(origin + '/report-pdf');
+            const currentPath = (window.location && window.location.pathname) ? window.location.pathname : '/reports/report.html';
+            const resp = await fetch(origin + '/report-pdf?path=' + encodeURIComponent(currentPath));
             if (resp.ok) {
               const blob = await resp.blob();
               const url = URL.createObjectURL(blob);
@@ -679,6 +746,16 @@ export function generateHTMLReport(result) {
     </body>
     </html>
   `;
-  fs.writeFileSync('reports/report.html', html, 'utf-8');
-  console.log("✅ HTML report saved in reports/report.html");
+  // Save to a unique subfolder: <sanitized-domain>-<timestamp>/report.html
+  const ts = result.timestamp ? new Date(result.timestamp).getTime() : Date.now();
+  const domainPart = (result.url || 'site')
+    .replace(/^https?:\/\//, '')
+    .replace(/[\/:?&#%\s]+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+  const slug = `${domainPart}-${ts}`;
+  const outDir = `reports/${slug}`;
+  try { if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true }); } catch (e) {}
+  fs.writeFileSync(`${outDir}/report.html`, html, 'utf-8');
+  console.log(`✅ HTML report saved in ${outDir}/report.html`);
 }

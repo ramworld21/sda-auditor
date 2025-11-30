@@ -150,24 +150,23 @@ app.post('/scan', async (req, res) => {
     }
 
     try {
-      // Create folder per website
-      const sanitizedDomain = url.replace(/^https?:\/\//, '').replace(/[\/:?&]/g, '_');
-      const reportDir = path.join(__dirname, 'reports', sanitizedDomain + '_scan');
-      fs.mkdirSync(reportDir, { recursive: true });
-      const reportPath = path.join(reportDir, 'report.html');
-
-      try {
-        const finalReport = generateHTMLReport(url, stdout); // pass URL and cli results
-        fs.writeFileSync(reportPath, finalReport, 'utf-8');
-        const reportUrl = `/reports/report.html`;
-        return res.json({ success: true, reportUrl });
-      } catch (reportErr) {
-        console.error('❌ Failed to generate report:', reportErr);
-        return res.status(500).json({ error: 'فشل إنشاء التقرير' });
-      }
+      // Read latest JSON produced by CLI to derive unique report path
+      const jsonPath = path.join(__dirname, 'reports', 'color-audit.json');
+      const raw = fs.readFileSync(jsonPath, 'utf-8');
+      const data = JSON.parse(raw);
+      const ts = data.timestamp ? new Date(data.timestamp).getTime() : Date.now();
+      const domainPart = (data.url || url || 'site')
+        .replace(/^https?:\/\//, '')
+        .replace(/[\/:?&#%\s]+/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-|-$/g, '');
+      const slug = `${domainPart}-${ts}`;
+      const reportUrl = `/reports/${slug}/report.html`;
+      return res.json({ success: true, reportUrl });
     } catch (fsErr) {
-      console.error('❌ Failed to write report file:', fsErr);
-      return res.status(500).json({ error: 'فشل حفظ التقرير على الخادم' });
+      console.error('❌ Failed to locate generated report path:', fsErr);
+      // Fallback to legacy path
+      return res.json({ success: true, reportUrl: '/reports/report.html' });
     }
   });
 });
@@ -196,8 +195,11 @@ app.get('/report-pdf', async (req, res) => {
       args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
     });
     const page = await browser.newPage();
-    // Load the hosted report HTML so relative assets resolve correctly
-    const reportUrl = `${req.protocol}://${req.get('host')}/reports/report.html`;
+    // Load the requested report HTML so relative assets resolve correctly
+    const requestedPath = req.query.path;
+    const reportUrl = (requestedPath && String(requestedPath).startsWith('/reports/'))
+      ? `${req.protocol}://${req.get('host')}${requestedPath}`
+      : `${req.protocol}://${req.get('host')}/reports/report.html`;
     await page.goto(reportUrl, { waitUntil: 'networkidle', timeout: 60000 });
     
     // Expand hidden sections for export

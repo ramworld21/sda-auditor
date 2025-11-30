@@ -21,20 +21,84 @@
         .header img { height: 42px; }
         .report-title { font-size: 1.6rem; color: var(--primary); font-weight: 700; margin: 0; }
         @media print {
-          @page { size: A4; margin: 15mm; }
-          * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
-          body { padding-top: 0; padding-bottom: 0; background: white; }
-          .header { position: relative; page-break-after: avoid; }
-          .footer { position: relative; page-break-before: avoid; margin-top: 20px; }
-          .container { max-width: 100%; }
-          .card { page-break-inside: avoid; margin-bottom: 20px; }
-          h2, h3 { page-break-after: avoid; }
-          table { page-break-inside: auto; }
-          tr { page-break-inside: avoid; page-break-after: auto; }
-          img { max-width: 100%; height: auto; }
+          @page { 
+            size: A4; 
+            margin: 12mm 15mm; 
+          }
+          * { 
+            -webkit-print-color-adjust: exact !important; 
+            print-color-adjust: exact !important;
+            color-adjust: exact !important;
+          }
+          body { 
+            padding: 0; 
+            margin: 0;
+            background: white !important; 
+            font-size: 11pt;
+          }
+          .header { 
+            position: relative; 
+            page-break-after: avoid; 
+            margin-bottom: 8mm;
+            background: white !important;
+          }
+          .footer { 
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 20mm;
+            background: white;
+            border-top: 2px solid var(--primary);
+            padding: 10px 15mm;
+          }
+          .container { 
+            max-width: 100%; 
+            padding: 0;
+            margin: 0;
+            padding-bottom: 25mm; /* Space for fixed footer */
+          }
+          .card { 
+            page-break-inside: avoid; 
+            margin-bottom: 12px;
+            box-shadow: none;
+            border: 1px solid #e5e7eb;
+          }
+          h2 { 
+            page-break-after: avoid; 
+            font-size: 14pt;
+            margin-top: 0;
+          }
+          h3 { 
+            page-break-after: avoid;
+            font-size: 12pt;
+          }
+          table { 
+            page-break-inside: auto;
+            font-size: 10pt;
+          }
+          tr { 
+            page-break-inside: avoid; 
+            page-break-after: auto; 
+          }
+          img { 
+            max-width: 100%; 
+            height: auto;
+            page-break-inside: avoid;
+          }
+          .responsive-grid { 
+            grid-template-columns: 1fr 1fr 1fr; 
+          }
+          .responsive-cell img {
+            max-height: 180px;
+            object-fit: contain;
+          }
+          .three-col-grid {
+            grid-template-columns: 1fr 1fr 1fr;
+          }
         }
         .container { max-width: 980px; margin: 18px auto; padding: 18px; }
-        .card { background: white; padding: 1.25rem; border-radius: 12px; box-shadow: 0 6px 24px rgba(15,23,36,0.06); margin-bottom: 1.25rem; border: 1px solid rgba(15,23,36,0.04); }
+        .card { background: white; padding: 16px 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(15,23,36,0.08); margin-bottom: 16px; border: 1px solid #e5e7eb; }
         h2 { color: var(--primary); margin-top: 0; }
         .meta { color: var(--muted); font-size: 0.98em; margin-bottom: 8px; }
         .swatch { display: inline-block; width: 24px; height: 24px; border: 1px solid #aaa; vertical-align: middle; margin-right: 8px; border-radius: 6px; }
@@ -65,7 +129,7 @@
         .actions { display: flex; gap: 12px; margin-top: 10px; }
         .btn { background: var(--accent); color: #fff; border: none; border-radius: 8px; padding: 10px 18px; font-size: 1em; cursor: pointer; font-weight: 600; transition: background .18s; }
         .btn:hover { background: #1ca1c2; }
-        .footer { background: linear-gradient(135deg, #f8f9fa, #fff); border-top: 3px solid var(--primary); padding: 24px 32px; display: flex; align-items: center; justify-content: space-between; font-size: 0.95em; color: var(--muted); position: relative; box-shadow: 0 -4px 12px rgba(0,0,0,0.04); }
+        .footer { background: white; border-top: 2px solid var(--primary); padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; font-size: 0.9em; color: var(--muted); position: relative; }
         .footer .info { display: flex; flex-direction: column; gap: 6px; }
         .footer .info strong { color: var(--primary); font-weight: 700; font-size: 1.1em; }
         .footer img { height: 42px; margin-left: 18px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)); }
@@ -181,16 +245,16 @@
         <!-- Interactive Accuracy Chart -->
         <div class="card">
           <h2>نظرة عامة على دقة التوافق</h2>
-          <div style="max-width:600px;margin:20px auto;position:relative;height:350px">
+          <div style="max-width:500px;margin:20px auto;position:relative;height:300px">
             <canvas id="accuracyChart"></canvas>
           </div>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:24px">
             <div style="background:linear-gradient(135deg,#e6fff7,#fff);padding:16px;border-radius:10px;border:2px solid #16a34a;text-align:center">
-              <div style="font-size:2em;font-weight:700;color:#16a34a">96.2%</div>
+              <div style="font-size:2em;font-weight:700;color:#16a34a">67.9%</div>
               <div style="color:#15803d;margin-top:4px">دقة الألوان</div>
             </div>
             <div style="background:linear-gradient(135deg,#eff6ff,#fff);padding:16px;border-radius:10px;border:2px solid var(--accent);text-align:center">
-              <div style="font-size:2em;font-weight:700;color:var(--accent)">43.5%</div>
+              <div style="font-size:2em;font-weight:700;color:var(--accent)">32.4%</div>
               <div style="color:var(--primary);margin-top:4px">دقة المسافات</div>
             </div>
             <div style="background:linear-gradient(135deg,#e6fff7,#fff);padding:16px;border-radius:10px;border:2px solid #16a34a;text-align:center">
@@ -211,8 +275,8 @@
         
         <div class="card">
           <h2>جدول مطابقة الألوان</h2>
-          <div class="meta"><strong>Color Accuracy:</strong> 96.2%</div>
-          <div class="accuracy-bar"><div class="accuracy-fill" style="width:96.2%;background:#16a34a"></div><span class="accuracy-label" style="color:#16a34a">96.2%</span></div>
+          <div class="meta"><strong>Color Accuracy:</strong> 67.9%</div>
+          <div class="accuracy-bar"><div class="accuracy-fill" style="width:67.9%;background:#16a34a"></div><span class="accuracy-label" style="color:#16a34a">67.9%</span></div>
           <div class="dropdown" style="margin-bottom:12px">
             <label for="color-filter" style="margin-left:8px;font-weight:600;color:var(--primary)">تصفية الألوان:</label>
             <select id="color-filter" onchange="filterColorTable(this.value)">
@@ -414,8 +478,228 @@
                   <td>✔️</td>
                 </tr>
               
+                <tr class="color-table-row no-match" data-match="wrong">
+                  <td><span class="swatch" style="background:rgba(0, 0, 0, 0.5)"></span>rgba(0, 0, 0, 0.5)</td>
+                  <td><span class="swatch" style="background:rgb(13,18,28)"></span>rgb(13,18,28)</td>
+                  <td>35.7</td>
+                  <td>❌</td>
+                </tr>
+              
+                <tr class="color-table-row no-match" data-match="wrong">
+                  <td><span class="swatch" style="background:rgb(217, 45, 32)"></span>rgb(217, 45, 32)</td>
+                  <td><span class="swatch" style="background:rgb(148,92,1)"></span>rgb(148,92,1)</td>
+                  <td>89.1</td>
+                  <td>❌</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgb(22, 106, 69)"></span>rgb(22, 106, 69)</td>
+                  <td><span class="swatch" style="background:rgb(22,106,69)"></span>rgb(22,106,69)</td>
+                  <td>0.0</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgb(65, 64, 66)"></span>rgb(65, 64, 66)</td>
+                  <td><span class="swatch" style="background:rgb(56,66,80)"></span>rgb(56,66,80)</td>
+                  <td>16.8</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgb(221, 221, 221)"></span>rgb(221, 221, 221)</td>
+                  <td><span class="swatch" style="background:rgb(210,214,219)"></span>rgb(210,214,219)</td>
+                  <td>13.2</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgb(234, 246, 239)"></span>rgb(234, 246, 239)</td>
+                  <td><span class="swatch" style="background:rgb(243,244,246)"></span>rgb(243,244,246)</td>
+                  <td>11.6</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row no-match" data-match="wrong">
+                  <td><span class="swatch" style="background:rgb(249, 174, 64)"></span>rgb(249, 174, 64)</td>
+                  <td><span class="swatch" style="background:rgb(247,213,77)"></span>rgb(247,213,77)</td>
+                  <td>41.2</td>
+                  <td>❌</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgba(255, 255, 255, 0.2)"></span>rgba(255, 255, 255, 0.2)</td>
+                  <td><span class="swatch" style="background:rgb(252,252,253)"></span>rgb(252,252,253)</td>
+                  <td>4.7</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row no-match" data-match="wrong">
+                  <td><span class="swatch" style="background:rgb(128, 0, 0)"></span>rgb(128, 0, 0)</td>
+                  <td><span class="swatch" style="background:rgb(110,60,0)"></span>rgb(110,60,0)</td>
+                  <td>62.6</td>
+                  <td>❌</td>
+                </tr>
+              
+                <tr class="color-table-row no-match" data-match="wrong">
+                  <td><span class="swatch" style="background:rgb(255, 0, 0)"></span>rgb(255, 0, 0)</td>
+                  <td><span class="swatch" style="background:rgb(148,92,1)"></span>rgb(148,92,1)</td>
+                  <td>141.1</td>
+                  <td>❌</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgb(255, 165, 0)"></span>rgb(255, 165, 0)</td>
+                  <td><span class="swatch" style="background:rgb(245,189,2)"></span>rgb(245,189,2)</td>
+                  <td>26.1</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row no-match" data-match="wrong">
+                  <td><span class="swatch" style="background:rgb(255, 255, 0)"></span>rgb(255, 255, 0)</td>
+                  <td><span class="swatch" style="background:rgb(245,189,2)"></span>rgb(245,189,2)</td>
+                  <td>66.8</td>
+                  <td>❌</td>
+                </tr>
+              
+                <tr class="color-table-row no-match" data-match="wrong">
+                  <td><span class="swatch" style="background:rgb(128, 128, 0)"></span>rgb(128, 128, 0)</td>
+                  <td><span class="swatch" style="background:rgb(148,92,1)"></span>rgb(148,92,1)</td>
+                  <td>41.2</td>
+                  <td>❌</td>
+                </tr>
+              
+                <tr class="color-table-row no-match" data-match="wrong">
+                  <td><span class="swatch" style="background:rgb(0, 128, 0)"></span>rgb(0, 128, 0)</td>
+                  <td><span class="swatch" style="background:rgb(20,87,58)"></span>rgb(20,87,58)</td>
+                  <td>73.8</td>
+                  <td>❌</td>
+                </tr>
+              
+                <tr class="color-table-row no-match" data-match="wrong">
+                  <td><span class="swatch" style="background:rgb(128, 0, 128)"></span>rgb(128, 0, 128)</td>
+                  <td><span class="swatch" style="background:rgb(77,87,97)"></span>rgb(77,87,97)</td>
+                  <td>105.5</td>
+                  <td>❌</td>
+                </tr>
+              
+                <tr class="color-table-row no-match" data-match="wrong">
+                  <td><span class="swatch" style="background:rgb(255, 0, 255)"></span>rgb(255, 0, 255)</td>
+                  <td><span class="swatch" style="background:rgb(157,164,174)"></span>rgb(157,164,174)</td>
+                  <td>207.5</td>
+                  <td>❌</td>
+                </tr>
+              
+                <tr class="color-table-row no-match" data-match="wrong">
+                  <td><span class="swatch" style="background:rgb(0, 255, 0)"></span>rgb(0, 255, 0)</td>
+                  <td><span class="swatch" style="background:rgb(37,147,95)"></span>rgb(37,147,95)</td>
+                  <td>148.5</td>
+                  <td>❌</td>
+                </tr>
+              
+                <tr class="color-table-row no-match" data-match="wrong">
+                  <td><span class="swatch" style="background:rgb(0, 128, 128)"></span>rgb(0, 128, 128)</td>
+                  <td><span class="swatch" style="background:rgb(27,131,84)"></span>rgb(27,131,84)</td>
+                  <td>51.7</td>
+                  <td>❌</td>
+                </tr>
+              
+                <tr class="color-table-row no-match" data-match="wrong">
+                  <td><span class="swatch" style="background:rgb(0, 255, 255)"></span>rgb(0, 255, 255)</td>
+                  <td><span class="swatch" style="background:rgb(84,192,138)"></span>rgb(84,192,138)</td>
+                  <td>157.2</td>
+                  <td>❌</td>
+                </tr>
+              
+                <tr class="color-table-row no-match" data-match="wrong">
+                  <td><span class="swatch" style="background:rgb(0, 0, 255)"></span>rgb(0, 0, 255)</td>
+                  <td><span class="swatch" style="background:rgb(56,66,80)"></span>rgb(56,66,80)</td>
+                  <td>195.2</td>
+                  <td>❌</td>
+                </tr>
+              
+                <tr class="color-table-row no-match" data-match="wrong">
+                  <td><span class="swatch" style="background:rgb(0, 0, 128)"></span>rgb(0, 0, 128)</td>
+                  <td><span class="swatch" style="background:rgb(31,42,55)"></span>rgb(31,42,55)</td>
+                  <td>89.7</td>
+                  <td>❌</td>
+                </tr>
+              
+                <tr class="color-table-row no-match" data-match="wrong">
+                  <td><span class="swatch" style="background:rgba(31, 175, 111, 0.42)"></span>rgba(31, 175, 111, 0.42)</td>
+                  <td><span class="swatch" style="background:rgb(37,147,95)"></span>rgb(37,147,95)</td>
+                  <td>32.8</td>
+                  <td>❌</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgb(109, 109, 109)"></span>rgb(109, 109, 109)</td>
+                  <td><span class="swatch" style="background:rgb(108,115,127)"></span>rgb(108,115,127)</td>
+                  <td>19.0</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgb(236, 236, 236)"></span>rgb(236, 236, 236)</td>
+                  <td><span class="swatch" style="background:rgb(229,231,235)"></span>rgb(229,231,235)</td>
+                  <td>8.7</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgb(68, 74, 82)"></span>rgb(68, 74, 82)</td>
+                  <td><span class="swatch" style="background:rgb(56,66,80)"></span>rgb(56,66,80)</td>
+                  <td>14.6</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgb(218, 225, 232)"></span>rgb(218, 225, 232)</td>
+                  <td><span class="swatch" style="background:rgb(229,231,235)"></span>rgb(229,231,235)</td>
+                  <td>12.9</td>
+                  <td>✔️</td>
+                </tr>
+              
+                <tr class="color-table-row match" data-match="correct">
+                  <td><span class="swatch" style="background:rgb(102, 117, 155)"></span>rgb(102, 117, 155)</td>
+                  <td><span class="swatch" style="background:rgb(108,115,127)"></span>rgb(108,115,127)</td>
+                  <td>28.7</td>
+                  <td>✔️</td>
+                </tr>
+              
             </tbody>
           </table>
+        </div>
+        
+        <div class="card" id="color-failures-card">
+          <h2>ألوان غير متوافقة — مواقع الظهور</h2>
+          <div class="meta">تم تصوير أول عنصر لكل لون غير متوافق. انقر على الصورة لعرضها بالحجم الكامل.</div>
+          <div id="failures-visible" style="margin-top:12px;display:flex;flex-wrap:wrap;gap:12px">
+            
+              <div style="width:220px;background:#fff;border:1px solid #eee;padding:8px;border-radius:10px;box-shadow:0 4px 12px rgba(2,6,23,0.04);">
+                <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;"><div class="swatch" style="background:rgb(0, 0, 0);width:28px;height:28px;border-radius:6px;border:1px solid #ddd"></div><div style="font-size:13px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">rgb(0, 0, 0)</div></div>
+                <img src="color-fail-1764498329095-1.png" style="width:100%;height:120px;object-fit:cover;border-radius:8px;cursor:pointer" onclick="showFullScreenshot('color-fail-1764498329095-1.png')">
+                <div style="margin-top:8px;font-size:12px;color:var(--muted);max-height:48px;overflow:hidden">&lt;html dir="rtl" lang="ar" class=" js"&gt;&lt;head&gt;
+	&lt;link id="genesys-widgets-styles" href="/themes/custom/dga/chat/widgets-ar.css" type="text/css" rel="stylesheet" media="all"&gt;
+	&lt;script id="genesys-widgets-script" src="/themes/custom/dga/chat/cxbus.min_AR.js" defer=""&gt;&lt;/script&gt;
+	&lt;script id="genesys-widgets-script1" src="/themes/custom/dga/chat/chat_sidebtn_AR.js" defer=""&gt;&lt;/script&gt;
+	&lt;script id="genesys</div>
+                <div style="margin-top:8px;font-size:12px;color:var(--muted)"><strong>Selector:</strong> <code style="font-size:12px">N/A</code></div>
+                <div style="margin-top:4px;font-size:12px;color:var(--muted)"><strong>Rect:</strong> N/A</div>
+                <div style="margin-top:8px"><a href="color-fail-1764498329095-1.png" target="_blank" class="btn" style="display:inline-block;padding:8px 10px;font-size:13px">فتح الصورة</a></div>
+              </div>
+            
+              <div style="width:220px;background:#fff;border:1px solid #eee;padding:8px;border-radius:10px;box-shadow:0 4px 12px rgba(2,6,23,0.04);">
+                <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;"><div class="swatch" style="background:rgb(217, 45, 32);width:28px;height:28px;border-radius:6px;border:1px solid #ddd"></div><div style="font-size:13px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">rgb(217, 45, 32)</div></div>
+                <img src="color-fail-1764498343267-3.png" style="width:100%;height:120px;object-fit:cover;border-radius:8px;cursor:pointer" onclick="showFullScreenshot('color-fail-1764498343267-3.png')">
+                <div style="margin-top:8px;font-size:12px;color:var(--muted);max-height:48px;overflow:hidden">&lt;button type="button" class="decline-button eu-cookie-compliance-default-button button button--small button--primary nds-red-btn" tabindex="0"&gt;رفض&lt;/button&gt;</div>
+                <div style="margin-top:8px;font-size:12px;color:var(--muted)"><strong>Selector:</strong> <code style="font-size:12px">N/A</code></div>
+                <div style="margin-top:4px;font-size:12px;color:var(--muted)"><strong>Rect:</strong> N/A</div>
+                <div style="margin-top:8px"><a href="color-fail-1764498343267-3.png" target="_blank" class="btn" style="display:inline-block;padding:8px 10px;font-size:13px">فتح الصورة</a></div>
+              </div>
+            
+          </div>
+          
         </div>
         
         
@@ -435,7 +719,7 @@
               <div class="meta" style="color:#15803d">تم الكشف</div>
             </div>
             <div style="background:linear-gradient(135deg,#ffe6e6,#fff);padding:20px;border-radius:12px;border:2px solid #dc2626;text-align:center">
-              <div style="font-size:2.5em;margin-bottom:8px;color:#dc2626;font-weight:700">43.5%</div>
+              <div style="font-size:2.5em;margin-bottom:8px;color:#dc2626;font-weight:700">32.4%</div>
               <h3 style="color:#dc2626;margin:0 0 8px 0;font-size:1.1em">دقة المسافات</h3>
               <div class="meta" style="color:#991b1b">يحتاج تحسين</div>
             </div>
@@ -450,20 +734,20 @@
           </h2>
           <div style="color:#0f1724;line-height:1.8;margin-top:16px">
             
-                <div style="margin-bottom:20px;padding:20px;background:white;border-radius:12px;border-right:4px solid #16a34a;box-shadow:0 2px 8px rgba(0,0,0,0.08)">
+                <div style="margin-bottom:20px;padding:20px;background:white;border-radius:12px;border-right:4px solid #f59e0b;box-shadow:0 2px 8px rgba(0,0,0,0.08)">
                   <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
-                    <span style="font-size:2em">✓</span>
+                    <span style="font-size:2em">🎨</span>
                     <div style="flex:1">
                       <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
-                        <h3 style="margin:0;color:#16a34a;font-size:1.2em">توافق ممتاز للألوان</h3>
-                        <span style="background:#16a34a;color:white;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700">ممتاز</span>
+                        <h3 style="margin:0;color:#f59e0b;font-size:1.2em">تحسينات بسيطة على الألوان</h3>
+                        <span style="background:#f59e0b;color:white;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700">متوسط</span>
                       </div>
                     </div>
                   </div>
-                  <p style="margin:0 0 12px 0;color:#4b5563;line-height:1.7">دقة الألوان ممتازة (96.2%). الموقع يستخدم ألوان الهوية بشكل صحيح. استمر في الحفاظ على هذا المستوى.</p>
-                  <div style="background:#f9fafb;padding:12px 16px;border-radius:8px;border-right:3px solid #16a34a">
+                  <p style="margin:0 0 12px 0;color:#4b5563;line-height:1.7">دقة الألوان جيدة (67.9%) لكن يمكن تحسينها. راجع الألوان غير المتوافقة المدرجة في التقرير وقم بتعديلها.</p>
+                  <div style="background:#f9fafb;padding:12px 16px;border-radius:8px;border-right:3px solid #f59e0b">
                     <strong style="color:#1f2937">الإجراء المقترح:</strong>
-                    <div style="color:#4b5563;margin-top:6px">الحفاظ على استخدام ألوان الهوية في التحديثات المستقبلية</div>
+                    <div style="color:#4b5563;margin-top:6px">مراجعة وتصحيح الألوان المحددة في قسم "ألوان غير متوافقة"</div>
                   </div>
                 </div>
               
@@ -477,10 +761,27 @@
                       </div>
                     </div>
                   </div>
-                  <p style="margin:0 0 12px 0;color:#4b5563;line-height:1.7">دقة المسافات (43.5%) تحتاج إلى تحسين كبير. المسافات غير المتسقة تؤثر على تجربة المستخدم والمظهر الاحترافي للموقع.</p>
+                  <p style="margin:0 0 12px 0;color:#4b5563;line-height:1.7">دقة المسافات (32.4%) تحتاج إلى تحسين كبير. المسافات غير المتسقة تؤثر على تجربة المستخدم والمظهر الاحترافي للموقع.</p>
                   <div style="background:#f9fafb;padding:12px 16px;border-radius:8px;border-right:3px solid #dc2626">
                     <strong style="color:#1f2937">الإجراء المقترح:</strong>
                     <div style="color:#4b5563;margin-top:6px">تطبيق نظام المسافات الموحد (4px, 8px, 12px, 16px, 24px, 32px, 48px) في جميع العناصر</div>
+                  </div>
+                </div>
+              
+                <div style="margin-bottom:20px;padding:20px;background:white;border-radius:12px;border-right:4px solid #2563eb;box-shadow:0 2px 8px rgba(0,0,0,0.08)">
+                  <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+                    <span style="font-size:2em">📱</span>
+                    <div style="flex:1">
+                      <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+                        <h3 style="margin:0;color:#2563eb;font-size:1.2em">التصميم المتجاوب</h3>
+                        <span style="background:#2563eb;color:white;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700">معلومات</span>
+                      </div>
+                    </div>
+                  </div>
+                  <p style="margin:0 0 12px 0;color:#4b5563;line-height:1.7">تم اختبار الموقع على أحجام شاشات متعددة (جوال، تابلت، ديسكتوب). راجع لقطات الشاشة للتأكد من جودة العرض.</p>
+                  <div style="background:#f9fafb;padding:12px 16px;border-radius:8px;border-right:3px solid #2563eb">
+                    <strong style="color:#1f2937">الإجراء المقترح:</strong>
+                    <div style="color:#4b5563;margin-top:6px">مراجعة لقطات الشاشة وضمان تناسق التصميم عبر جميع الأجهزة</div>
                   </div>
                 </div>
               
@@ -489,17 +790,42 @@
 
         
         <div class="card">
+          <h2>اختبار التصميم المتجاوب</h2>
+          <div class="responsive-grid">
+            
+              <div class="responsive-cell">
+                <div class="meta">جوال (375x812)</div>
+                <img src="snap-1764498318952-mobile.png" style="width:100%;height:auto;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.08);background:#fff;" alt="جوال (375x812)">
+                <div style="margin-top:8px;"><button class="btn" onclick="showFullScreenshot('snap-1764498318952-mobile.png')">عرض</button> <button class="btn" onclick="downloadImage('snap-1764498318952-mobile.png','mobile-screenshot.png')">تحميل</button></div>
+              </div>
+            
+              <div class="responsive-cell">
+                <div class="meta">تابلت (768x1024)</div>
+                <img src="snap-1764498318952-tablet.png" style="width:100%;height:auto;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.08);background:#fff;" alt="تابلت (768x1024)">
+                <div style="margin-top:8px;"><button class="btn" onclick="showFullScreenshot('snap-1764498318952-tablet.png')">عرض</button> <button class="btn" onclick="downloadImage('snap-1764498318952-tablet.png','tablet-screenshot.png')">تحميل</button></div>
+              </div>
+            
+              <div class="responsive-cell">
+                <div class="meta">ديسكتوب (1440x900)</div>
+                <img src="snap-1764498318952-desktop.png" style="width:100%;height:auto;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.08);background:#fff;" alt="ديسكتوب (1440x900)">
+                <div style="margin-top:8px;"><button class="btn" onclick="showFullScreenshot('snap-1764498318952-desktop.png')">عرض</button> <button class="btn" onclick="downloadImage('snap-1764498318952-desktop.png','desktop-screenshot.png')">تحميل</button></div>
+              </div>
+            
+          </div>
+        </div>
+        
+        <div class="card">
           <h2>صورة كاملة للصفحة و تصدير التقرير</h2>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:16px">
             <div>
               <h3 style="color:var(--primary);font-size:1.1rem;margin-bottom:12px">معاينة الصفحة</h3>
-              <img src="snap-1764414112982.png" class="thumbnail" alt="Full Screenshot" onclick="showFullScreenshot('snap-1764414112982.png')" style="width:100%;height:auto;max-height:300px;object-fit:contain;border:2px solid var(--accent);border-radius:12px;cursor:pointer;transition:transform 0.2s" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+              <img src="snap-1764498312992.png" class="thumbnail" alt="Full Screenshot" onclick="showFullScreenshot('snap-1764498312992.png')" style="width:100%;height:auto;max-height:300px;object-fit:contain;border:2px solid var(--accent);border-radius:12px;cursor:pointer;transition:transform 0.2s" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
               <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
-                <button class="btn" onclick="showFullScreenshot('snap-1764414112982.png')" style="flex:1;min-width:140px">
+                <button class="btn" onclick="showFullScreenshot('snap-1764498312992.png')" style="flex:1;min-width:140px">
                   <svg viewBox="0 0 24 24" style="width:16px;height:16px;margin-left:6px;display:inline-block;vertical-align:middle" fill="currentColor"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
                   عرض بالحجم الكامل
                 </button>
-                <button class="btn" onclick="downloadImage('snap-1764414112982.png','full-screenshot.png')" style="flex:1;min-width:140px;background:#16a34a">
+                <button class="btn" onclick="downloadImage('snap-1764498312992.png','full-screenshot.png')" style="flex:1;min-width:140px;background:#16a34a">
                   <svg viewBox="0 0 24 24" style="width:16px;height:16px;margin-left:6px;display:inline-block;vertical-align:middle" fill="currentColor"><path d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2z"/></svg>
                   تحميل PNG
                 </button>
@@ -527,7 +853,7 @@
       <div class="footer">
         <div class="info">
           <strong>تقرير الفحص - مدقق الهوية الموحدة</strong>
-          <div style="margin-top:4px">تاريخ الإصدار: ٢٩‏/١١‏/٢٠٢٥</div>
+          <div style="margin-top:4px">تاريخ الإصدار: ٣٠‏/١١‏/٢٠٢٥</div>
           <div class="ltr" style="font-size:0.9em;margin-top:6px;color:#6b7280">Powered by Ramworld Tech Solutions</div>
         </div>
         <div style="text-align:center">
@@ -604,8 +930,8 @@
         window.addEventListener('DOMContentLoaded', function() {
           const ctx = document.getElementById('accuracyChart');
           if (ctx && window.Chart) {
-            const colorAcc = 96.2;
-            const spacingAcc = 43.5;
+            const colorAcc = 67.9;
+            const spacingAcc = 32.4;
             const fontScore = 100;
             const stampScore = 100;
             const searchScore = 100;

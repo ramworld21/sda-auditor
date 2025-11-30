@@ -192,16 +192,24 @@
     .search .hint{font-size:12px;color:var(--muted);margin-top:4px}
     .controls{display:flex;gap:8px;align-items:center}
     .controls-block{width:220px;display:flex;flex-direction:column;gap:8px}
-    button.primary{background:var(--primary-color);color:#fff;padding:14px 24px;border-radius:10px;border:none;font-weight:600;cursor:pointer;font-size:16px;width:100%;transition:all 0.2s}
-    button.primary:hover{background:#051f4d}
+    button.primary{background:var(--primary-color);color:#fff;padding:14px 20px;border-radius:12px;border:none;font-weight:700;cursor:pointer;font-size:16px;width:100%;transition:all 0.2s;display:inline-flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 6px 16px rgba(6,44,110,0.18)}
+    button.primary:hover{background:#051f4d;transform:translateY(-1px)}
+    button.primary:active{transform:translateY(0)}
+    button.primary:disabled{opacity:0.7;cursor:not-allowed;filter:grayscale(5%)}
+    button.primary svg{width:20px;height:20px;margin-inline-start:6px}
     button.ghost{background:transparent;border:1px solid #e5e7eb;padding:10px 12px;border-radius:8px;color:#6b7280;cursor:pointer}
     .status{margin-top:12px;color:var(--primary-color);min-height:28px;display:flex;align-items:center;gap:10px}
     .loader{width:18px;height:18px;border:3px solid #e6eefc;border-top-color:var(--primary-color);border-radius:50%;animation:spin 1s linear infinite}
     @keyframes spin{to{transform:rotate(360deg)}}
   .result-link{display:inline-block;margin-top:8px;padding:8px 10px;background:var(--accent-color);color:#fff;border-radius:8px;text-decoration:none}
 
-  #scan-panel-top { text-align: center; margin:16px 0; display:block; max-width:100%; }
-  #scan-panel-top .scan-actions { display:flex; justify-content:center; gap:8px; margin-top:10px }
+  /* Boxed scan status card */
+  #scan-panel-top { text-align:initial; margin:16px auto; display:block; max-width:680px; background:#fff; border:1px solid #e5e7eb; border-radius:12px; padding:16px 18px; box-shadow:0 2px 10px rgba(0,0,0,0.06) }
+  #scan-panel-top .header { display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px }
+  #scan-panel-top .title { display:flex; align-items:center; gap:8px; font-weight:700; color:#0f172a }
+  #scan-panel-top .title .dot { width:8px; height:8px; border-radius:50%; background:#16a34a; box-shadow:0 0 0 2px #dcfce7 inset }
+  #scan-panel-top .scan-actions { display:flex; justify-content:center; gap:8px; margin-top:0 }
+  #scan-panel-top .status { margin:6px 0 0 0; padding:10px 12px; background:#f8fafc; border:1px dashed #dbeafe; border-radius:10px; color:#1e40af }
 
   /* Style the report button to use the accent color when visible */
   button.ghost#open-report{background:var(--accent-color);color:hsl(var(--accent-foreground));border:none;padding:10px 12px}
@@ -486,7 +494,7 @@
                     <svg viewBox="0 0 24 24" style="width:12px;height:12px"
                       fill="currentColor"><path
                         d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" /></svg>
-                    سنستخدم بريدك الإلكتروني لحفظ سجل الفحص فقط
+                    يرجى إدخال بريدك الرسمي للعمل. لا تُقبل حسابات Gmail/Outlook/Yahoo/iCloud/Hotmail
                   </div>
                 </div>
 
@@ -512,7 +520,7 @@
                     <svg viewBox="0 0 24 24" style="width:12px;height:12px"
                       fill="currentColor"><path
                         d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" /></svg>
-                    يمكنك إدخال النطاق فقط وسيُضاف البروتوكول تلقائياً
+                    يُقبل فقط نطاق ينتهي بـ .gov.sa أو .edu.sa. يمكنك إدخال النطاق فقط وسيُضاف البروتوكول تلقائياً
                   </div>
                 </div>
 
@@ -549,8 +557,8 @@
                       </div>
                     </label>
                     <button class="primary" type="submit" id="scan-button">
-                      <svg viewBox="0 0 24 24" style="width:22px;height:22px;display:inline-block;margin-top: 20px !important;vertical-align:middle;margin-left:10px" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" /></svg>
                       ابدأ الفحص
+                      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" /></svg>
                     </button>
                   </div>
                 </div>
@@ -560,12 +568,13 @@
           </div>
         </div>
 
-        <!-- Compact scan panel shown under the search card for immediate feedback -->
-        <div id="scan-panel-top" class="right-panel hidden" aria-hidden="true"
-          style="margin:0 0 20px 0">
-          <h3 class="muted">حالة الفحص</h3>
-          <div style="margin-top:6px" class="status" id="scan-progress-top"
-            aria-live="polite"></div>
+        <!-- Compact boxed scan panel for immediate feedback -->
+        <div id="scan-panel-top" class="hidden" aria-hidden="true">
+          <div class="header">
+            <div class="title"><span class="dot"></span><span>حالة الفحص</span></div>
+            <div class="scan-actions"></div>
+          </div>
+          <div class="status" id="scan-progress-top" aria-live="polite"></div>
         </div>
 
         <div>
@@ -690,9 +699,19 @@
       // If a valid report URL is provided, enable button and attach onclick
       if (reportUrl) {
         btn.disabled = false;
-        btn.onclick = () => {
-          window.open(`${backendUrl}${reportUrl}`, '_blank');
-        };
+        const fullUrl = `${backendUrl}${reportUrl}`;
+        btn.title = fullUrl;
+        btn.onclick = () => window.open(fullUrl, '_blank');
+
+        // Show the unique URL below the actions as a small copyable link
+        let urlNote = panelTop.querySelector('#report-url-note');
+        if (!urlNote) {
+          urlNote = document.createElement('div');
+          urlNote.id = 'report-url-note';
+          urlNote.style.cssText = 'margin-top:8px;font-size:12px;color:#475569;direction:ltr;word-break:break-all;';
+          panelTop.appendChild(urlNote);
+        }
+        urlNote.innerHTML = `<span style="color:#0f172a">URL:</span> <a href="${fullUrl}" target="_blank" rel="noopener" style="color:#2563eb;text-decoration:underline">${fullUrl}</a>`;
       }
     }
 
@@ -795,10 +814,7 @@
       console.error('Email form elements not found:', { emailInput, urlSection, submitSection });
     }
 
-    // Initialize the button on page load (always present but disabled)
-    document.addEventListener('DOMContentLoaded', () => {
-      showReportButton(); // creates disabled button in DOM
-    });
+    // لا نقوم بعرض زر التقرير قبل اكتمال الفحص بنجاح.
 
     form.addEventListener('submit', async (e)=>{
       e.preventDefault();
@@ -833,9 +849,9 @@
         setStatus('الرجاء إدخال رابط صالح', false);
         return;
       }
-      // Allow only .sa, .gov.sa, .org.sa
-      if (!hostname.endsWith('.sa') && !hostname.endsWith('.gov.sa') && !hostname.endsWith('.org.sa')) {
-        setStatus('الرجاء إدخال موقع ينتهي بـ .sa أو .gov.sa أو .org.sa', false);
+      // Allow only .gov.sa or .edu.sa
+      if (!hostname.endsWith('.gov.sa') && !hostname.endsWith('.edu.sa')) {
+        setStatus('الرجاء إدخال موقع ينتهي بـ .gov.sa أو .edu.sa', false);
         return;
       }
       // Show normalized URL to the user
