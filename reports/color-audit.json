@@ -1,8 +1,8 @@
 {
   "url": "https://www.arabou.edu.sa/",
   "title": "Arab Open University - KSA",
-  "snapPath": "snap-1764498965458.png",
-  "timestamp": "2025-11-30T10:36:52.127Z",
+  "snapPath": "snap-1764502436135.png",
+  "timestamp": "2025-11-30T11:33:57.271Z",
   "fonts": [
     "sans-serif",
     "-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
@@ -10,10 +10,6 @@
     "Poppins-Regular, Madani-Regular, sans-serif",
     "\"Font Awesome 5 Free\"",
     "\"Font Awesome 5 Brands\"",
-    "Font Awesome 5 Brands",
-    "Font Awesome 5 Free",
-    "Poppins-Regular",
-    "Madani-Regular",
     "IBM Plex Sans Arabic",
     "IBM Plex Arabic",
     "IBM Plex Sans",
@@ -125,78 +121,6 @@
       "closest": "rgb(13,18,28)",
       "distance": 35.73513677041127,
       "match": false
-    },
-    {
-      "color": "rgb(25, 76, 68)",
-      "closest": "rgb(20,87,58)",
-      "distance": 15.684387141358123,
-      "match": true
-    },
-    {
-      "color": "rgb(102, 102, 102)",
-      "closest": "rgb(108,115,127)",
-      "distance": 28.809720581775867,
-      "match": true
-    },
-    {
-      "color": "rgb(0, 123, 255)",
-      "closest": "rgb(84,192,138)",
-      "distance": 159.70597985047397,
-      "match": false
-    },
-    {
-      "color": "rgba(0, 0, 0, 0.2)",
-      "closest": "rgb(13,18,28)",
-      "distance": 35.73513677041127,
-      "match": false
-    },
-    {
-      "color": "rgb(222, 226, 230)",
-      "closest": "rgb(229,231,235)",
-      "distance": 9.9498743710662,
-      "match": true
-    },
-    {
-      "color": "rgb(118, 116, 116)",
-      "closest": "rgb(108,115,127)",
-      "distance": 14.89966442575134,
-      "match": true
-    },
-    {
-      "color": "rgba(0, 45, 88, 0.7)",
-      "closest": "rgb(31,42,55)",
-      "distance": 45.37620521815371,
-      "match": false
-    },
-    {
-      "color": "rgb(27, 30, 33)",
-      "closest": "rgb(17,25,39)",
-      "distance": 12.68857754044952,
-      "match": true
-    },
-    {
-      "color": "rgb(214, 216, 217)",
-      "closest": "rgb(210,214,219)",
-      "distance": 4.898979485566356,
-      "match": true
-    },
-    {
-      "color": "rgb(198, 200, 202)",
-      "closest": "rgb(210,214,219)",
-      "distance": 25.079872407968907,
-      "match": true
-    },
-    {
-      "color": "rgb(4, 5, 5)",
-      "closest": "rgb(13,18,28)",
-      "distance": 27.910571473905726,
-      "match": true
-    },
-    {
-      "color": "rgb(0, 128, 0)",
-      "closest": "rgb(20,87,58)",
-      "distance": 73.79024325749306,
-      "match": false
     }
   ],
   "logo": "logo.png",
@@ -212,15 +136,7 @@
     "svg": null,
     "qrCount": 0
   },
-  "colorFailures": [
-    {
-      "color": "rgb(0, 0, 0)",
-      "screenshot": "color-fail-1764498971440-1.png",
-      "snippet": "<html dir=\"ltr\" lang=\"en-US\"><head>\n    \t\n    \t<!-- Global site tag (gtag.js) - Google Analytics --> \n\t\t<script async=\"\" src=\"https://www.googletagmanager.com/gtag/js?id=G-VNKS3CG7KR\"></script>\n\t\t<script>\n\t\t\twindow.dataLayer = window.dataLayer || [];\n\t\t\tfunction gtag(){dataLayer.push(arguments);}\n\t\t\tgtag('js', new Date());\n\t\t\t\n\t\t\tgtag('config', 'G-VNKS3CG7KR');\n\t\t</script>\n\n    \t<!--Start of Tawk.",
-      "selector": null,
-      "rect": null
-    }
-  ],
+  "colorFailures": [],
   "hasSearchBar": true,
   "spacings": [
     "0px",
@@ -243,22 +159,7 @@
     "8px",
     "16px",
     "-10px",
-    "24px",
-    "-1140px",
-    "-100%",
-    "-1px",
-    "50px",
-    "25px",
-    "17px",
-    "90px",
-    "30px",
-    "95px",
-    "250.219px",
-    "-9.375px",
-    "-36px",
-    "28px",
-    "21px",
-    "3px"
+    "24px"
   ],
   "spacingMatches": [
     40,
@@ -269,8 +170,8 @@
     16,
     24
   ],
-  "spacingAccuracy": 25.925925925925924,
-  "screenshotMobile": "snap-1764498965738-mobile.png",
-  "screenshotTablet": "snap-1764498965739-tablet.png",
-  "screenshotDesktop": "snap-1764498965739-desktop.png"
+  "spacingAccuracy": 41.17647058823529,
+  "screenshotMobile": "",
+  "screenshotTablet": "",
+  "screenshotDesktop": ""
 }
