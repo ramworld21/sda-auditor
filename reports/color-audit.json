@@ -1,47 +1,30 @@
 {
-  "url": "https://ksu.edu.sa",
-  "title": "جامعة الملك سعود",
-  "snapPath": "snap-1764506327409.png",
-  "timestamp": "2025-11-30T12:39:06.646Z",
+  "url": "https://moc.gov.sa",
+  "title": "وزارة الثقافة السعودية",
+  "snapPath": "snap-1764666571396.png",
+  "timestamp": "2025-12-02T09:09:31.834Z",
   "fonts": [
-    "\"Times New Roman\"",
-    "Dosis, GE-Dinar, sans-serif",
-    "united-sans, Impact, \"Arial Black\", \"sans serif\"",
-    "\"Font Awesome 6 Brands\"",
-    "Font Awesome 6 Brands",
-    "Font Awesome 6 Free",
-    "Font Awesome 5 Brands",
-    "Font Awesome 5 Free",
-    "FontAwesome",
-    "revicons",
-    "GE-Dinar",
-    "Dosis",
-    "united-sans",
-    "swiper-icons",
-    "Cairo",
-    "IBM Plex Sans Arabic",
+    "ui-sans-serif, system-ui, -apple-system, \"system-ui\", \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, \"Noto Sans\", sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\", \"Noto Color Emoji\"",
+    "\"IBM Plex Sans Arabic\", sans-serif",
     "IBM Plex Arabic",
     "IBM Plex Sans",
     "IBMPlexSans",
     "IBMPlexSansArabic"
   ],
   "fontFaces": [
-    "Times New Roman",
-    "Dosis",
-    "GE-Dinar",
+    "ui-sans-serif",
+    "system-ui",
+    "-apple-system",
+    "Segoe UI",
+    "Roboto",
+    "Helvetica Neue",
+    "Arial",
+    "Noto Sans",
     "sans-serif",
-    "united-sans",
-    "Impact",
-    "Arial Black",
-    "sans serif",
-    "Font Awesome 6 Brands",
-    "Font Awesome 6 Free",
-    "Font Awesome 5 Brands",
-    "Font Awesome 5 Free",
-    "FontAwesome",
-    "revicons",
-    "swiper-icons",
-    "Cairo",
+    "Apple Color Emoji",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    "Noto Color Emoji",
     "IBM Plex Sans Arabic",
     "IBM Plex Arabic",
     "IBM Plex Sans",
@@ -57,9 +40,9 @@
       "match": false
     },
     {
-      "color": "rgb(33, 37, 41)",
-      "closest": "rgb(31,42,55)",
-      "distance": 15,
+      "color": "rgb(229, 231, 235)",
+      "closest": "rgb(229,231,235)",
+      "distance": 0,
       "match": true
     },
     {
@@ -69,200 +52,175 @@
       "match": true
     },
     {
-      "color": "rgb(0, 0, 238)",
-      "closest": "rgb(56,66,80)",
-      "distance": 180.15548839821673,
-      "match": false
-    },
-    {
-      "color": "rgb(1, 126, 179)",
-      "closest": "rgb(37,147,95)",
-      "distance": 93.7709976485267,
-      "match": false
-    },
-    {
-      "color": "rgb(0, 71, 101)",
-      "closest": "rgb(20,87,58)",
-      "distance": 50.049975024968795,
-      "match": false
-    },
-    {
-      "color": "rgb(128, 128, 128)",
-      "closest": "rgb(108,115,127)",
-      "distance": 23.874672772626646,
-      "match": true
-    },
-    {
-      "color": "rgb(1, 132, 189)",
-      "closest": "rgb(37,147,95)",
-      "distance": 101.76934705499491,
-      "match": false
-    },
-    {
-      "color": "rgb(247, 247, 247)",
+      "color": "rgb(243, 244, 246)",
       "closest": "rgb(243,244,246)",
-      "distance": 5.0990195135927845,
+      "distance": 0,
       "match": true
     },
     {
-      "color": "rgb(220, 220, 221)",
+      "color": "rgb(27, 131, 84)",
+      "closest": "rgb(27,131,84)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(22, 22, 22)",
+      "closest": "rgb(13,18,28)",
+      "distance": 11.532562594670797,
+      "match": true
+    },
+    {
+      "color": "rgb(56, 66, 80)",
+      "closest": "rgb(56,66,80)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(210, 214, 219)",
       "closest": "rgb(210,214,219)",
-      "distance": 11.832159566199232,
+      "distance": 0,
       "match": true
     },
     {
-      "color": "rgb(241, 247, 251)",
-      "closest": "rgb(243,244,246)",
-      "distance": 6.164414002968976,
+      "color": "rgba(9, 42, 30, 0.8)",
+      "closest": "rgb(9,42,30)",
+      "distance": 0,
       "match": true
     },
     {
-      "color": "rgb(240, 240, 240)",
-      "closest": "rgb(243,244,246)",
-      "distance": 7.810249675906654,
+      "color": "rgb(31, 42, 55)",
+      "closest": "rgb(31,42,55)",
+      "distance": 0,
       "match": true
     },
     {
-      "color": "rgb(21, 65, 95)",
-      "closest": "rgb(56,66,80)",
-      "distance": 38.09199390948182,
-      "match": false
-    },
-    {
-      "color": "rgb(0, 122, 255)",
-      "closest": "rgb(84,192,138)",
-      "distance": 160.14056325615942,
-      "match": false
-    },
-    {
-      "color": "rgb(222, 226, 230)",
-      "closest": "rgb(229,231,235)",
-      "distance": 9.9498743710662,
+      "color": "rgb(15, 40, 55)",
+      "closest": "rgb(31,42,55)",
+      "distance": 16.1245154965971,
       "match": true
     },
     {
-      "color": "rgb(73, 80, 87)",
-      "closest": "rgb(77,87,97)",
-      "distance": 12.84523257866513,
+      "color": "rgb(157, 164, 174)",
+      "closest": "rgb(157,164,174)",
+      "distance": 0,
       "match": true
     },
     {
-      "color": "rgba(0, 0, 0, 0.1)",
+      "color": "rgba(0, 0, 0, 0.314)",
       "closest": "rgb(13,18,28)",
       "distance": 35.73513677041127,
       "match": false
     },
     {
-      "color": "rgb(86, 86, 86)",
-      "closest": "rgb(77,87,97)",
-      "distance": 14.247806848775006,
+      "color": "rgb(29, 28, 29)",
+      "closest": "rgb(17,25,39)",
+      "distance": 15.905973720586866,
       "match": true
     },
     {
-      "color": "rgb(0, 132, 189)",
-      "closest": "rgb(37,147,95)",
-      "distance": 102.12737145349429,
-      "match": false
-    },
-    {
-      "color": "rgb(206, 212, 218)",
-      "closest": "rgb(210,214,219)",
-      "distance": 4.58257569495584,
-      "match": true
-    },
-    {
-      "color": "rgb(251, 251, 251)",
+      "color": "rgb(248, 248, 248)",
       "closest": "rgb(249,250,251)",
-      "distance": 2.23606797749979,
+      "distance": 3.7416573867739413,
       "match": true
     },
     {
-      "color": "rgb(7, 121, 191)",
+      "color": "rgb(18, 100, 163)",
       "closest": "rgb(37,147,95)",
-      "distance": 103.88455130576442,
+      "distance": 84.8174510345601,
       "match": false
     }
   ],
-  "logo": "logo.svg",
-  "favicon": "https://ksu.edu.sa/themes/custom/bootksu/favicon.ico",
+  "logo": "logo.png",
+  "favicon": "https://www.moc.gov.sa/favicon.png",
   "digitalStamp": {
-    "present": false,
-    "reason": "غير موثق - ناقص: النص الرسمي, رقم",
-    "selectors": [],
-    "images": [
-      "https://news.ksu.edu.sa/sites/news.ksu.edu.sa/files/styles/380x200/public/field/image/sar-1815.jpg?itok=N0WaPuQm"
+    "present": true,
+    "reason": "موقع حكومي موثق: يحتوي على النص الرسمي + رقم + علم المملكة",
+    "selectors": [
+      {
+        "selector": "div",
+        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية\n\nكيف تتحقق؟\n\nروابط المواقع الالكترونية الرسمية السعودية تنتهي بـ .gov.sa\n\nروابط المواقع الالكترون"
+      },
+      {
+        "selector": "div",
+        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية\n\nكيف تتحقق؟\n\nروابط المواقع الالكترونية الرسمية السعودية تنتهي بـ .gov.sa\n\nروابط المواقع الالكترون"
+      },
+      {
+        "selector": "div",
+        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية\n\nكيف تتحقق؟\n\nروابط المواقع الالكترونية الرسمية السعودية تنتهي بـ .gov.sa\n\nروابط المواقع الالكترون"
+      },
+      {
+        "selector": "div",
+        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية\n\nكيف تتحقق؟\n\nروابط المواقع الالكترونية الرسمية السعودية تنتهي بـ .gov.sa\n\nروابط المواقع الالكترون"
+      },
+      {
+        "selector": "div",
+        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية\n\nكيف تتحقق؟\n\nروابط المواقع الالكترونية الرسمية السعودية تنتهي بـ .gov.sa\n\nروابط المواقع الالكترون"
+      },
+      {
+        "selector": "div",
+        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية\n\nكيف تتحقق؟"
+      },
+      {
+        "selector": "div",
+        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية"
+      },
+      {
+        "selector": "p",
+        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية"
+      },
+      {
+        "selector": "script",
+        "text": "{\"props\":{\"pageProps\":{\"locale\":\"ar\",\"layoutData\":{\"sitecore\":{\"context\":{\"visitorIdentificationTimestamp\":639002633694931000,\"pageEditing\":false,\"sit"
+      }
     ],
-    "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"32\" height=\"32\"><path fill=\"#0084bd\" data-name=\"Icon fa-regular-circle-play\" d=\"M29 16a13 13 0 1 0-13 13 13 13 0 0 0 13-13ZM0 16a16 16 0 1 1 16 16A16 16 0 0 1 0 16Z\"/><path stroke=\"#0084bd\" data-name=\"Path 2\" d=\"M13.5 20.5v-9m6 9v-9\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"3\"/></svg>",
+    "images": [
+      "https://www.moc.gov.sa/_next/image?url=https%3A%2F%2Fwww.moc.gov.sa%2Fs-core%2F-%2Fmedia%2FProject%2FMinistries%2FMoc%2FHome%2FNavigation%2FHeader%2FSaudiCountryFlag.svg%3Fiar%3D0%26hash%3DBD1DD63757802A69BAA225E6131E2D0C&w=3840&q=75"
+    ],
+    "svg": null,
     "qrCount": 0
   },
-  "colorFailures": [
-    {
-      "color": "rgb(0, 0, 0)",
-      "screenshot": "color-fail-1764506335733-1.png",
-      "snippet": "<html lang=\"ar\" dir=\"rtl\" prefix=\"content: http://purl.org/rss/1.0/modules/content/  dc: http://purl.org/dc/terms/  foaf: http://xmlns.com/foaf/0.1/  og: http://ogp.me/ns#  rdfs: http://www.w3.org/2000/01/rdf-schema#  schema: http://schema.org/  sioc: http://rdfs.org/sioc/ns#  sioct: http://rdfs.org/sioc/types#  skos: http://www.w3.org/2004/02/skos/core#  xsd: http://www.w3.org/2001/XMLSchema# \" c",
-      "selector": null,
-      "rect": null
-    },
-    {
-      "color": "rgb(0, 0, 238)",
-      "screenshot": "color-fail-1764506336095-2.png",
-      "snippet": "<a href=\"#main-content\" class=\"visually-hidden focusable skip-link\">\n\t\t\t\t\t\tتجاوز إلى المحتوى الرئيسي\n\t\t\t\t\t</a>",
-      "selector": null,
-      "rect": null
-    },
-    {
-      "color": "rgb(1, 126, 179)",
-      "screenshot": "color-fail-1764506336193-3.png",
-      "snippet": "<div class=\"top_bar\" id=\"top_bar\">\n\t\t\t  <div class=\"region region-top-bar\">\n    <div class=\"language-switcher-language-url block block-language block-language-blocklanguage-interface\" id=\"block-languageswitcher\" role=\"navigation\">\n  \n    \n      <ul data-block=\"top_bar\"><li data-drupal-link-system-path=\"node/2753\" class=\"is-active\"><a href=\"https://ksu.edu.sa\" class=\"language-link is-active\" hrefla",
-      "selector": null,
-      "rect": null
-    },
-    {
-      "color": "rgb(0, 71, 101)",
-      "screenshot": "color-fail-1764506336294-4.png",
-      "snippet": "<nav aria-labelledby=\"block-bootksu-main-navigation-menu\" id=\"block-bootksu-main-navigation\" class=\"block block-menu navigation menu--main\" style=\"top: 0px;\">\n            \n  <h5 class=\"visually-hidden\" id=\"block-bootksu-main-navigation-menu\">Main menu</h5>\n  \n\n        <div class=\"menu_close\">\n\t<svg width=\"26\" height=\"26\" viewBox=\"0 0 26 26\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\">\n\t\t<path d",
-      "selector": null,
-      "rect": null
-    }
-  ],
-  "hasSearchBar": true,
+  "colorFailures": [],
+  "hasSearchBar": false,
   "spacings": [
     "0px",
-    "-1px",
-    "50px",
+    "6px",
     "40px",
-    "30px",
-    "10px",
-    "20px",
-    "7.5px",
-    "2.5px",
-    "5px",
-    "27.5px",
-    "100px",
-    "-15px",
-    "57.5px",
-    "25px",
-    "15px",
-    "479.578px",
-    "auto",
-    "106px",
+    "8px",
     "24px",
-    "-5px",
-    "3.75px",
-    "12px",
+    "80px",
+    "4px",
     "16px",
-    "291px",
-    "3px"
+    "12.0781px",
+    "16.7812px",
+    "16.7969px",
+    "8.65625px",
+    "15.4062px",
+    "15.4219px",
+    "14.7969px",
+    "15.5781px",
+    "15.5938px",
+    "112px",
+    "12px",
+    "1px",
+    "-1px",
+    "212.984px",
+    "214.516px",
+    "0.015625px",
+    "214.531px",
+    "32px"
   ],
   "spacingMatches": [
     40,
-    20,
+    8,
     24,
+    80,
+    4,
+    16,
     12,
-    16
+    32
   ],
-  "spacingAccuracy": 23.809523809523807,
-  "screenshotMobile": "snap-1764506328431-mobile.png",
-  "screenshotTablet": "snap-1764506328431-tablet.png",
-  "screenshotDesktop": "snap-1764506328431-desktop.png"
+  "spacingAccuracy": 33.33333333333333,
+  "screenshotMobile": "",
+  "screenshotTablet": "",
+  "screenshotDesktop": ""
 }
