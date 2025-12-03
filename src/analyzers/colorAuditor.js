@@ -251,16 +251,81 @@ export async function auditColors(url, fastMode = false) {
     // leave mobile/tablet/desktop empty to avoid extra files
   }
 
-  // Check for search bar BEFORE closing the browser!
+  // Improved search bar detection BEFORE closing the browser!
   const hasSearchBar = await page.evaluate(() => {
-    return !!(
-      document.querySelector('input[type="search"]') ||
-      document.querySelector('input[type="text"][name*="search" i]') ||
-      document.querySelector('input[type="text"][id*="search" i]') ||
-      document.querySelector('input[type="text"][placeholder*="search" i]') ||
-      document.querySelector('form[role="search"]') ||
-      document.querySelector('input[aria-label*="search" i]')
-    );
+    // Helper to check if an element is visible
+    function isVisible(el) {
+      if (!el) return false;
+      const style = window.getComputedStyle(el);
+      return style && style.display !== 'none' && style.visibility !== 'hidden' && el.offsetParent !== null;
+    }
+    // Search keywords (Arabic/English)
+    const keywords = [
+      'search', 'بحث', 'ابحث', 'magnifier', 'fa-search', 'icon-search', 'mdi-search', 'material-icons', 'search-icon', 'svg-search', 'loupe', 'magnifying', '🔍'
+    ];
+    // Find input elements that look like search bars
+    const inputs = Array.from(document.querySelectorAll('input[type="search"], input[type="text"]'));
+    for (const input of inputs) {
+      if (!isVisible(input)) continue;
+      const attrs = [input.name, input.id, input.placeholder, input.getAttribute('aria-label')].map(a => (a || '').toLowerCase());
+      if (attrs.some(a => keywords.some(k => a.includes(k)))) return true;
+      // Check for a search icon/button nearby
+      const parent = input.closest('form, div, section, header, nav');
+      if (parent) {
+        const btns = Array.from(parent.querySelectorAll('button, svg, i, span'));
+        for (const btn of btns) {
+          const btnText = (btn.textContent || '').toLowerCase();
+          const btnClass = (btn.className || '').toLowerCase();
+          const btnAria = (btn.getAttribute('aria-label') || '').toLowerCase();
+          if ([btnText, btnClass, btnAria].some(a => keywords.some(k => a.includes(k)))) return true;
+        }
+      }
+    }
+    // Also check for forms with role="search"
+    if (document.querySelector('form[role="search"]')) return true;
+    // Also check for input with autocomplete="search"
+    if (document.querySelector('input[autocomplete="search"]')) return true;
+    // --- NEW LOGIC: icon-only search bar detection ---
+    // Scan for visible SVG, <i>, <span> with search-related classes, aria-labels, or text
+    const iconSelectors = ['svg', 'i', 'span'];
+    for (const sel of iconSelectors) {
+      const icons = Array.from(document.querySelectorAll(sel));
+      for (const icon of icons) {
+        if (!isVisible(icon)) continue;
+        // Safely handle className for SVGs and other elements
+        let iconClass = '';
+        if (typeof icon.className === 'string') {
+          iconClass = icon.className.toLowerCase();
+        } else if (icon.className && typeof icon.className.baseVal === 'string') {
+          iconClass = icon.className.baseVal.toLowerCase();
+        }
+        const iconAria = (icon.getAttribute('aria-label') || '').toLowerCase();
+        const iconText = (icon.textContent || '').toLowerCase();
+        // SVG: check for magnifier path or search-related class/aria/text
+        let svgMatch = false;
+        if (sel === 'svg') {
+          const svgStr = (new XMLSerializer()).serializeToString(icon);
+          if (/magnify|search|loupe|🔍/i.test(svgStr) || /fa-search|icon-search|mdi-search|search-icon/i.test(iconClass + iconAria + iconText)) svgMatch = true;
+          // Check for common magnifier path (circle + line)
+          if (/circle.*line|path.*search/i.test(svgStr)) svgMatch = true;
+        }
+        if (
+          keywords.some(k => iconClass.includes(k) || iconAria.includes(k) || iconText.includes(k)) ||
+          svgMatch
+        ) {
+          // Check if icon is inside or adjacent to a clickable/search container
+          const clickable = icon.closest('button, a, form, div, header, nav, section');
+          if (clickable && isVisible(clickable)) {
+            // If in header/nav/top bar, more likely to be a search bar
+            const loc = clickable.closest('header, nav, .topbar, .navbar, .main-header');
+            if (loc) return true;
+            // If the clickable has only this icon and no other text, likely a search trigger
+            if (!clickable.textContent.trim() || clickable.textContent.trim() === icon.textContent.trim()) return true;
+          }
+        }
+      }
+    }
+    return false;
   });
 
   // Detect DGA-style digital stamp / authenticated bar structures
