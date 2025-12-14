@@ -1,51 +1,11 @@
-import fs from "fs";
 
-export function generateHTMLReport(result) {
-  const colorMatches = (result.colorAudit || []).filter(r => r.match).length;
-  const colorTotal = (result.colorAudit || []).length;
-  const colorAccuracy = colorTotal ? ((colorMatches / colorTotal) * 100).toFixed(1) : 'N/A';
-  const accuracyVal = colorTotal ? parseFloat(((colorMatches / colorTotal) * 100).toFixed(1)) : 0;
-  const accuracyColor = (colorTotal && accuracyVal > 60) ? '#16a34a' : 'var(--accent)';
-    // Updated Ramworld logo
-    const ramworldLogo = 'https://ramworld.net/Ramworld_Logo_Main.png';
-    // Try to extract entity logo from result data with fallbacks
-    let entityLogo = result.logo || '';
-    if (!entityLogo && result.favicon) entityLogo = result.favicon;
-    if (!entityLogo && result.url) {
-      try {
-        const { origin } = new URL(result.url);
-        entityLogo = `${origin}/favicon.ico`;
-      } catch (err) {
-        // ignore URL parsing errors
-      }
-    }
-    if (!entityLogo) entityLogo = 'https://via.placeholder.com/80x48?text=Logo';
-  // Normalize logo path: if local file name, prefix with /reports/
-  let initialEntityLogoSrc = entityLogo;
-  if (entityLogo && !/^https?:/i.test(entityLogo)) {
-    initialEntityLogoSrc = `/reports/${entityLogo}`;
-  }
-  // Always use the app favicon from /public
-  const faviconHref = '/favicon.png';
-  // Use absolute paths under /reports so assets load when report is in a subfolder
-  const fullScreenshot = result.snapPath ? `/reports/${result.snapPath}` : '';
-  const responsiveScreens = [
-    { label: 'جوال (375x812)', src: result.screenshotMobile ? `/reports/${result.screenshotMobile}` : '', key: 'mobile' },
-    { label: 'تابلت (768x1024)', src: result.screenshotTablet ? `/reports/${result.screenshotTablet}` : '', key: 'tablet' },
-    { label: 'ديسكتوب (1440x900)', src: result.screenshotDesktop ? `/reports/${result.screenshotDesktop}` : '', key: 'desktop' }
-  ].filter(s => s.src);
-  // Determine document language and direction
-  const isRTL = (s) => /[\u0591-\u08FF]/.test(s || '');
-  const detectedLang = result.pageLang || (isRTL(result.title || '') ? 'ar' : 'en');
-  const detectedDir = 'rtl'; // Always RTL for Arabic report interface
-  const html = `
     <!DOCTYPE html>
-    <html lang="${detectedLang}" dir="${detectedDir}">
+    <html lang="ar" dir="rtl">
     <head>
       <meta charset="UTF-8">
-      <title>تقرير الفحص - ${result.title || ''}</title>
-      <link rel="icon" href="${faviconHref}" sizes="32x32" />
-      <link rel="shortcut icon" href="${faviconHref}" />
+      <title>تقرير الفحص - الصفحة الرئيسية</title>
+      <link rel="icon" href="/favicon.png" sizes="32x32" />
+      <link rel="shortcut icon" href="/favicon.png" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
@@ -56,7 +16,7 @@ export function generateHTMLReport(result) {
           --accent: #2db9db;
           --muted: #6b7280;
         }
-        body { font-family: 'IBM Plex Sans Arabic', Arial, sans-serif; margin: 0; background: #f4f7fb; direction: ${detectedDir}; color: #0f1724; }
+        body { font-family: 'IBM Plex Sans Arabic', Arial, sans-serif; margin: 0; background: #f4f7fb; direction: rtl; color: #0f1724; }
         .ltr { direction: ltr; text-align: left; }
         .rtl { direction: rtl; text-align: right; }
         .header { display: flex; justify-content: space-between; align-items: center; background: #fff; color:#fff; padding:20px 28px; border-bottom: 3px solid var(--primary); }
@@ -386,7 +346,7 @@ export function generateHTMLReport(result) {
           }
 
           // Fallback: use browser print dialog (better than client-side screenshot)
-          alert('تعذر الاتصال بالخادم لإنشاء PDF. سيتم فتح نافذة الطباعة.\\n\\nنصيحة: اختر "حفظ كـ PDF" من خيارات الطباعة للحصول على أفضل نتيجة.');
+          alert('تعذر الاتصال بالخادم لإنشاء PDF. سيتم فتح نافذة الطباعة.\n\nنصيحة: اختر "حفظ كـ PDF" من خيارات الطباعة للحصول على أفضل نتيجة.');
           // Show all content before printing
           const hiddenFailures = document.getElementById('failures-hidden');
           if (hiddenFailures) hiddenFailures.style.display = 'flex';
@@ -458,9 +418,9 @@ export function generateHTMLReport(result) {
     <body>
       <div id="report-root">
       <div class="header">
-        <img src="${ramworldLogo}" alt="Ramworld Logo" style="height:48px;max-width:120px;object-fit:contain;order:1;">
+        <img src="https://ramworld.net/Ramworld_Logo_Main.png" alt="Ramworld Logo" style="height:48px;max-width:120px;object-fit:contain;order:1;">
         <span class="report-title" style="order:2;">تقرير فحص التوافق مع معايير التصميم الموحد</span>
-        <img src="${initialEntityLogoSrc}" alt="Entity Logo" style="height:48px;max-width:120px;object-fit:contain;order:3;">
+        <img src="/reports/logo.svg" alt="Entity Logo" style="height:48px;max-width:120px;object-fit:contain;order:3;">
       </div>
       <!-- Floating/icon TOC (outside of main container so it can be fixed to viewport) -->
       <div class="card" id="section-toc">
@@ -535,20 +495,13 @@ export function generateHTMLReport(result) {
           <!-- Summary Card: Website Name, URL, Timestamp -->
           <div class="summary-card" style="background:linear-gradient(135deg,#f6f9ff,#fff);border:2px solid var(--accent);border-radius:12px;padding:18px 24px;margin:0 0 18px 0;box-shadow:0 2px 8px rgba(45,185,219,0.08);display:flex;flex-direction:column;gap:10px;align-items:flex-start">
             <div style="font-size:1.25em;font-weight:700;color:var(--primary);margin-bottom:2px">
-              <span style="margin-left:8px">اسم الموقع:</span> <span style="color:#2563eb">${result.title || 'غير متوفر'}</span>
+              <span style="margin-left:8px">اسم الموقع:</span> <span style="color:#2563eb">الصفحة الرئيسية</span>
             </div>
             <div style="font-size:1.1em;color:#0f172a;word-break:break-all">
-              <span style="margin-left:8px">الرابط:</span> <a href="${result.url || '#'}" target="_blank" style="color:var(--accent);text-decoration:underline">${result.url || 'غير متوفر'}</a>
+              <span style="margin-left:8px">الرابط:</span> <a href="https://pnu.edu.sa" target="_blank" style="color:var(--accent);text-decoration:underline">https://pnu.edu.sa</a>
             </div>
             <div style="font-size:1em;color:#475569">
-              <span style="margin-left:8px">تاريخ الفحص:</span> ${(() => {
-                try {
-                  const d = result.timestamp ? new Date(result.timestamp) : new Date();
-                  return d.toLocaleDateString('ar-SA', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
-                } catch (e) {
-                  return result.timestamp || 'غير متوفر';
-                }
-              })()}
+              <span style="margin-left:8px">تاريخ الفحص:</span> ١٠ ديسمبر ٢٠٢٥ في ١١:٤٢ ص
             </div>
           </div>
           <h2>نظرة عامة على دقة التوافق</h2>
@@ -557,29 +510,29 @@ export function generateHTMLReport(result) {
           </div>
           <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:24px">
             <div style="background:linear-gradient(135deg,#e6fff7,#fff);padding:16px;border-radius:10px;border:2px solid #16a34a;text-align:center">
-              <div style="font-size:2em;font-weight:700;color:#16a34a">${colorAccuracy}%</div>
+              <div style="font-size:2em;font-weight:700;color:#16a34a">84.0%</div>
               <div style="color:#15803d;margin-top:4px">دقة الألوان</div>
             </div>
             <div style="background:linear-gradient(135deg,#eff6ff,#fff);padding:16px;border-radius:10px;border:2px solid var(--accent);text-align:center">
-              <div style="font-size:2em;font-weight:700;color:var(--accent)">${typeof result.spacingAccuracy === 'number' ? result.spacingAccuracy.toFixed(1) : '0'}%</div>
+              <div style="font-size:2em;font-weight:700;color:var(--accent)">40.0%</div>
               <div style="color:var(--primary);margin-top:4px">دقة المسافات</div>
             </div>
-            <div style="background:linear-gradient(135deg,${result.fontMatch ? '#e6fff7' : '#ffe6e6'},#fff);padding:16px;border-radius:10px;border:2px solid ${result.fontMatch ? '#16a34a' : '#dc2626'};text-align:center">
-              <div style="font-size:1.8em;font-weight:700;color:${result.fontMatch ? '#16a34a' : '#dc2626'}">${result.fontMatch ? '✓' : '✗'}</div>
-              <div style="color:${result.fontMatch ? '#15803d' : '#991b1b'};margin-top:4px">خط IBM Plex</div>
+            <div style="background:linear-gradient(135deg,#e6fff7,#fff);padding:16px;border-radius:10px;border:2px solid #16a34a;text-align:center">
+              <div style="font-size:1.8em;font-weight:700;color:#16a34a">✓</div>
+              <div style="color:#15803d;margin-top:4px">خط IBM Plex</div>
             </div>
-            <div style="background:linear-gradient(135deg,${result.digitalStamp?.present ? '#e6fff7' : '#ffe6e6'},#fff);padding:16px;border-radius:10px;border:2px solid ${result.digitalStamp?.present ? '#16a34a' : '#dc2626'};text-align:center">
-              <div style="font-size:1.8em;font-weight:700;color:${result.digitalStamp?.present ? '#16a34a' : '#dc2626'}">${result.digitalStamp?.present ? '✓' : '✗'}</div>
-              <div style="color:${result.digitalStamp?.present ? '#15803d' : '#991b1b'};margin-top:4px">ختم التحقق</div>
+            <div style="background:linear-gradient(135deg,#e6fff7,#fff);padding:16px;border-radius:10px;border:2px solid #16a34a;text-align:center">
+              <div style="font-size:1.8em;font-weight:700;color:#16a34a">✓</div>
+              <div style="color:#15803d;margin-top:4px">ختم التحقق</div>
             </div>
           </div>
         </div>
 
         <div class="card" id="section-fonts">
           <h2>مقارنة الخطوط</h2>
-          <div class="meta"><strong>نتيجة الكشف عن خط الهوية (IBM Plex):</strong> ${result.fontMatch ? '✔️ مكتشف' : '❌ غير مكتشف'}${result.fontMatchConfidence ? ' — ثقة: ' + result.fontMatchConfidence + '%' : ''}</div>
+          <div class="meta"><strong>نتيجة الكشف عن خط الهوية (IBM Plex):</strong> ✔️ مكتشف — ثقة: 100%</div>
         </div>
-        ${colorTotal ? `
+        
         <div class="card" id="section-colors">
           <h2>تحليل الألوان</h2>
           <div class="meta">مقارنة ألوان الموقع مع ألوان هوية التصميم الموحدة. انقر على الصف لفتح swatch أو حفظ اللون.</div>
@@ -611,135 +564,301 @@ export function generateHTMLReport(result) {
                 </tr>
               </thead>
               <tbody>
-                ${result.colorAudit.map((r,i) => `
-                  <tr id="color-row-${i}" class="color-table-row ${r.match ? 'match' : 'no-match'}" data-match="${r.match ? 'correct' : 'wrong'}" data-distance="${r.distance !== null && r.distance !== undefined ? r.distance.toFixed(1) : 9999}" data-index="${i}" data-color="${r.color}" style="border-bottom:1px dashed #f1f5f9">
-                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:${r.color}"></span> ${r.color}</td>
-                    <td style="padding:10px;text-align:right">${r.closest ? `<span class="swatch" style="background:${r.closest}"></span> ${r.closest}` : '-'}</td>
-                    <td style="padding:10px;text-align:right">${r.distance !== null && r.distance !== undefined ? r.distance.toFixed(1) : '-'}</td>
-                    <td style="padding:10px;text-align:right">${r.match ? '✔️' : '❌'}</td>
+                
+                  <tr id="color-row-0" class="color-table-row no-match" data-match="wrong" data-distance="35.7" data-index="0" data-color="rgb(0, 0, 0)" style="border-bottom:1px dashed #f1f5f9">
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(0, 0, 0)"></span> rgb(0, 0, 0)</td>
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(13,18,28)"></span> rgb(13,18,28)</td>
+                    <td style="padding:10px;text-align:right">35.7</td>
+                    <td style="padding:10px;text-align:right">❌</td>
                   </tr>
-                `).join('')}
+                
+                  <tr id="color-row-1" class="color-table-row match" data-match="correct" data-distance="0.0" data-index="1" data-color="rgb(17, 25, 39)" style="border-bottom:1px dashed #f1f5f9">
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(17, 25, 39)"></span> rgb(17, 25, 39)</td>
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(17,25,39)"></span> rgb(17,25,39)</td>
+                    <td style="padding:10px;text-align:right">0.0</td>
+                    <td style="padding:10px;text-align:right">✔️</td>
+                  </tr>
+                
+                  <tr id="color-row-2" class="color-table-row match" data-match="correct" data-distance="4.7" data-index="2" data-color="rgb(255, 255, 255)" style="border-bottom:1px dashed #f1f5f9">
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(255, 255, 255)"></span> rgb(255, 255, 255)</td>
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(252,252,253)"></span> rgb(252,252,253)</td>
+                    <td style="padding:10px;text-align:right">4.7</td>
+                    <td style="padding:10px;text-align:right">✔️</td>
+                  </tr>
+                
+                  <tr id="color-row-3" class="color-table-row match" data-match="correct" data-distance="0.0" data-index="3" data-color="rgb(229, 231, 235)" style="border-bottom:1px dashed #f1f5f9">
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(229, 231, 235)"></span> rgb(229, 231, 235)</td>
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(229,231,235)"></span> rgb(229,231,235)</td>
+                    <td style="padding:10px;text-align:right">0.0</td>
+                    <td style="padding:10px;text-align:right">✔️</td>
+                  </tr>
+                
+                  <tr id="color-row-4" class="color-table-row match" data-match="correct" data-distance="0.0" data-index="4" data-color="rgb(243, 244, 246)" style="border-bottom:1px dashed #f1f5f9">
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(243, 244, 246)"></span> rgb(243, 244, 246)</td>
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(243,244,246)"></span> rgb(243,244,246)</td>
+                    <td style="padding:10px;text-align:right">0.0</td>
+                    <td style="padding:10px;text-align:right">✔️</td>
+                  </tr>
+                
+                  <tr id="color-row-5" class="color-table-row match" data-match="correct" data-distance="11.5" data-index="5" data-color="rgb(22, 22, 22)" style="border-bottom:1px dashed #f1f5f9">
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(22, 22, 22)"></span> rgb(22, 22, 22)</td>
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(13,18,28)"></span> rgb(13,18,28)</td>
+                    <td style="padding:10px;text-align:right">11.5</td>
+                    <td style="padding:10px;text-align:right">✔️</td>
+                  </tr>
+                
+                  <tr id="color-row-6" class="color-table-row match" data-match="correct" data-distance="0.0" data-index="6" data-color="rgb(27, 131, 84)" style="border-bottom:1px dashed #f1f5f9">
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(27, 131, 84)"></span> rgb(27, 131, 84)</td>
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(27,131,84)"></span> rgb(27,131,84)</td>
+                    <td style="padding:10px;text-align:right">0.0</td>
+                    <td style="padding:10px;text-align:right">✔️</td>
+                  </tr>
+                
+                  <tr id="color-row-7" class="color-table-row match" data-match="correct" data-distance="20.1" data-index="7" data-color="rgb(6, 118, 71)" style="border-bottom:1px dashed #f1f5f9">
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(6, 118, 71)"></span> rgb(6, 118, 71)</td>
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(22,106,69)"></span> rgb(22,106,69)</td>
+                    <td style="padding:10px;text-align:right">20.1</td>
+                    <td style="padding:10px;text-align:right">✔️</td>
+                  </tr>
+                
+                  <tr id="color-row-8" class="color-table-row match" data-match="correct" data-distance="0.0" data-index="8" data-color="rgb(56, 66, 80)" style="border-bottom:1px dashed #f1f5f9">
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(56, 66, 80)"></span> rgb(56, 66, 80)</td>
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(56,66,80)"></span> rgb(56,66,80)</td>
+                    <td style="padding:10px;text-align:right">0.0</td>
+                    <td style="padding:10px;text-align:right">✔️</td>
+                  </tr>
+                
+                  <tr id="color-row-9" class="color-table-row no-match" data-match="wrong" data-distance="42.4" data-index="9" data-color="rgb(45, 97, 123)" style="border-bottom:1px dashed #f1f5f9">
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(45, 97, 123)"></span> rgb(45, 97, 123)</td>
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(77,87,97)"></span> rgb(77,87,97)</td>
+                    <td style="padding:10px;text-align:right">42.4</td>
+                    <td style="padding:10px;text-align:right">❌</td>
+                  </tr>
+                
+                  <tr id="color-row-10" class="color-table-row match" data-match="correct" data-distance="5.2" data-index="10" data-color="rgb(230, 230, 230)" style="border-bottom:1px dashed #f1f5f9">
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(230, 230, 230)"></span> rgb(230, 230, 230)</td>
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(229,231,235)"></span> rgb(229,231,235)</td>
+                    <td style="padding:10px;text-align:right">5.2</td>
+                    <td style="padding:10px;text-align:right">✔️</td>
+                  </tr>
+                
+                  <tr id="color-row-11" class="color-table-row match" data-match="correct" data-distance="0.0" data-index="11" data-color="rgb(210, 214, 219)" style="border-bottom:1px dashed #f1f5f9">
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(210, 214, 219)"></span> rgb(210, 214, 219)</td>
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(210,214,219)"></span> rgb(210,214,219)</td>
+                    <td style="padding:10px;text-align:right">0.0</td>
+                    <td style="padding:10px;text-align:right">✔️</td>
+                  </tr>
+                
+                  <tr id="color-row-12" class="color-table-row match" data-match="correct" data-distance="0.0" data-index="12" data-color="rgb(13, 18, 28)" style="border-bottom:1px dashed #f1f5f9">
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(13, 18, 28)"></span> rgb(13, 18, 28)</td>
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(13,18,28)"></span> rgb(13,18,28)</td>
+                    <td style="padding:10px;text-align:right">0.0</td>
+                    <td style="padding:10px;text-align:right">✔️</td>
+                  </tr>
+                
+                  <tr id="color-row-13" class="color-table-row no-match" data-match="wrong" data-distance="35.7" data-index="13" data-color="rgba(0, 0, 0, 0.176)" style="border-bottom:1px dashed #f1f5f9">
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgba(0, 0, 0, 0.176)"></span> rgba(0, 0, 0, 0.176)</td>
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(13,18,28)"></span> rgb(13,18,28)</td>
+                    <td style="padding:10px;text-align:right">35.7</td>
+                    <td style="padding:10px;text-align:right">❌</td>
+                  </tr>
+                
+                  <tr id="color-row-14" class="color-table-row match" data-match="correct" data-distance="0.0" data-index="14" data-color="rgba(9, 42, 30, 0.75)" style="border-bottom:1px dashed #f1f5f9">
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgba(9, 42, 30, 0.75)"></span> rgba(9, 42, 30, 0.75)</td>
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(9,42,30)"></span> rgb(9,42,30)</td>
+                    <td style="padding:10px;text-align:right">0.0</td>
+                    <td style="padding:10px;text-align:right">✔️</td>
+                  </tr>
+                
+                  <tr id="color-row-15" class="color-table-row match" data-match="correct" data-distance="0.0" data-index="15" data-color="rgb(252, 252, 253)" style="border-bottom:1px dashed #f1f5f9">
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(252, 252, 253)"></span> rgb(252, 252, 253)</td>
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(252,252,253)"></span> rgb(252,252,253)</td>
+                    <td style="padding:10px;text-align:right">0.0</td>
+                    <td style="padding:10px;text-align:right">✔️</td>
+                  </tr>
+                
+                  <tr id="color-row-16" class="color-table-row match" data-match="correct" data-distance="10.6" data-index="16" data-color="rgb(239, 248, 255)" style="border-bottom:1px dashed #f1f5f9">
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(239, 248, 255)"></span> rgb(239, 248, 255)</td>
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(243,244,246)"></span> rgb(243,244,246)</td>
+                    <td style="padding:10px;text-align:right">10.6</td>
+                    <td style="padding:10px;text-align:right">✔️</td>
+                  </tr>
+                
+                  <tr id="color-row-17" class="color-table-row match" data-match="correct" data-distance="7.7" data-index="17" data-color="rgb(236, 253, 243)" style="border-bottom:1px dashed #f1f5f9">
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(236, 253, 243)"></span> rgb(236, 253, 243)</td>
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(243,252,246)"></span> rgb(243,252,246)</td>
+                    <td style="padding:10px;text-align:right">7.7</td>
+                    <td style="padding:10px;text-align:right">✔️</td>
+                  </tr>
+                
+                  <tr id="color-row-18" class="color-table-row match" data-match="correct" data-distance="2.4" data-index="18" data-color="rgb(245, 245, 245)" style="border-bottom:1px dashed #f1f5f9">
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(245, 245, 245)"></span> rgb(245, 245, 245)</td>
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(243,244,246)"></span> rgb(243,244,246)</td>
+                    <td style="padding:10px;text-align:right">2.4</td>
+                    <td style="padding:10px;text-align:right">✔️</td>
+                  </tr>
+                
+                  <tr id="color-row-19" class="color-table-row match" data-match="correct" data-distance="0.0" data-index="19" data-color="rgba(17, 25, 39, 0.75)" style="border-bottom:1px dashed #f1f5f9">
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgba(17, 25, 39, 0.75)"></span> rgba(17, 25, 39, 0.75)</td>
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(17,25,39)"></span> rgb(17,25,39)</td>
+                    <td style="padding:10px;text-align:right">0.0</td>
+                    <td style="padding:10px;text-align:right">✔️</td>
+                  </tr>
+                
+                  <tr id="color-row-20" class="color-table-row match" data-match="correct" data-distance="4.7" data-index="20" data-color="rgba(255, 255, 255, 0.1)" style="border-bottom:1px dashed #f1f5f9">
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgba(255, 255, 255, 0.1)"></span> rgba(255, 255, 255, 0.1)</td>
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(252,252,253)"></span> rgb(252,252,253)</td>
+                    <td style="padding:10px;text-align:right">4.7</td>
+                    <td style="padding:10px;text-align:right">✔️</td>
+                  </tr>
+                
+                  <tr id="color-row-21" class="color-table-row no-match" data-match="wrong" data-distance="53.5" data-index="21" data-color="rgb(0, 117, 128)" style="border-bottom:1px dashed #f1f5f9">
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(0, 117, 128)"></span> rgb(0, 117, 128)</td>
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(27,131,84)"></span> rgb(27,131,84)</td>
+                    <td style="padding:10px;text-align:right">53.5</td>
+                    <td style="padding:10px;text-align:right">❌</td>
+                  </tr>
+                
+                  <tr id="color-row-22" class="color-table-row match" data-match="correct" data-distance="22.3" data-index="22" data-color="rgb(51, 51, 51)" style="border-bottom:1px dashed #f1f5f9">
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(51, 51, 51)"></span> rgb(51, 51, 51)</td>
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(31,42,55)"></span> rgb(31,42,55)</td>
+                    <td style="padding:10px;text-align:right">22.3</td>
+                    <td style="padding:10px;text-align:right">✔️</td>
+                  </tr>
+                
+                  <tr id="color-row-23" class="color-table-row match" data-match="correct" data-distance="28.8" data-index="23" data-color="rgb(102, 102, 102)" style="border-bottom:1px dashed #f1f5f9">
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(102, 102, 102)"></span> rgb(102, 102, 102)</td>
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(108,115,127)"></span> rgb(108,115,127)</td>
+                    <td style="padding:10px;text-align:right">28.8</td>
+                    <td style="padding:10px;text-align:right">✔️</td>
+                  </tr>
+                
+                  <tr id="color-row-24" class="color-table-row match" data-match="correct" data-distance="12.5" data-index="24" data-color="rgb(16, 16, 16)" style="border-bottom:1px dashed #f1f5f9">
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(16, 16, 16)"></span> rgb(16, 16, 16)</td>
+                    <td style="padding:10px;text-align:right"><span class="swatch" style="background:rgb(13,18,28)"></span> rgb(13,18,28)</td>
+                    <td style="padding:10px;text-align:right">12.5</td>
+                    <td style="padding:10px;text-align:right">✔️</td>
+                  </tr>
+                
               </tbody>
             </table>
           </div>
         </div>
-        ${result.colorFailures && result.colorFailures.length ? `
+        
         <div class="card" id="section-color-failures">
           <h2>ألوان غير متوافقة — مواقع الظهور</h2>
-          <div class="meta">تم تصوير عنصر واحد على الأقل لكل لون غير متوافق. انقر على الصورة لعرضها بالحجم الكامل.</div>
-          <div id="failures-grid" style="margin-top:12px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;align-items:start">
-            ${result.colorFailures.map(cf => `
-              <div style="background:#fff;border:1px solid #eee;padding:10px;border-radius:10px;box-shadow:0 4px 12px rgba(2,6,23,0.04);">
-                <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px"><div class="swatch" style="background:${cf.color};width:28px;height:28px;border-radius:6px;border:1px solid #ddd"></div><div style="font-size:13px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">${cf.color}</div></div>
-                <img src="/reports/${cf.screenshot}" style="width:100%;height:140px;object-fit:cover;border-radius:8px;cursor:pointer" onclick="showFullScreenshot('/reports/${cf.screenshot}')">
-                <div style="margin-top:8px;font-size:12px;color:var(--muted);max-height:64px;overflow:hidden">${cf.snippet ? cf.snippet.replace(/</g,'&lt;').replace(/>/g,'&gt;') : ''}</div>
-                <div style="margin-top:8px;font-size:12px;color:var(--muted)"><strong>Selector:</strong> <code style="font-size:12px">${cf.selector || 'N/A'}</code></div>
-                <div style="margin-top:4px;font-size:12px;color:var(--muted)"><strong>Rect:</strong> ${cf.rect ? `x:${Math.round(cf.rect.x)}, y:${Math.round(cf.rect.y)}, w:${Math.round(cf.rect.width)}, h:${Math.round(cf.rect.height)}` : 'N/A'}</div>
-                <div style="margin-top:8px"><a href="${cf.screenshot}" target="_blank" class="btn" style="display:inline-block;padding:8px 10px;font-size:13px">فتح الصورة</a></div>
+          <div class="meta">تم تصوير أول عنصر لكل لون غير متوافق. انقر على الصورة لعرضها بالحجم الكامل.</div>
+          <div id="failures-visible" style="margin-top:12px;display:flex;flex-wrap:wrap;gap:12px">
+            
+              <div style="width:220px;background:#fff;border:1px solid #eee;padding:8px;border-radius:10px;box-shadow:0 4px 12px rgba(2,6,23,0.04);">
+                <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;"><div class="swatch" style="background:rgb(0, 0, 0);width:28px;height:28px;border-radius:6px;border:1px solid #ddd"></div><div style="font-size:13px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">rgb(0, 0, 0)</div></div>
+                <img src="/reports/color-fail-1765356147436-1.png" style="width:100%;height:120px;object-fit:cover;border-radius:8px;cursor:pointer" onclick="showFullScreenshot('/reports/color-fail-1765356147436-1.png')">
+                <div style="margin-top:8px;font-size:12px;color:var(--muted);max-height:48px;overflow:hidden">&lt;html id="ctl00_Html1" xmlns="http://www.w3.org/1999/xhtml" __expr-val-dir="ltr" lang="ar-sa" dir="rtl" data-bs-theme="light" class="active"&gt;&lt;head id="ctl00_Head1"&gt;&lt;meta name="facebook-domain-verification" content="f56am5ylgje50d2fm9tfg2i5jkx6b5"&gt;&lt;meta name="google-site-verification" content="BBXoNzT-cnDzqg_l69VqzXZjiDT5VSoa12YxFexg6yI"&gt;&lt;meta http-equiv="X-UA-Compatible" content="IE=edge"&gt;&lt;meta ht</div>
+                <div style="margin-top:8px;font-size:12px;color:var(--muted)"><strong>Selector:</strong> <code style="font-size:12px">N/A</code></div>
+                <div style="margin-top:4px;font-size:12px;color:var(--muted)"><strong>Rect:</strong> N/A</div>
+                <div style="margin-top:8px"><a href="color-fail-1765356147436-1.png" target="_blank" class="btn" style="display:inline-block;padding:8px 10px;font-size:13px">فتح الصورة</a></div>
               </div>
-            `).join('')}
+            
+              <div style="width:220px;background:#fff;border:1px solid #eee;padding:8px;border-radius:10px;box-shadow:0 4px 12px rgba(2,6,23,0.04);">
+                <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;"><div class="swatch" style="background:rgb(45, 97, 123);width:28px;height:28px;border-radius:6px;border:1px solid #ddd"></div><div style="font-size:13px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">rgb(45, 97, 123)</div></div>
+                <img src="/reports/color-fail-1765356150830-2.png" style="width:100%;height:120px;object-fit:cover;border-radius:8px;cursor:pointer" onclick="showFullScreenshot('/reports/color-fail-1765356150830-2.png')">
+                <div style="margin-top:8px;font-size:12px;color:var(--muted);max-height:48px;overflow:hidden">&lt;input type="search" class="search__input" placeholder="بحث" style=""&gt;</div>
+                <div style="margin-top:8px;font-size:12px;color:var(--muted)"><strong>Selector:</strong> <code style="font-size:12px">N/A</code></div>
+                <div style="margin-top:4px;font-size:12px;color:var(--muted)"><strong>Rect:</strong> N/A</div>
+                <div style="margin-top:8px"><a href="color-fail-1765356150830-2.png" target="_blank" class="btn" style="display:inline-block;padding:8px 10px;font-size:13px">فتح الصورة</a></div>
+              </div>
+            
           </div>
+          
+          <div id="failures-hidden" style="margin-top:12px;display:none;flex-wrap:wrap;gap:12px">
+            
+              <div style="width:220px;background:#fff;border:1px solid #eee;padding:8px;border-radius:10px;box-shadow:0 4px 12px rgba(2,6,23,0.04);">
+                <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px;"><div class="swatch" style="background:rgb(0, 117, 128);width:28px;height:28px;border-radius:6px;border:1px solid #ddd"></div><div style="font-size:13px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">rgb(0, 117, 128)</div></div>
+                <img src="/reports/color-fail-1765356161235-4.png" style="width:100%;height:120px;object-fit:cover;border-radius:8px;cursor:pointer" onclick="showFullScreenshot('/reports/color-fail-1765356161235-4.png')">
+                <div style="margin-top:8px;font-size:12px;color:var(--muted);max-height:48px;overflow:hidden">&lt;dialog id="privacy-dialog" open=""&gt;&lt;div class="dialog-content"&gt;&lt;h2 class="dialog-title"&gt;إشعار سياسة الخصوصية&lt;/h2&gt;&lt;p class="dialog-message"&gt;يرجى الإطلاع على سياسة الخصوصية، الاستمرار يعني الموافقة. &lt;a href="https://pnu.edu.sa/ar/SECURITYCYBER/Pages/DataPrivacyPolicy.aspx" target="_blank" class="privacy-link"&gt;سياسة الخصوصية&lt;/a&gt;&lt;/p&gt;&lt;button class="dialog-accept-btn"&gt;موافق&lt;/button&gt;&lt;/div&gt;&lt;/dialog&gt;</div>
+                <div style="margin-top:8px;font-size:12px;color:var(--muted)"><strong>Selector:</strong> <code style="font-size:12px">N/A</code></div>
+                <div style="margin-top:4px;font-size:12px;color:var(--muted)"><strong>Rect:</strong> N/A</div>
+                <div style="margin-top:8px"><a href="color-fail-1765356161235-4.png" target="_blank" class="btn" style="display:inline-block;padding:8px 10px;font-size:13px">فتح الصورة</a></div>
+              </div>
+            
+          </div>
+          <div class="actions">
+            <button class="btn" id="show-more-btn" onclick="(function(){
+              const hidden = document.getElementById('failures-hidden');
+              if (!hidden) return;
+              const visible = hidden.style.display !== 'none';
+              if (visible) {
+                hidden.style.display = 'none';
+                document.getElementById('show-more-btn').innerText = 'أظهار المزيد';
+              } else {
+                hidden.style.display = 'flex';
+                document.getElementById('show-more-btn').innerText = 'إخفاء';
+              }
+            })()">أظهار المزيد</button>
+          </div>
+          
         </div>
-        ` : ''}
-        ` : ''}
+        
+        
         <!-- Language Validation Section -->
         <div class="card" id="section-language">
           <h2>اللغة الأساسية للموقع</h2>
-          ${(() => {
-            const lang = result.primaryLanguage || null;
-            const conf = result.primaryLanguageConfidence || 0;
-            const suggestions = result.languageSuggestions || [];
-            if (!lang) {
-              return `<div class="meta">لم نتمكن من تحديد اللغة الأساسية للموقع.</div>`;
-            }
-            if (lang === 'ar') {
-              return `
+          
                 <div style="display:flex;flex-direction:column;gap:10px;">
                   <div style="font-weight:700;color:var(--primary)">اللغة الأساسية: العربية</div>
-                  <div class="meta">مستوى الثقة: ${conf}% — الموقع يبدو أنه يستخدم العربية كلغة أساسية.</div>
+                  <div class="meta">مستوى الثقة: 100% — الموقع يبدو أنه يستخدم العربية كلغة أساسية.</div>
                 </div>
-              `;
-            }
-            // Non-Arabic or mixed
-            return `
-              <div style="display:flex;flex-direction:column;gap:10px;">
-                <div style="font-weight:700;color:#dc2626">اللغة الأساسية ليست عربية (${lang})</div>
-                <div class="meta">مستوى الثقة: ${conf}% — يُطلب من الهيئة الرقمية أن تكون اللغة الأساسية عربية.</div>
-                <div style="margin-top:10px">
-                  <strong>اقتراحات لتطبيق اللغة العربية كلغة أساسية:</strong>
-                  <ul style="margin-top:8px;color:#475569">
-                    ${suggestions.map(s => `<li>${s}</li>`).join('')}
-                  </ul>
-                </div>
-              </div>
-            `;
-          })()}
+              
         </div>
         
         <!-- Sitemap Section -->
         <div class="card" id="section-sitemap">
           <h2>خريطة الموقع (Sitemap)</h2>
-          ${(() => {
-            const s = result.sitemapUrls || [];
-            if (!s || !s.length) return `<div class="meta">لم يتم العثور على خريطة موقع تلقائية (robots.txt أو sitemap.xml).</div>`;
-            return `
+          
               <div style="display:flex;flex-direction:column;gap:10px;">
                 <div class="meta">تم العثور على خرائط الموقع التالية. يمكنك فتح أي رابط لمراجعتها أو مشاركتها مع فريق النشر.</div>
                 <ul style="margin-top:8px;color:#475569">
-                  ${s.map(u => `<li><a href="${u}" target="_blank">${u}</a></li>`).join('')}
+                  <li><a href="https://pnu.edu.sa/sitemap.xml" target="_blank">https://pnu.edu.sa/sitemap.xml</a></li><li><a href="https://pnu.edu.sa/ar/Pages/SiteMap.aspx" target="_blank">https://pnu.edu.sa/ar/Pages/SiteMap.aspx</a></li>
                 </ul>
               </div>
-            `;
-          })()}
+            
         </div>
         
         <!-- Template Match Section (inserted) -->
         <div class="card" id="section-template-match">
           <h2>مطابقة القالب</h2>
-          ${(() => {
-            const tm = result.templateMatch || null;
-            if (!tm) return `<div class="meta">لم يتم تشغيل فحص مطابقة القالب أو لا توجد بيانات.</div>`;
-            const score = (typeof tm.score === 'number') ? tm.score.toFixed(0) : '-';
-            const matchedList = (tm.matchedTokens || []).slice(0,10).map(t => `<li>${t}</li>`).join('');
-            const missingCount = (tm.missingTokens || []).length;
-            return `
+          
               <div style="display:flex;flex-direction:column;gap:10px;">
-                <div style="font-weight:700;color:var(--primary)">نسبة المطابقة: ${score}%</div>
-                <div class="meta">مجموع الرموز المراد التحقق منها: ${tm.tokensCount || 0} — المكتشفة: ${(tm.matchedTokens || []).length} — المفقودة: ${missingCount}</div>
+                <div style="font-weight:700;color:var(--primary)">نسبة المطابقة: 8%</div>
+                <div class="meta">مجموع الرموز المراد التحقق منها: 61 — المكتشفة: 5 — المفقودة: 56</div>
                 <div>
                   <strong>أهم الرموز المكتشفة:</strong>
-                  <ul style="margin-top:8px;color:#475569">${matchedList || '<li>لا توجد رموز مكتشفة</li>'}</ul>
+                  <ul style="margin-top:8px;color:#475569"><li>flex</li><li>mb-4</li><li>items-center</li><li>cursor-pointer</li><li>dots</li></ul>
                 </div>
-                ${missingCount ? `<div style="margin-top:8px;color:#7f1d1d"><strong>ملحوظة:</strong> يوجد ${missingCount} رمزًا مفقودًا قد يشير إلى اختلاف في القالب.</div>` : `<div class="meta" style="color:#15803d">القالب متطابق إلى حد كبير.</div>`}
+                <div style="margin-top:8px;color:#7f1d1d"><strong>ملحوظة:</strong> يوجد 56 رمزًا مفقودًا قد يشير إلى اختلاف في القالب.</div>
               </div>
-            `;
-          })()}
+            
         </div>
 
         <!-- Removed unique color set display per request -->
         <div class="card" id="section-design">
           <h2>عناصر التصميم الأساسية</h2>
           <div class="three-col-grid">
-            <div style="background:linear-gradient(135deg,${result.digitalStamp?.present ? '#e6fff7' : '#ffe6e6'},#fff);padding:20px;border-radius:12px;border:2px solid ${result.digitalStamp?.present ? '#16a34a' : '#dc2626'};text-align:center">
-              <div style="font-size:3em;margin-bottom:8px">${result.digitalStamp?.present ? '✓' : '✗'}</div>
-              <h3 style="color:${result.digitalStamp?.present ? '#16a34a' : '#dc2626'};margin:0 0 8px 0;font-size:1.1em">ختم التحقق</h3>
-              <div class="meta" style="color:${result.digitalStamp?.present ? '#15803d' : '#991b1b'}">${result.digitalStamp?.present ? 'تم الكشف' : 'غير موجود'}</div>
-              ${result.digitalStamp && result.digitalStamp.present && result.digitalStamp.reason ? `<div style="margin-top:12px;padding:10px;background:rgba(255,255,255,0.6);border-radius:8px;font-size:0.85em;color:#15803d">${result.digitalStamp.reason}</div>` : ''}
+            <div style="background:linear-gradient(135deg,#e6fff7,#fff);padding:20px;border-radius:12px;border:2px solid #16a34a;text-align:center">
+              <div style="font-size:3em;margin-bottom:8px">✓</div>
+              <h3 style="color:#16a34a;margin:0 0 8px 0;font-size:1.1em">ختم التحقق</h3>
+              <div class="meta" style="color:#15803d">تم الكشف</div>
+              <div style="margin-top:12px;padding:10px;background:rgba(255,255,255,0.6);border-radius:8px;font-size:0.85em;color:#15803d">موقع موثق: تم العثور على دلائل نصية/صورية متسقة مع ختم/شعار رسمي.</div>
             </div>
-            <div style="background:linear-gradient(135deg,${result.hasSearchBar ? '#e6fff7' : '#ffe6e6'},#fff);padding:20px;border-radius:12px;border:2px solid ${result.hasSearchBar ? '#16a34a' : '#dc2626'};text-align:center">
-              <div style="font-size:3em;margin-bottom:8px">${result.hasSearchBar ? '✓' : '✗'}</div>
-              <h3 style="color:${result.hasSearchBar ? '#16a34a' : '#dc2626'};margin:0 0 8px 0;font-size:1.1em">شريط البحث</h3>
-              <div class="meta" style="color:${result.hasSearchBar ? '#15803d' : '#991b1b'}">${result.hasSearchBar ? 'تم الكشف' : 'غير موجود'}</div>
+            <div style="background:linear-gradient(135deg,#e6fff7,#fff);padding:20px;border-radius:12px;border:2px solid #16a34a;text-align:center">
+              <div style="font-size:3em;margin-bottom:8px">✓</div>
+              <h3 style="color:#16a34a;margin:0 0 8px 0;font-size:1.1em">شريط البحث</h3>
+              <div class="meta" style="color:#15803d">تم الكشف</div>
             </div>
-            <div style="background:linear-gradient(135deg,${result.spacingAccuracy > 50 ? '#e6fff7' : '#ffe6e6'},#fff);padding:20px;border-radius:12px;border:2px solid ${result.spacingAccuracy > 50 ? '#16a34a' : '#dc2626'};text-align:center">
-              <div style="font-size:2.5em;margin-bottom:8px;color:${result.spacingAccuracy > 50 ? '#16a34a' : '#dc2626'};font-weight:700">${typeof result.spacingAccuracy === 'number' ? result.spacingAccuracy.toFixed(1) : '0'}%</div>
-              <h3 style="color:${result.spacingAccuracy > 50 ? '#16a34a' : '#dc2626'};margin:0 0 8px 0;font-size:1.1em">دقة المسافات</h3>
-              <div class="meta" style="color:${result.spacingAccuracy > 50 ? '#15803d' : '#991b1b'}">${(() => {
-                const acc = result.spacingAccuracy || 0;
-                if (acc > 80) return 'ممتاز';
-                if (acc > 50) return 'جيد';
-                return 'يحتاج تحسين';
-              })()}</div>
+            <div style="background:linear-gradient(135deg,#ffe6e6,#fff);padding:20px;border-radius:12px;border:2px solid #dc2626;text-align:center">
+              <div style="font-size:2.5em;margin-bottom:8px;color:#dc2626;font-weight:700">40.0%</div>
+              <h3 style="color:#dc2626;margin:0 0 8px 0;font-size:1.1em">دقة المسافات</h3>
+              <div class="meta" style="color:#991b1b">يحتاج تحسين</div>
             </div>
           </div>
         </div>
@@ -747,76 +866,61 @@ export function generateHTMLReport(result) {
         <!-- Performance Section -->
         <div class="card" id="section-performance">
           <h2>تحليل الأداء</h2>
-          ${(() => {
-            const perf = (result.performance && result.performance.metrics) ? result.performance.metrics : null;
-            const resources = (result.performance && result.performance.resourceStats) ? result.performance.resourceStats : { requestCount: 0, transferSizeBytes: 0 };
-            if (!perf) {
-              return `<div class="meta">لم تتوفر بيانات أداء تفصيلية لهذا الفحص.</div>`;
-            }
-            // Render timings in seconds for readability
-            const toSec = (ms) => (ms === null || ms === undefined) ? null : (ms/1000);
-            const cards = [];
-            if (perf.fcpMs !== null && perf.fcpMs !== undefined) cards.push({ k: 'FCP', label: 'FCP (أول محتوى مرئي)', value: `${toSec(perf.fcpMs).toFixed(2)} ثانية` });
-            if (perf.lcpMs !== null && perf.lcpMs !== undefined) cards.push({ k: 'LCP', label: 'LCP (أكبر عنصر مرئي)', value: `${toSec(perf.lcpMs).toFixed(2)} ثانية` });
-            if (perf.domContentLoadedMs !== null && perf.domContentLoadedMs !== undefined) cards.push({ k: 'DCL', label: 'DOM Content Loaded', value: `${toSec(perf.domContentLoadedMs).toFixed(2)} ثانية` });
-            if (perf.loadEventEndMs !== null && perf.loadEventEndMs !== undefined) cards.push({ k: 'LOAD', label: 'اكتمال تحميل الصفحة', value: `${toSec(perf.loadEventEndMs).toFixed(2)} ثانية` });
-            if (perf.totalBlockingTimeMs !== null && perf.totalBlockingTimeMs !== undefined) cards.push({ k: 'TBT', label: 'إجمالي وقت الحظر (TBT)', value: `${toSec(perf.totalBlockingTimeMs).toFixed(2)} ثانية` });
-            if (perf.speedIndexSec !== null && perf.speedIndexSec !== undefined) cards.push({ k: 'SI', label: 'سرعة العرض (Speed Index)', value: `${perf.speedIndexSec.toFixed(2)} ثانية` });
-            cards.push({ k: 'REQ', label: 'عدد الطلبات', value: `${(resources.requestCount || 0)}` });
-            cards.push({ k: 'SIZE', label: 'حجم الموارد (تقريبي)', value: `${resources.transferSizeBytes ? (Math.round(resources.transferSizeBytes/1024)) + ' ك.بايت' : 'غير متوفر'}` });
-
-            const cardsHtml = cards.map(c => `
+          
+              <div class="performance-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:12px">
               <div style="background:#fff;border:1px solid #e6eefc;padding:12px;border-radius:10px;display:flex;flex-direction:column;gap:8px;text-align:right">
-                <div style="font-weight:700;color:var(--primary);font-size:0.95em">${c.label}</div>
-                <div style="font-size:1.2em;font-weight:700;color:#0f172a">${c.value}</div>
+                <div style="font-weight:700;color:var(--primary);font-size:0.95em">FCP (أول محتوى مرئي)</div>
+                <div style="font-size:1.2em;font-weight:700;color:#0f172a">4.19 ثانية</div>
               </div>
-            `).join('');
-
-            // Generate suggestions based on thresholds
-            const suggestions = [];
-            if (perf.lcpMs && perf.lcpMs > 2500) suggestions.push({ title: 'تحسين LCP', description: 'LCP أعلى من 2.5s؛ قم بتحسين تحميل الصور والموارد الحرجة وضبط التحميل الكسول.' });
-            if (perf.fcpMs && perf.fcpMs > 1000) suggestions.push({ title: 'رفع FCP', description: 'FCP بطيء؛ قلل الموارد الحرجة وادمج CSS الحرجة إن أمكن.' });
-            if (perf.totalBlockingTimeMs && perf.totalBlockingTimeMs > 300) suggestions.push({ title: 'تقليل TBT', description: 'وجود مهام طويلة تؤثر على التفاعل؛ احرص على تفكيك البرامج الثقيلة أو تأجيلها.' });
-            if ((resources.requestCount || 0) > 90) suggestions.push({ title: 'تقليل عدد الطلبات', description: 'عدد كبير من الطلبات يزيد زمن التحميل. دمج الموارد وتقليل الحزم يساعد.' });
-
-            // Speed Index guidance
-            const speedIndex = perf.speedIndexSec || null;
-            if (speedIndex !== null) {
-              if (speedIndex > 3.5) {
-                suggestions.push({ title: 'تحسين سرعة العرض (Speed Index)', description: 'سرعة العرض أعلى من المستوى المطلوب؛ اقترح تقليل حجم المرئيات واستخدام صيغ حديثة مثل WebP وتقليل عدد طلبات HTTP عن طريق تجميع الموارد وتأخير تحميل الموارد غير الحرجة.' });
-              } else {
-                // positive note (not a critical suggestion)
-                suggestions.push({ title: 'سرعة العرض جيدة', description: 'Speed Index ضمن النطاق الجيد (' + speedIndex.toFixed(2) + 's). حافظ على تقليل أحجام الصور وعدد الطلبات للحفاظ على الأداء.' });
-              }
-            }
-
-            const suggestionsHtml = suggestions.length ? `
-              <div style="margin-top:14px">
-                <h3 style="margin:0 0 8px 0;color:var(--primary)">اقتراحات لتحسين الأداء</h3>
-                <div style="display:flex;flex-direction:column;gap:10px">${suggestions.map(s => `<div style="background:#fff;padding:12px;border-radius:8px;border-left:4px solid #f59e0b"><strong>${s.title}</strong><div style="color:#475569;margin-top:6px">${s.description}</div></div>`).join('')}</div>
+            
+              <div style="background:#fff;border:1px solid #e6eefc;padding:12px;border-radius:10px;display:flex;flex-direction:column;gap:8px;text-align:right">
+                <div style="font-weight:700;color:var(--primary);font-size:0.95em">DOM Content Loaded</div>
+                <div style="font-size:1.2em;font-weight:700;color:#0f172a">5.70 ثانية</div>
               </div>
-            ` : '<div class="meta" style="margin-top:12px;color:#15803d">لا توجد توصيات حرجة للأداء.</div>';
-
-            const testingHtml = `
+            
+              <div style="background:#fff;border:1px solid #e6eefc;padding:12px;border-radius:10px;display:flex;flex-direction:column;gap:8px;text-align:right">
+                <div style="font-weight:700;color:var(--primary);font-size:0.95em">اكتمال تحميل الصفحة</div>
+                <div style="font-size:1.2em;font-weight:700;color:#0f172a">5.78 ثانية</div>
+              </div>
+            
+              <div style="background:#fff;border:1px solid #e6eefc;padding:12px;border-radius:10px;display:flex;flex-direction:column;gap:8px;text-align:right">
+                <div style="font-weight:700;color:var(--primary);font-size:0.95em">إجمالي وقت الحظر (TBT)</div>
+                <div style="font-size:1.2em;font-weight:700;color:#0f172a">0.00 ثانية</div>
+              </div>
+            
+              <div style="background:#fff;border:1px solid #e6eefc;padding:12px;border-radius:10px;display:flex;flex-direction:column;gap:8px;text-align:right">
+                <div style="font-weight:700;color:var(--primary);font-size:0.95em">سرعة العرض (Speed Index)</div>
+                <div style="font-size:1.2em;font-weight:700;color:#0f172a">4.19 ثانية</div>
+              </div>
+            
+              <div style="background:#fff;border:1px solid #e6eefc;padding:12px;border-radius:10px;display:flex;flex-direction:column;gap:8px;text-align:right">
+                <div style="font-weight:700;color:var(--primary);font-size:0.95em">عدد الطلبات</div>
+                <div style="font-size:1.2em;font-weight:700;color:#0f172a">0</div>
+              </div>
+            
+              <div style="background:#fff;border:1px solid #e6eefc;padding:12px;border-radius:10px;display:flex;flex-direction:column;gap:8px;text-align:right">
+                <div style="font-weight:700;color:var(--primary);font-size:0.95em">حجم الموارد (تقريبي)</div>
+                <div style="font-size:1.2em;font-weight:700;color:#0f172a">غير متوفر</div>
+              </div>
+            </div>
+              
+              <div style="margin-top:12px;padding:12px;background:#fff;border-radius:8px;border:1px solid #eef2ff">
+                <strong style="color:var(--primary)">ملخص الموارد:</strong>
+                <div style="color:#475569;margin-top:6px">عدد الطلبات: <strong>0</strong> — حجم إجمالي (تقريبي): <strong>غير متوفر</strong></div>
+              </div>
+            
+              
               <div style="margin-top:14px;padding:12px;background:#fbfdff;border-radius:8px;border:1px solid #eef6ff">
                 <div style="color:#475569;margin-top:6px;line-height:1.6">القيم مأخوذة من واجهة window.performance داخل الصفحة: FCP وLCP من Paint/PerformanceEntry، DCL وLoad من توقيتات التنقل، وTTB مقدر من سجلات longtask.</div>
               </div>
-            `;
-
-            const resourcesHtml = `
-              <div style="margin-top:12px;padding:12px;background:#fff;border-radius:8px;border:1px solid #eef2ff">
-                <strong style="color:var(--primary)">ملخص الموارد:</strong>
-                <div style="color:#475569;margin-top:6px">عدد الطلبات: <strong>${resources.requestCount || 0}</strong> — حجم إجمالي (تقريبي): <strong>${resources.transferSizeBytes ? Math.round(resources.transferSizeBytes/1024) + ' ك.بايت' : 'غير متوفر'}</strong></div>
+            
+              
+              <div style="margin-top:14px">
+                <h3 style="margin:0 0 8px 0;color:var(--primary)">اقتراحات لتحسين الأداء</h3>
+                <div style="display:flex;flex-direction:column;gap:10px"><div style="background:#fff;padding:12px;border-radius:8px;border-left:4px solid #f59e0b"><strong>رفع FCP</strong><div style="color:#475569;margin-top:6px">FCP بطيء؛ قلل الموارد الحرجة وادمج CSS الحرجة إن أمكن.</div></div><div style="background:#fff;padding:12px;border-radius:8px;border-left:4px solid #f59e0b"><strong>تحسين سرعة العرض (Speed Index)</strong><div style="color:#475569;margin-top:6px">سرعة العرض أعلى من المستوى المطلوب؛ اقترح تقليل حجم المرئيات واستخدام صيغ حديثة مثل WebP وتقليل عدد طلبات HTTP عن طريق تجميع الموارد وتأخير تحميل الموارد غير الحرجة.</div></div></div>
               </div>
-            `;
-
-            return `
-              <div class="performance-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:12px">${cardsHtml}</div>
-              ${resourcesHtml}
-              ${testingHtml}
-              ${suggestionsHtml}
-            `;
-          })()}
+            
+            
         </div>
 
         <!-- AI Recommendations Section -->
@@ -826,158 +930,99 @@ export function generateHTMLReport(result) {
             توصيات التحسين (AI)
           </h2>
           <div style="color:#0f1724;line-height:1.8;margin-top:16px">
-            ${(() => {
-              const recommendations = [];
-              const colorAcc = parseFloat(colorAccuracy);
-              const spacingAcc = typeof result.spacingAccuracy === 'number' ? result.spacingAccuracy : 0;
-              
-              // Color recommendations
-              if (colorAcc < 60) {
-                recommendations.push({
-                  priority: 'عالي',
-                  color: '#dc2626',
-                  icon: '🎨',
-                  title: 'تحسين توافق الألوان',
-                  description: 'دقة الألوان الحالية (' + colorAccuracy + '%) أقل من المستوى المطلوب. يُنصح بمراجعة لوحة الألوان المستخدمة في الموقع وتحديثها لتطابق ألوان الهوية الموحدة للحكومة الرقمية.',
-                  action: 'استخدام الألوان المعتمدة من نظام التصميم الموحد فقط في جميع عناصر الموقع'
-                });
-              } else if (colorAcc < 80) {
-                recommendations.push({
-                  priority: 'متوسط',
-                  color: '#f59e0b',
-                  icon: '🎨',
-                  title: 'تحسينات بسيطة على الألوان',
-                  description: 'دقة الألوان جيدة (' + colorAccuracy + '%) لكن يمكن تحسينها. راجع الألوان غير المتوافقة المدرجة في التقرير وقم بتعديلها.',
-                  action: 'مراجعة وتصحيح الألوان المحددة في قسم "ألوان غير متوافقة"'
-                });
-              } else {
-                recommendations.push({
-                  priority: 'ممتاز',
-                  color: '#16a34a',
-                  icon: '✓',
-                  title: 'توافق ممتاز للألوان',
-                  description: 'دقة الألوان ممتازة (' + colorAccuracy + '%). الموقع يستخدم ألوان الهوية بشكل صحيح. استمر في الحفاظ على هذا المستوى.',
-                  action: 'الحفاظ على استخدام ألوان الهوية في التحديثات المستقبلية'
-                });
-              }
-              
-              // Spacing recommendations
-              if (spacingAcc < 50) {
-                recommendations.push({
-                  priority: 'عالي',
-                  color: '#dc2626',
-                  icon: '📏',
-                  title: 'إصلاح نظام المسافات',
-                  description: 'دقة المسافات (' + spacingAcc.toFixed(1) + '%) تحتاج إلى تحسين كبير. المسافات غير المتسقة تؤثر على تجربة المستخدم والمظهر الاحترافي للموقع.',
-                  action: 'تطبيق نظام المسافات الموحد (4px, 8px, 12px, 16px, 24px, 32px, 48px) في جميع العناصر'
-                });
-              } else if (spacingAcc < 80) {
-                recommendations.push({
-                  priority: 'متوسط',
-                  color: '#f59e0b',
-                  icon: '📏',
-                  title: 'تحسين اتساق المسافات',
-                  description: 'دقة المسافات (' + spacingAcc.toFixed(1) + '%) جيدة لكن تحتاج بعض التحسينات لتحقيق التناسق الكامل.',
-                  action: 'مراجعة المسافات في العناصر الرئيسية وتوحيدها حسب النظام'
-                });
-              }
-              
-              // Font recommendations
-              if (!result.fontMatch) {
-                recommendations.push({
-                  priority: 'عالي',
-                  color: '#dc2626',
-                  icon: '🔤',
-                  title: 'تطبيق خط الهوية',
-                  description: 'الموقع لا يستخدم خط IBM Plex Arabic المطلوب. الخط الموحد ضروري لتحقيق الهوية البصرية المتسقة.',
-                  action: 'تحميل وتطبيق خط IBM Plex Arabic من Google Fonts أو من ملفات الخطوط المحلية'
-                });
-              }
-              
-              // Digital stamp recommendations  
-              if (!result.digitalStamp?.present) {
-                recommendations.push({
-                  priority: 'عالي',
-                  color: '#dc2626',
-                  icon: '🔒',
-                  title: 'إضافة ختم التحقق',
-                  description: 'الموقع لا يحتوي على ختم/شريط المصادقة الرسمي. هذا العنصر إلزامي للمواقع الحكومية للتأكيد على الهوية الرسمية.',
-                  action: 'إضافة شريط التحقق الرسمي مع العلم السعودي والنص "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية"'
-                });
-              }
-              
-              // General recommendations
-              if (colorAcc >= 80 && spacingAcc >= 80 && result.fontMatch && result.digitalStamp?.present) {
-                recommendations.push({
-                  priority: 'ممتاز',
-                  color: '#16a34a',
-                  icon: '🌟',
-                  title: 'توافق ممتاز مع المعايير',
-                  description: 'الموقع يحقق مستوى ممتاز من التوافق مع معايير التصميم الموحد. جميع العناصر الأساسية مطبقة بشكل صحيح.',
-                  action: 'متابعة الالتزام بالمعايير في التحديثات المستقبلية وإجراء فحوصات دورية'
-                });
-              }
-              
-              // Responsive design recommendation
-              if (responsiveScreens.length === 3) {
-                recommendations.push({
-                  priority: 'معلومات',
-                  color: '#2563eb',
-                  icon: '📱',
-                  title: 'التصميم المتجاوب',
-                  description: 'تم اختبار الموقع على أحجام شاشات متعددة (جوال، تابلت، ديسكتوب). راجع لقطات الشاشة للتأكد من جودة العرض.',
-                  action: 'مراجعة لقطات الشاشة وضمان تناسق التصميم عبر جميع الأجهزة'
-                });
-              }
-              
-              return recommendations.map(rec => `
-                <div style="margin-bottom:20px;padding:20px;background:white;border-radius:12px;border-right:4px solid ${rec.color};box-shadow:0 2px 8px rgba(0,0,0,0.08)">
+            
+                <div style="margin-bottom:20px;padding:20px;background:white;border-radius:12px;border-right:4px solid #16a34a;box-shadow:0 2px 8px rgba(0,0,0,0.08)">
                   <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
-                    <span style="font-size:2em">${rec.icon}</span>
+                    <span style="font-size:2em">✓</span>
                     <div style="flex:1">
                       <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
-                        <h3 style="margin:0;color:${rec.color};font-size:1.2em">${rec.title}</h3>
-                        <span style="background:${rec.color};color:white;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700">${rec.priority}</span>
+                        <h3 style="margin:0;color:#16a34a;font-size:1.2em">توافق ممتاز للألوان</h3>
+                        <span style="background:#16a34a;color:white;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700">ممتاز</span>
                       </div>
                     </div>
                   </div>
-                  <p style="margin:0 0 12px 0;color:#4b5563;line-height:1.7">${rec.description}</p>
-                  <div style="background:#f9fafb;padding:12px 16px;border-radius:8px;border-right:3px solid ${rec.color}">
+                  <p style="margin:0 0 12px 0;color:#4b5563;line-height:1.7">دقة الألوان ممتازة (84.0%). الموقع يستخدم ألوان الهوية بشكل صحيح. استمر في الحفاظ على هذا المستوى.</p>
+                  <div style="background:#f9fafb;padding:12px 16px;border-radius:8px;border-right:3px solid #16a34a">
                     <strong style="color:#1f2937">الإجراء المقترح:</strong>
-                    <div style="color:#4b5563;margin-top:6px">${rec.action}</div>
+                    <div style="color:#4b5563;margin-top:6px">الحفاظ على استخدام ألوان الهوية في التحديثات المستقبلية</div>
                   </div>
                 </div>
-              `).join('');
-            })()}
+              
+                <div style="margin-bottom:20px;padding:20px;background:white;border-radius:12px;border-right:4px solid #dc2626;box-shadow:0 2px 8px rgba(0,0,0,0.08)">
+                  <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+                    <span style="font-size:2em">📏</span>
+                    <div style="flex:1">
+                      <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+                        <h3 style="margin:0;color:#dc2626;font-size:1.2em">إصلاح نظام المسافات</h3>
+                        <span style="background:#dc2626;color:white;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700">عالي</span>
+                      </div>
+                    </div>
+                  </div>
+                  <p style="margin:0 0 12px 0;color:#4b5563;line-height:1.7">دقة المسافات (40.0%) تحتاج إلى تحسين كبير. المسافات غير المتسقة تؤثر على تجربة المستخدم والمظهر الاحترافي للموقع.</p>
+                  <div style="background:#f9fafb;padding:12px 16px;border-radius:8px;border-right:3px solid #dc2626">
+                    <strong style="color:#1f2937">الإجراء المقترح:</strong>
+                    <div style="color:#4b5563;margin-top:6px">تطبيق نظام المسافات الموحد (4px, 8px, 12px, 16px, 24px, 32px, 48px) في جميع العناصر</div>
+                  </div>
+                </div>
+              
+                <div style="margin-bottom:20px;padding:20px;background:white;border-radius:12px;border-right:4px solid #2563eb;box-shadow:0 2px 8px rgba(0,0,0,0.08)">
+                  <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px">
+                    <span style="font-size:2em">📱</span>
+                    <div style="flex:1">
+                      <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+                        <h3 style="margin:0;color:#2563eb;font-size:1.2em">التصميم المتجاوب</h3>
+                        <span style="background:#2563eb;color:white;padding:4px 12px;border-radius:20px;font-size:11px;font-weight:700">معلومات</span>
+                      </div>
+                    </div>
+                  </div>
+                  <p style="margin:0 0 12px 0;color:#4b5563;line-height:1.7">تم اختبار الموقع على أحجام شاشات متعددة (جوال، تابلت، ديسكتوب). راجع لقطات الشاشة للتأكد من جودة العرض.</p>
+                  <div style="background:#f9fafb;padding:12px 16px;border-radius:8px;border-right:3px solid #2563eb">
+                    <strong style="color:#1f2937">الإجراء المقترح:</strong>
+                    <div style="color:#4b5563;margin-top:6px">مراجعة لقطات الشاشة وضمان تناسق التصميم عبر جميع الأجهزة</div>
+                  </div>
+                </div>
+              
           </div>
         </div>
 
-        ${responsiveScreens.length > 0 ? `
+        
         <div class="card" id="section-responsive">
           <h2>اختبار التصميم المتجاوب</h2>
           <div class="responsive-grid">
-            ${responsiveScreens.map(s => `
+            
               <div class="responsive-cell">
-                <div class="meta">${s.label}</div>
-                <img src="${s.src}" style="width:100%;height:auto;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.08);background:#fff;" alt="${s.label}">
-                <div style="margin-top:8px;"><button class="btn" onclick="showFullScreenshot('${s.src}')">عرض</button> <button class="btn" onclick="downloadImage('${s.src}','${s.key}-screenshot.png')">تحميل</button></div>
+                <div class="meta">جوال (375x812)</div>
+                <img src="/reports/snap-1765356138903-mobile.png" style="width:100%;height:auto;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.08);background:#fff;" alt="جوال (375x812)">
+                <div style="margin-top:8px;"><button class="btn" onclick="showFullScreenshot('/reports/snap-1765356138903-mobile.png')">عرض</button> <button class="btn" onclick="downloadImage('/reports/snap-1765356138903-mobile.png','mobile-screenshot.png')">تحميل</button></div>
               </div>
-            `).join('')}
+            
+              <div class="responsive-cell">
+                <div class="meta">تابلت (768x1024)</div>
+                <img src="/reports/snap-1765356138903-tablet.png" style="width:100%;height:auto;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.08);background:#fff;" alt="تابلت (768x1024)">
+                <div style="margin-top:8px;"><button class="btn" onclick="showFullScreenshot('/reports/snap-1765356138903-tablet.png')">عرض</button> <button class="btn" onclick="downloadImage('/reports/snap-1765356138903-tablet.png','tablet-screenshot.png')">تحميل</button></div>
+              </div>
+            
+              <div class="responsive-cell">
+                <div class="meta">ديسكتوب (1440x900)</div>
+                <img src="/reports/snap-1765356138903-desktop.png" style="width:100%;height:auto;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,0.08);background:#fff;" alt="ديسكتوب (1440x900)">
+                <div style="margin-top:8px;"><button class="btn" onclick="showFullScreenshot('/reports/snap-1765356138903-desktop.png')">عرض</button> <button class="btn" onclick="downloadImage('/reports/snap-1765356138903-desktop.png','desktop-screenshot.png')">تحميل</button></div>
+              </div>
+            
           </div>
         </div>
-        ` : ''}
+        
         <div class="card" id="section-export">
           <h2>صورة كاملة للصفحة و تصدير التقرير</h2>
           <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:16px">
             <div>
               <h3 style="color:var(--primary);font-size:1.1rem;margin-bottom:12px">معاينة الصفحة</h3>
-              <img src="${fullScreenshot}" class="thumbnail" alt="Full Screenshot" onclick="showFullScreenshot('${fullScreenshot}')" style="width:100%;height:auto;max-height:300px;object-fit:contain;border:2px solid var(--accent);border-radius:12px;cursor:pointer;transition:transform 0.2s" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
+              <img src="/reports/snap-1765356134419.png" class="thumbnail" alt="Full Screenshot" onclick="showFullScreenshot('/reports/snap-1765356134419.png')" style="width:100%;height:auto;max-height:300px;object-fit:contain;border:2px solid var(--accent);border-radius:12px;cursor:pointer;transition:transform 0.2s" onmouseover="this.style.transform='scale(1.02)'" onmouseout="this.style.transform='scale(1)'">
               <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
-                <button class="btn" onclick="showFullScreenshot('${fullScreenshot}')" style="flex:1;min-width:140px">
+                <button class="btn" onclick="showFullScreenshot('/reports/snap-1765356134419.png')" style="flex:1;min-width:140px">
                   <svg viewBox="0 0 24 24" style="width:16px;height:16px;margin-left:6px;display:inline-block;vertical-align:middle" fill="currentColor"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
                   عرض بالحجم الكامل
                 </button>
-                <button class="btn" onclick="downloadImage('${fullScreenshot}','full-screenshot.png')" style="flex:1;min-width:140px;background:#16a34a">
+                <button class="btn" onclick="downloadImage('/reports/snap-1765356134419.png','full-screenshot.png')" style="flex:1;min-width:140px;background:#16a34a">
                   <svg viewBox="0 0 24 24" style="width:16px;height:16px;margin-left:6px;display:inline-block;vertical-align:middle" fill="currentColor"><path d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2z"/></svg>
                   تحميل PNG
                 </button>
@@ -1003,13 +1048,13 @@ export function generateHTMLReport(result) {
         </div>
       </div>
       <div class="footer">
-        <img src="${ramworldLogo}" alt="Ramworld Logo" style="order:1;">
+        <img src="https://ramworld.net/Ramworld_Logo_Main.png" alt="Ramworld Logo" style="order:1;">
         <div class="info" style="order:2;">
           <div style="font-size:10pt;font-weight:600;color:var(--primary)">مدقق التصميم الموحد</div>
           <div class="ltr" style="font-size:9pt;color:#6b7280;margin-top:2px">www.ramworld.net | +966 55 506 7508</div>
         </div>
         <div class="page-number" style="font-size:10pt;font-weight:600;color:var(--primary);order:3;"></div>
-        <img src="${initialEntityLogoSrc}" alt="Entity Logo" style="order:4;">
+        <img src="/reports/logo.svg" alt="Entity Logo" style="order:4;">
       </div>
       </div>
       <script>
@@ -1064,7 +1109,7 @@ export function generateHTMLReport(result) {
             document.body.removeChild(loadingDiv);
           }
           
-          alert('تعذر الاتصال بالخادم لإنشاء PDF. سيتم فتح نافذة الطباعة.\\n\\nنصيحة: اختر \"حفظ كـ PDF\" من خيارات الطباعة للحصول على أفضل نتيجة.');
+          alert('تعذر الاتصال بالخادم لإنشاء PDF. سيتم فتح نافذة الطباعة.\n\nنصيحة: اختر "حفظ كـ PDF" من خيارات الطباعة للحصول على أفضل نتيجة.');
           const hiddenFailures = document.getElementById('failures-hidden');
           if (hiddenFailures) hiddenFailures.style.display = 'flex';
           const colorFilter = document.getElementById('color-filter');
@@ -1080,11 +1125,11 @@ export function generateHTMLReport(result) {
         window.addEventListener('DOMContentLoaded', function() {
           const ctx = document.getElementById('accuracyChart');
           if (ctx && window.Chart) {
-            const colorAcc = ${colorAccuracy};
-            const spacingAcc = ${typeof result.spacingAccuracy === 'number' ? result.spacingAccuracy.toFixed(1) : 0};
-            const fontScore = ${result.fontMatch ? 100 : 0};
-            const stampScore = ${result.digitalStamp?.present ? 100 : 0};
-            const searchScore = ${result.hasSearchBar ? 100 : 0};
+            const colorAcc = 84.0;
+            const spacingAcc = 40.0;
+            const fontScore = 100;
+            const stampScore = 100;
+            const searchScore = 100;
             
             new Chart(ctx, {
               type: 'doughnut',
@@ -1146,29 +1191,4 @@ export function generateHTMLReport(result) {
 
     </body>
     </html>
-  `;
-  // Save to a unique subfolder: <sanitized-domain>-<timestamp>/report.html
-  const ts = result.timestamp ? new Date(result.timestamp).getTime() : Date.now();
-  const domainPart = (result.url || 'site')
-    .replace(/^https?:\/\//, '')
-    .replace(/[\/:?&#%\s]+/g, '-')
-    .replace(/-+/g, '-')
-    .replace(/^-|-$/g, '');
-  const slug = `${domainPart}-${ts}`;
-  const outDir = `reports/${slug}`;
-  try { if (!fs.existsSync(outDir)) fs.mkdirSync(outDir, { recursive: true }); } catch (e) {}
-
-  // Entity logo: always use logo.png from the scanned URL folder if it exists
-  let entityLogoSrc;
-  const logoPath = `${outDir}/logo.png`;
-  if (fs.existsSync(logoPath)) {
-    entityLogoSrc = `/reports/${slug}/logo.png`;
-  } else if (result.favicon && /^https?:/i.test(result.favicon)) {
-    entityLogoSrc = result.favicon;
-  } else {
-    entityLogoSrc = 'https://via.placeholder.com/80x48?text=Logo';
-  }
-
-  fs.writeFileSync(`${outDir}/report.html`, html, 'utf-8');
-  console.log(`✅ HTML report saved in ${outDir}/report.html`);
-}
+  

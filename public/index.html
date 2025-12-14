@@ -520,7 +520,7 @@
                     <svg viewBox="0 0 24 24" style="width:12px;height:12px"
                       fill="currentColor"><path
                         d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" /></svg>
-                    يُقبل فقط نطاق ينتهي بـ .gov.sa أو .edu.sa. يمكنك إدخال النطاق فقط وسيُضاف البروتوكول تلقائياً
+                    يُقبل فقط نطاق ينتهي بـ .gov.sa أو .edu.sa أو .org.sa أو .med.sa أو .sch.sa. يمكنك إدخال النطاق فقط وسيُضاف البروتوكول تلقائياً
                   </div>
                 </div>
 
@@ -849,9 +849,10 @@
         setStatus('الرجاء إدخال رابط صالح', false);
         return;
       }
-      // Allow only .gov.sa or .edu.sa
-      if (!hostname.endsWith('.gov.sa') && !hostname.endsWith('.edu.sa')) {
-        setStatus('الرجاء إدخال موقع ينتهي بـ .gov.sa أو .edu.sa', false);
+      // Allow only selected Saudi government/partner domains
+      const allowedSuffixes = ['.gov.sa', '.edu.sa', '.org.sa', '.med.sa', '.sch.sa'];
+      if (!allowedSuffixes.some(s => hostname.endsWith(s))) {
+        setStatus('الرجاء إدخال موقع ينتهي بـ .gov.sa أو .edu.sa أو .org.sa أو .med.sa أو .sch.sa', false);
         return;
       }
       // Show normalized URL to the user

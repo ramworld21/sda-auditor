@@ -43,7 +43,8 @@ export async function auditColors(url, fastMode = false) {
   const browser = await chromium.launch({ headless: true }); // run in headless mode for automation
   const context = await browser.newContext({
     userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-    locale: 'en-US'
+    locale: 'en-US',
+    ignoreHTTPSErrors: true
   });
   const page = await context.newPage();
   await page.setExtraHTTPHeaders({
@@ -66,11 +67,77 @@ export async function auditColors(url, fastMode = false) {
     }
   }
 
-  try {
-    await page.goto(url, { waitUntil: "domcontentloaded", timeout: 60000 }); // 60s timeout, less strict
-  } catch (err) {
-    await browser.close();
-    throw new Error('Navigation failed: ' + err.message);
+  // Robust navigation with retry/backoff. If navigation repeatedly fails we'll
+  // generate a minimal error report instead of throwing so the CLI can show
+  // a helpful report to the user.
+  let navError = null;
+  const maxAttempts = 3;
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      const timeout = attempt === 1 ? 60000 : 120000; // first attempt 60s, subsequent 120s
+      const waitUntil = attempt === 1 ? 'domcontentloaded' : 'networkidle';
+      await page.goto(url, { waitUntil, timeout });
+      navError = null;
+      break;
+    } catch (err) {
+      navError = err;
+      console.warn(`Navigation attempt ${attempt} failed: ${err && err.message ? err.message : String(err)}`);
+      // brief backoff before retrying
+      if (attempt < maxAttempts) await new Promise(r => setTimeout(r, 1500 * attempt));
+    }
+  }
+
+  if (navError) {
+    try {
+      await browser.close();
+    } catch (e) {}
+
+    // Construct a minimal result object describing the navigation failure so we
+    // can still generate a user-facing HTML report explaining the issue.
+    const result = {
+      url,
+      timestamp: new Date().toISOString(),
+      error: 'Navigation failed: ' + (navError && navError.message ? navError.message : String(navError)),
+      title: null,
+      snapPath: null,
+      fonts: [],
+      fontFaces: [],
+      fontMatch: false,
+      fontMatchConfidence: 0,
+      fontDetection: null,
+      colorAudit: [],
+      logo: null,
+      favicon: null,
+      digitalStamp: null,
+      colorFailures: [],
+      hasSearchBar: false,
+      spacings: [],
+      spacingMatches: [],
+      spacingAccuracy: 0,
+      screenshotMobile: '',
+      screenshotTablet: '',
+      screenshotDesktop: ''
+    };
+
+    // Ensure reports directory exists
+    try {
+      const reportsDir = path.join(process.cwd(), 'reports');
+      if (!fs.existsSync(reportsDir)) fs.mkdirSync(reportsDir);
+      fs.writeFileSync(path.join(reportsDir, "color-audit.json"), JSON.stringify(result, null, 2));
+    } catch (e) {
+      // ignore file write errors
+    }
+
+    // Generate an HTML report with the error message so the user can see what happened
+    try {
+      generateHTMLReport(result);
+    } catch (e) {
+      // if report generation fails, rethrow the nav error to surface a clear failure
+      throw new Error('Navigation failed and report generation failed: ' + (e && e.message ? e.message : String(e)));
+    }
+
+    console.log('Navigation failed after retries — an error report was generated.');
+    return; // early exit from auditColors
   }
 
   const title = await page.title(); // page title for report
@@ -202,15 +269,196 @@ export async function auditColors(url, fastMode = false) {
   // Also add lowercased tokens for easier matching
   const fontFacesLower = fontFaces.map(f => f.toLowerCase());
 
-  // Stronger detection for IBM Plex Arabic / IBM Plex Sans variants
-  const fontMatch = fontFacesLower.some(f => {
+  // Initial simple name match for IBM Plex variants
+  const simpleNameMatch = fontFacesLower.some(f => {
     if (f.includes('ibm plex')) return true;
     if (f.includes('ibm-plex')) return true;
     if (f.includes('plex') && (f.includes('arabic') || f.includes('sans'))) return true;
-    // match compact names like 'ibmplexsansarabic' or 'ibmplexarabic'
     if (/ibm\W*plex/.test(f)) return true;
     return false;
   });
+
+  // Enhanced font detection: sample visible text nodes, check @font-face rules and FontFaceSet availability
+  let fontDetection = null;
+  try {
+    fontDetection = await page.evaluate(() => {
+      function isVisible(el) {
+        if (!el) return false;
+        const s = window.getComputedStyle(el);
+        if (!s) return false;
+        if (s.visibility === 'hidden' || s.display === 'none' || parseFloat(s.opacity || '1') === 0) return false;
+        if (!el.offsetParent && s.position !== 'fixed') return false;
+        return true;
+      }
+
+      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+        acceptNode: function(node) {
+          if (!node || !node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+          if (!node.parentElement) return NodeFilter.FILTER_REJECT;
+          const parent = node.parentElement;
+          // skip script/style/noscript
+          if (parent.closest && parent.closest('script, style, noscript')) return NodeFilter.FILTER_REJECT;
+          const style = window.getComputedStyle(parent);
+          if (!style) return NodeFilter.FILTER_REJECT;
+          if (style.visibility === 'hidden' || style.display === 'none' || parseFloat(style.opacity || '1') === 0) return NodeFilter.FILTER_REJECT;
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      }, false);
+
+      const seen = new Set();
+      const samples = [];
+      let node;
+      const limit = 400;
+      while ((node = walker.nextNode()) && samples.length < limit) {
+        try {
+          const el = node.parentElement;
+          if (!el || seen.has(el)) continue;
+          seen.add(el);
+          if (!isVisible(el)) continue;
+          const style = window.getComputedStyle(el);
+          const fontFamily = style && style.fontFamily ? style.fontFamily : '';
+          const fontWeight = style && style.fontWeight ? style.fontWeight : '';
+          const fontStyle = style && style.fontStyle ? style.fontStyle : '';
+          samples.push({ fontFamily, fontWeight, fontStyle, text: (el.innerText||'').slice(0,120) });
+        } catch (e) { /* ignore per-node errors */ }
+      }
+
+      // aggregate family counts
+      const familyCounts = {};
+      samples.forEach(s => {
+        const fam = (s.fontFamily || '').split(',')[0].replace(/['\"]/g, '').trim().toLowerCase();
+        if (!fam) return;
+        familyCounts[fam] = (familyCounts[fam] || 0) + 1;
+      });
+
+      // collect @font-face families
+      const sheetFamilies = [];
+      try {
+        for (const sheet of document.styleSheets) {
+          try {
+            for (const rule of sheet.cssRules) {
+              if (rule && rule.type === CSSRule.FONT_FACE_RULE) {
+                const val = rule.style.getPropertyValue('font-family') || '';
+                const name = val.replace(/['\"]/g, '').trim();
+                if (name) sheetFamilies.push(name);
+              }
+            }
+          } catch (e) { /* ignore cross-origin styleSheets */ }
+        }
+      } catch (e) { /* ignore */ }
+
+      // check document.fonts availability and test common IBM Plex variants
+      const available = [];
+      const checked = {};
+      try {
+        if (document.fonts && typeof document.fonts.forEach === 'function') {
+          document.fonts.forEach(f => { try { if (f && f.family) available.push(f.family); } catch(e){} });
+        }
+        const checks = ['IBM Plex Sans Arabic', 'IBM Plex Arabic', 'IBM Plex Sans', 'IBMPlexSans', 'IBMPlexSansArabic'];
+        checks.forEach(name => {
+          try { checked[name] = !!(document.fonts.check && document.fonts.check(`12px "${name}"`)); } catch(e) { checked[name] = false; }
+        });
+      } catch (e) { /* ignore */ }
+
+      return { familyCounts, totalSamples: samples.length, sheetFamilies, available, checked };
+    });
+  } catch (e) {
+    fontDetection = null;
+  }
+
+  // compute a confidence score based on sampled text nodes
+  let fontMatch = simpleNameMatch;
+  let fontMatchConfidence = 0;
+  if (fontDetection && fontDetection.totalSamples > 0) {
+    const total = fontDetection.totalSamples;
+    let matchedCount = 0;
+    Object.entries(fontDetection.familyCounts).forEach(([fam, cnt]) => {
+      if (/ibm.*plex|plex.*arabic|ibmplex/.test(fam)) matchedCount += cnt;
+    });
+    fontMatchConfidence = Math.round((matchedCount / total) * 100);
+    // Consider font available via FontFaceSet checks as high-confidence
+    const checkPositive = fontDetection.checked && Object.values(fontDetection.checked).some(Boolean);
+    if (checkPositive) fontMatchConfidence = Math.max(fontMatchConfidence, 90);
+    // final determination
+    fontMatch = simpleNameMatch || checkPositive || fontMatchConfidence >= 30;
+  }
+
+  // Attach detection summary to be saved in the result
+  const fontDetectionSummary = {
+    collectedFamilies: fontFaces,
+    sampledFamilies: fontDetection ? fontDetection.familyCounts : {},
+    sampleCount: fontDetection ? fontDetection.totalSamples : 0,
+    sheetFamilies: fontDetection ? fontDetection.sheetFamilies : [],
+    availableFonts: fontDetection ? fontDetection.available : [],
+    checked: fontDetection ? fontDetection.checked : {},
+    confidence: fontMatchConfidence
+  };
+
+  // Detect primary language: prefer <html lang> / meta language; fall back to sampling visible text for Arabic script
+  let primaryLanguage = { detected: null, confidence: 0, sample: null };
+  try {
+    const langData = await page.evaluate(() => {
+      const htmlLang = (document.documentElement && document.documentElement.lang) ? document.documentElement.lang.trim().toLowerCase() : null;
+      const meta = (document.querySelector('meta[http-equiv="content-language"], meta[name="language"], meta[name="Content-Language"]') || null);
+      const metaLang = meta ? (meta.getAttribute('content') || meta.getAttribute('value') || '').trim().toLowerCase() : null;
+
+      // Sample visible text nodes and compute Arabic character ratio
+      function isVisibleNode(node) {
+        if (!node || !node.parentElement) return false;
+        const el = node.parentElement;
+        const s = window.getComputedStyle(el);
+        if (!s) return false;
+        if (s.visibility === 'hidden' || s.display === 'none' || parseFloat(s.opacity || '1') === 0) return false;
+        if (!el.offsetParent && s.position !== 'fixed') return false;
+        return true;
+      }
+
+      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+        acceptNode: function(node) {
+          if (!node || !node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+          if (!isVisibleNode(node)) return NodeFilter.FILTER_REJECT;
+          return NodeFilter.FILTER_ACCEPT;
+        }
+      }, false);
+
+      let text = '';
+      let n;
+      const limitChars = 8000;
+      while ((n = walker.nextNode()) && text.length < limitChars) {
+        try { text += ' ' + n.nodeValue.slice(0, 300); } catch (e) { /* ignore */ }
+      }
+
+      const arabicMatches = text.match(/[\u0600-\u06FF\u0750-\u077F\u08A0-\u08FF\uFB50-\uFDFF\uFE70-\uFEFF]/g) || [];
+      const arabicCount = arabicMatches.length;
+      const sampleLength = text.length || 1;
+      const arabicRatio = arabicCount / sampleLength;
+
+      return { htmlLang, metaLang, sampleLength, arabicCount, arabicRatio };
+    });
+
+    // Compute primary language confidence and suggested primary language
+    if (langData) {
+      const { htmlLang, metaLang, arabicRatio } = langData;
+      let confidence = 0;
+      let detected = null;
+      // If htmlLang or metaLang explicitly indicates Arabic
+      if (htmlLang && htmlLang.startsWith('ar')) { detected = 'ar'; confidence = 100; }
+      else if (metaLang && metaLang.startsWith('ar')) { detected = 'ar'; confidence = 95; }
+      else {
+        // Use sampled Arabic ratio heuristic
+        const ratio = arabicRatio || 0;
+        const pct = Math.min(100, Math.round(ratio * 100));
+        confidence = pct;
+        if (ratio > 0.20) detected = 'ar'; // if >20% Arabic characters, consider Arabic primary
+        else if (ratio > 0.05) detected = 'mixed';
+        else detected = 'non-ar';
+      }
+
+      primaryLanguage = { detected, confidence, sample: langData };
+    }
+  } catch (e) {
+    // ignore language detection errors
+  }
 
   // Wait a short time to ensure dynamic content stabilizes before screenshot (shorter in fast mode)
   await page.waitForTimeout(fastMode ? 600 : 3000);
@@ -249,6 +497,117 @@ export async function auditColors(url, fastMode = false) {
     // but still populate the variables so reporter doesn't break
     // Use the same base name for mobile/tablet/desktop in fast runs to keep report stable
     // leave mobile/tablet/desktop empty to avoid extra files
+  }
+
+  // Collect simple network metrics (request count, transfer size) during the page session
+  const networkStats = { requestCount: 0, transferSizeBytes: 0 };
+  try {
+    page.on('response', async (response) => {
+      try {
+        networkStats.requestCount += 1;
+        const headers = response.headers() || {};
+        // content-length may be missing for chunked responses; tolerate that
+        const cl = headers['content-length'] || headers['Content-Length'] || headers['content-length'.toUpperCase()];
+        if (cl && !isNaN(Number(cl))) networkStats.transferSizeBytes += Number(cl);
+      } catch (e) { /* ignore network summary errors */ }
+    });
+  } catch (e) {
+    // ignore if page.on fails
+  }
+
+  // Small wait to let late resources finish and the response handler collect sizes
+  await page.waitForTimeout(600);
+
+  // Collect performance metrics from the page (FCP, LCP, DCL, load, TTFB, TBT approximation)
+  let performanceSummary = null;
+  try {
+    performanceSummary = await page.evaluate(() => {
+      try {
+        const perf = window.performance;
+        const timing = perf.timing || {};
+        const metrics = {
+          fcpMs: null,
+          lcpMs: null,
+          domContentLoadedMs: null,
+          loadEventEndMs: null,
+          totalBlockingTimeMs: null,
+          ttfbMs: null
+        };
+
+        // Navigation timings
+        if (timing && timing.navigationStart) {
+          if (timing.domContentLoadedEventEnd && timing.domContentLoadedEventEnd > timing.navigationStart) {
+            metrics.domContentLoadedMs = timing.domContentLoadedEventEnd - timing.navigationStart;
+          }
+          if (timing.loadEventEnd && timing.loadEventEnd > timing.navigationStart) {
+            metrics.loadEventEndMs = timing.loadEventEnd - timing.navigationStart;
+          }
+          if (timing.responseStart && timing.navigationStart) {
+            metrics.ttfbMs = timing.responseStart - timing.navigationStart;
+          }
+        }
+
+        // Paint entries (First Contentful Paint)
+        try {
+          const paints = perf.getEntriesByType('paint') || [];
+          const fcp = paints.find(p => p.name && p.name.toLowerCase().includes('first-contentful-paint')) || paints[0];
+          if (fcp && typeof fcp.startTime === 'number') metrics.fcpMs = Math.round(fcp.startTime);
+        } catch (e) { }
+
+        // LCP from entries
+        try {
+          const lcpEntries = perf.getEntriesByType('largest-contentful-paint') || [];
+          const last = lcpEntries[lcpEntries.length - 1];
+          if (last && typeof last.startTime === 'number') metrics.lcpMs = Math.round(last.startTime);
+        } catch (e) { }
+
+        // TBT estimation using longtask entries (if available). Subtract 50ms threshold per long task
+        try {
+          const longTasks = perf.getEntriesByType('longtask') || [];
+          let tbt = 0;
+          longTasks.forEach(lt => {
+            const blocking = (lt.duration || 0) - 50;
+            if (blocking > 0) tbt += blocking;
+          });
+          metrics.totalBlockingTimeMs = Math.round(tbt);
+        } catch (e) { metrics.totalBlockingTimeMs = null; }
+
+        return metrics;
+      } catch (e) {
+        return null;
+      }
+    });
+  } catch (e) {
+    performanceSummary = null;
+  }
+
+  // Attach aggregated network stats to performance summary
+  if (!performanceSummary) performanceSummary = {};
+  performanceSummary.resourceStats = Object.assign({}, performanceSummary.resourceStats || {}, networkStats);
+
+  // Estimate a simple Speed Index proxy (not Lighthouse-accurate) using weighted FCP/LCP
+  try {
+    const fcp = performanceSummary && performanceSummary.fcpMs ? performanceSummary.fcpMs : null;
+    const lcp = performanceSummary && performanceSummary.lcpMs ? performanceSummary.lcpMs : null;
+    const tbt = performanceSummary && performanceSummary.totalBlockingTimeMs ? performanceSummary.totalBlockingTimeMs : 0;
+    let speedIndexMs = null;
+    if (lcp !== null && lcp !== undefined) {
+      // weighted heuristic: LCP dominates perceived speed, include small factor of TBT
+      speedIndexMs = Math.round((0.7 * lcp) + (0.3 * (fcp || lcp)) + (0.1 * (tbt || 0)));
+    } else if (fcp !== null && fcp !== undefined) {
+      speedIndexMs = Math.round(fcp + (0.1 * (tbt || 0)));
+    }
+    if (speedIndexMs !== null) {
+      performanceSummary.speedIndexMs = speedIndexMs;
+      performanceSummary.speedIndexSec = +(speedIndexMs / 1000).toFixed(2);
+    } else {
+      performanceSummary.speedIndexMs = null;
+      performanceSummary.speedIndexSec = null;
+    }
+  } catch (e) {
+    // ignore speed index calc errors
+    performanceSummary.speedIndexMs = null;
+    performanceSummary.speedIndexSec = null;
   }
 
   // Improved search bar detection BEFORE closing the browser!
@@ -333,75 +692,132 @@ export async function auditColors(url, fastMode = false) {
   let digitalStamp = { present: false, reason: null, selectors: [], images: [], svg: null, qrCount: 0 };
   try {
     digitalStamp = await page.evaluate(() => {
-      const result = { present: false, reason: null, selectors: [], images: [], svg: null, qrCount: 0 };
+      const result = { present: false, reason: null, selectors: [], images: [], svgs: [], qrCount: 0, score: 0, matchedPhrases: [], matchedSelectors: [], matchedLinks: [] };
       try {
-        // Required text for official Saudi government stamp
-        const requiredText = 'موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية';
-        let hasRequiredText = false;
-        let hasNumber = false;
-        let hasSaudiFlag = false;
+        // Candidate phrases and keywords (Arabic variants commonly used in official stamps)
+        const phrases = [
+          'موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية',
+          'موقع حكومي رسمي',
+          'موقع رسمي',
+          'تابع لحكومة المملكة العربية السعودية',
+          'جهة حكومية',
+          'حكومي رسمي',
+          'تابع للحكومة',
+          'تابع للوزارة',
+          'الجهة الرسمية',
+          'التابعة للحكومة'
+        ];
 
-        // Search for the exact required text
+        // Helper: visible check
+        function isVisible(el) {
+          try {
+            const s = window.getComputedStyle(el);
+            return s && s.display !== 'none' && s.visibility !== 'hidden' && (el.offsetParent !== null || s.position === 'fixed');
+          } catch (e) { return false; }
+        }
+
+        // Scan for phrase matches and record selectors/text
         document.querySelectorAll('body *').forEach(el => {
           try {
-            const text = el.innerText || '';
-            if (text.includes(requiredText)) {
-              hasRequiredText = true;
-              result.selectors.push({ selector: el.tagName.toLowerCase(), text: text.slice(0,150) });
+            if (!isVisible(el)) return;
+            const text = (el.innerText || '').trim();
+            if (!text) return;
+            for (const p of phrases) {
+              if (text.includes(p)) {
+                result.matchedPhrases.push({ phrase: p, selector: el.tagName.toLowerCase(), text: text.slice(0, 200) });
+                result.matchedSelectors.push(el.tagName.toLowerCase());
+              }
             }
-          } catch(e){}
+            // also look for short official-looking texts
+            if (/موقع\s+حكومي|ختم|شعار|موقع\s+رسمي|الجهة\s+الرسمية|حكومي/i.test(text)) {
+              result.matchedPhrases.push({ phrase: 'heuristic', selector: el.tagName.toLowerCase(), text: text.slice(0,200) });
+            }
+            // quick number proximity: short numeric strings that look like registry numbers
+            if (/\b\d{2,12}\b/.test(text)) {
+              // attach as potential number indicator
+              result.matchedPhrases.push({ phrase: 'number', selector: el.tagName.toLowerCase(), text: text.slice(0,80) });
+            }
+          } catch (e) {}
         });
 
-        // Look for numbers in close proximity to stamp text
-        if (hasRequiredText) {
-          document.querySelectorAll('body *').forEach(el => {
-            try {
-              const text = el.innerText || '';
-              // Look for numbers (digits)
-              if (/\d+/.test(text) && text.length < 50) {
-                hasNumber = true;
-              }
-            } catch(e){}
-          });
-        }
-
-        // Look for Saudi flag (common patterns: saudi flag images, svg with green/white colors)
+        // Image/logo detection: alt/src/class hints
         document.querySelectorAll('img').forEach(img => {
           try {
+            if (!isVisible(img)) return;
             const src = img.getAttribute('src') || '';
-            const alt = img.getAttribute('alt') || '';
-            // Saudi flag patterns
-            if (/flag|علم|saudi|السعود/i.test(src) || /flag|علم|saudi|السعود/i.test(alt)) {
-              hasSaudiFlag = true;
-              result.images.push(new URL(src, location.href).href);
+            const alt = (img.getAttribute('alt') || '').toLowerCase();
+            const cls = (img.getAttribute('class') || '').toLowerCase();
+            const candidate = /flag|علم|saudi|السعود|ksa|gov|logo|شعار|ختم|seal|emblem/i.test(src + ' ' + alt + ' ' + cls);
+            if (candidate) {
+              try { result.images.push(new URL(src, location.href).href); } catch(e){ result.images.push(src); }
             }
-          } catch(e){}
+            // simple QR heuristic: nearly square small images
+            if (img.naturalWidth && img.naturalHeight && Math.abs(img.naturalWidth - img.naturalHeight) < 20 && img.naturalWidth < 300) {
+              result.qrCount = (result.qrCount || 0) + 1;
+            }
+          } catch (e) {}
         });
 
-        // Check SVG elements for Saudi flag (green fill, specific patterns)
+        // SVG scanning
         document.querySelectorAll('svg').forEach(svg => {
           try {
+            if (!isVisible(svg)) return;
             const svgStr = (new XMLSerializer()).serializeToString(svg);
-            // Look for green color typical of Saudi flag
-            if (/fill.*#0.*5.*5/i.test(svgStr) || /fill.*green/i.test(svgStr)) {
-              hasSaudiFlag = true;
-              result.svg = svgStr.slice(0, 500);
+            // look for green fills or text mentions
+            if (/السعودية|المملكة|علم|ختم|شعار|الجهة|حكومي/i.test(svgStr) || /fill\s*[:=]\s*#[0-9a-f]{3,6}/i.test(svgStr)) {
+              result.svgs.push(svgStr.slice(0, 1000));
             }
-          } catch(e){}
+          } catch (e) {}
         });
 
-        // Stamp is only verified if ALL three conditions are met
-        if (hasRequiredText && hasNumber && hasSaudiFlag) {
-          result.present = true;
-          result.reason = 'موقع حكومي موثق: يحتوي على النص الرسمي + رقم + علم المملكة';
-        } else {
-          result.present = false;
-          const missing = [];
-          if (!hasRequiredText) missing.push('النص الرسمي');
-          if (!hasNumber) missing.push('رقم');
-          if (!hasSaudiFlag) missing.push('علم السعودية');
-          result.reason = `غير موثق - ناقص: ${missing.join(', ')}`;
-        }
+        // Links that reference gov.sa or known government hosts
+        document.querySelectorAll('a[href]').forEach(a => {
+          try {
+            const href = a.getAttribute('href') || '';
+            if (/\.gov\.sa|gov\.sa|govsa|moj\.gov|mofa\.gov|gov-i/i.test(href)) {
+              result.matchedLinks.push(href);
+            }
+          } catch (e) {}
+        });
+
+        // Class/id heuristics for containers or headers
+        document.querySelectorAll('header, nav, .topbar, .navbar, .gov-header, .official, .government, .stamp, .seal, .site-stamp').forEach(el => {
+          try {
+            if (!isVisible(el)) return;
+            const cls = (el.getAttribute && (el.getAttribute('class') || '')).toLowerCase();
+            const id = (el.getAttribute && (el.getAttribute('id') || '')).toLowerCase();
+            if (/gov|حكومي|رسمي|شعار|ختم|الجهة/.test(cls + ' ' + id)) {
+              result.matchedSelectors.push(el.tagName.toLowerCase());
+            }
+          } catch (e) {}
+        });
+
+        // Compute confidence score from heuristics
+        try {
+          let score = 0;
+          if (result.matchedPhrases && result.matchedPhrases.length) score += Math.min(60, result.matchedPhrases.length * 20);
+          if (result.images && result.images.length) score += Math.min(30, result.images.length * 10);
+          if (result.svgs && result.svgs.length) score += 15;
+          if (result.matchedLinks && result.matchedLinks.length) score += 15;
+          if (result.qrCount && result.qrCount > 0) score += 5;
+          if (score > 100) score = 100;
+          result.score = score;
+          // Determine presence threshold: require >= 60 or phrase+image+number combination
+          const hasPhrase = result.matchedPhrases.some(m => m.phrase && m.phrase !== 'number');
+          const hasNumber = result.matchedPhrases.some(m => m.phrase === 'number');
+          const hasImage = result.images.length > 0 || result.svgs.length > 0;
+          if (score >= 60 || (hasPhrase && hasNumber && hasImage)) {
+            result.present = true;
+            result.reason = 'موقع موثق: تم العثور على دلائل نصية/صورية متسقة مع ختم/شعار رسمي.';
+          } else {
+            const missing = [];
+            if (!hasPhrase) missing.push('النص الرسمي');
+            if (!hasNumber) missing.push('الرقم/معرف');
+            if (!hasImage) missing.push('علم/شعار');
+            result.present = false;
+            result.reason = `غير موثق - نقص الأدلة: ${missing.join(', ')}`;
+          }
+        } catch (e) { /* ignore scoring errors */ }
       } catch (e) {
         // ignore
       }
@@ -634,6 +1050,174 @@ export async function auditColors(url, fastMode = false) {
     // ignore logo discovery errors
   }
 
+  // Sitemap detection: check robots.txt for Sitemap: entries, try common sitemap paths, and scan page links
+  let sitemapUrls = [];
+  try {
+    const purl = await page.url();
+    const origin = (new URL(purl)).origin;
+    // 1) robots.txt
+    try {
+      const robotsUrl = `${origin}/robots.txt`;
+      const r = await context.request.get(robotsUrl, { timeout: 10000 }).catch(()=>null);
+      if (r && r.ok()) {
+        const text = await r.text().catch(()=>'');
+        const lines = text.split(/\r?\n/);
+        for (const line of lines) {
+          const m = line.match(/^\s*Sitemap:\s*(\S+)/i);
+          if (m && m[1]) {
+            try { sitemapUrls.push(new URL(m[1], origin).href); } catch(e) { sitemapUrls.push(m[1]); }
+          }
+        }
+      }
+    } catch (e) { /* ignore robots failures */ }
+
+    // 2) common sitemap locations
+    const candidates = [`${origin}/sitemap.xml`, `${origin}/sitemap_index.xml`, `${origin}/sitemap/sitemap.xml`, `${origin}/sitemap.xml.gz`];
+    for (const cand of candidates) {
+      try {
+        const resp = await context.request.get(cand, { timeout: 8000 }).catch(()=>null);
+        if (resp && resp.ok()) {
+          const ct = (resp.headers()['content-type'] || '').toLowerCase();
+          if (ct.includes('xml') || ct.includes('text') || cand.endsWith('.xml.gz')) {
+            sitemapUrls.push(cand);
+          }
+        }
+      } catch (e) { /* ignore */ }
+    }
+
+    // 3) scan page for <link rel="sitemap"> and anchor hrefs containing sitemap
+    try {
+      const pageSitemaps = await page.evaluate(() => {
+        const found = [];
+        try {
+          const links = Array.from(document.querySelectorAll('link[rel="sitemap"], link[rel="alternate"][type*="xml"], a'));
+          links.forEach(l => {
+            try {
+              const href = l.getAttribute && l.getAttribute('href') ? l.getAttribute('href') : (l.href || '');
+              if (!href) return;
+              if (/sitemap|sitemap_index|site-map|\.xml(\?|$)/i.test(href)) found.push(href);
+            } catch(e){}
+          });
+        } catch(e){}
+        return found;
+      });
+      if (pageSitemaps && pageSitemaps.length) {
+        pageSitemaps.forEach(u => {
+          try { sitemapUrls.push(new URL(u, origin).href); } catch(e) { sitemapUrls.push(u); }
+        });
+      }
+    } catch (e) { /* ignore page scan errors */ }
+
+    // dedupe
+    sitemapUrls = Array.from(new Set(sitemapUrls));
+  } catch (e) {
+    // ignore sitemap discovery errors
+    sitemapUrls = sitemapUrls || [];
+  }
+
+    // Template-match detection: optionally compare the live page to a provided React
+    // template file. Place your component/source at `config/template-to-match.jsx`.
+    // The detector extracts Dga* component names and className tokens from the
+    // template and checks for their presence in the rendered page (by class
+    // substring, id substring, or visible text). Results are attached as
+    // `result.templateMatch` (tokensCount, matchedTokens, missingTokens, score).
+    let templateMatch = null;
+    try {
+      const tplPath = path.join(process.cwd(), 'config', 'template-to-match.jsx');
+      if (fs.existsSync(tplPath)) {
+        try {
+          const tpl = fs.readFileSync(tplPath, 'utf-8');
+          // Extract component-like tokens (e.g., DgaNavHeader, DgaButton)
+          const compMatches = Array.from(new Set((tpl.match(/Dga[A-Za-z0-9_]+/g) || [])));
+
+          // Extract className="..." values and split into tokens
+          const classMatches = [];
+          const classRe = /className\s*=\s*(?:\{|)\s*[`'\"]([^`'\"]+)['\"]?\s*(?:\}|)/g;
+          let cm;
+          while ((cm = classRe.exec(tpl)) !== null) {
+            try {
+              const parts = (cm[1] || '').split(/\s+/).map(s => s.trim()).filter(Boolean);
+              parts.forEach(p => classMatches.push(p));
+            } catch (e) {}
+          }
+
+          // Also collect quoted strings that look useful (logo paths, copyright snippets)
+          const literalMatches = [];
+          const litRe = /['`\"]([^'`\"]{4,200})['`\"]/g;
+          let lm;
+          while ((lm = litRe.exec(tpl)) !== null) {
+            const v = lm[1] || '';
+            if (/logo|mobile-logo|All Right Reserved|Digital Government|dga-|saudigazette|saudi/i.test(v)) {
+              literalMatches.push(v);
+            }
+          }
+
+          // Build final token list (components + frequent class tokens + literals)
+          const classCounts = {};
+          classMatches.forEach(c => { classCounts[c] = (classCounts[c] || 0) + 1; });
+          const sortedClassTokens = Object.keys(classCounts).sort((a,b)=>classCounts[b]-classCounts[a]).slice(0,40);
+          const tokens = Array.from(new Set([...(compMatches||[]), ...sortedClassTokens, ...literalMatches])).slice(0,200);
+
+          if (tokens.length > 0) {
+            // Evaluate presence of tokens in the rendered page
+            const check = await page.evaluate((tokensIn) => {
+              const found = [];
+              try {
+                const bodyText = (document.body && document.body.innerText) ? document.body.innerText.toLowerCase() : '';
+                for (const t of tokensIn) {
+                  if (!t) continue;
+                  const tl = String(t).toLowerCase();
+                  let ok = false;
+                  try {
+                    // Class substring match
+                    if (document.querySelector('[class*="' + tl + '"]')) ok = true;
+                  } catch (e) {}
+                  if (!ok) {
+                    try {
+                      // id substring
+                      if (document.querySelector('[id*="' + tl + '"]')) ok = true;
+                    } catch (e) {}
+                  }
+                  if (!ok) {
+                    try {
+                      // text content match
+                      if (bodyText.indexOf(tl) !== -1) ok = true;
+                    } catch (e) {}
+                  }
+                  if (!ok) {
+                    try {
+                      // fallback: attribute contains (class/id/data-*/aria-label)
+                      const attrs = Array.from(document.querySelectorAll('[class],[id],[aria-label],[data-*]'));
+                      for (const el of attrs) {
+                        try {
+                          const cs = (el.getAttribute('class')||'').toLowerCase();
+                          const id = (el.id||'').toLowerCase();
+                          const aria = (el.getAttribute('aria-label')||'').toLowerCase();
+                          if (cs.indexOf(tl) !== -1 || id.indexOf(tl) !== -1 || aria.indexOf(tl) !== -1) { ok = true; break; }
+                        } catch(e){}
+                      }
+                    } catch(e){}
+                  }
+                  if (ok) found.push(t);
+                }
+              } catch (e) {}
+              return { found };
+            }, tokens);
+
+            const matchedTokens = (check && check.found) ? check.found : [];
+            const missingTokens = tokens.filter(t => !matchedTokens.includes(t));
+            const score = Math.round((matchedTokens.length / (tokens.length || 1)) * 100);
+            templateMatch = { tokensCount: tokens.length, matchedTokens, missingTokens, score };
+          }
+        } catch (e) {
+          // ignore template read/parse errors
+        }
+      }
+    } catch (e) {
+      // ignore overall template detection errors
+      templateMatch = null;
+    }
+
   // Load brand colors (flattened)
   const tokens = JSON.parse(fs.readFileSync('./src/config/sda.tokens.json', 'utf-8'));
   const brandColors = Object.values(tokens.colors)
@@ -784,6 +1368,24 @@ export async function auditColors(url, fastMode = false) {
   // Close browser after all screenshots are captured
   await browser.close();
 
+  // Prepare language suggestions based on detection
+  const languageSuggestions = [];
+  try {
+    const detected = primaryLanguage && primaryLanguage.detected ? primaryLanguage.detected : null;
+    const conf = primaryLanguage && primaryLanguage.confidence ? primaryLanguage.confidence : 0;
+    if (detected !== 'ar') {
+      languageSuggestions.push('اجعل اللغة الأساسية للموقع العربية: أضف `lang="ar"` على وسم `<html>` ليعرّف المحتوى كلغة رئيسية.');
+      languageSuggestions.push('قدّم محتوى الترجمة العربية في المسارات الرئيسية: عنوان الصفحة، التنقل، والنماذج الأساسية.');
+      languageSuggestions.push('تأكد من ضبط اتجاه الكتابة إلى RTL عبر `dir="rtl"` عندما تكون اللغة العربية هي الأساسية.');
+      languageSuggestions.push('أضف الوسوم التعريفية المناسبة: `meta name="language" content="ar"` أو `meta http-equiv="content-language" content="ar"`.');
+      if (conf < 30) {
+        languageSuggestions.push('نسبة النص العربي الحالية منخفضة — راجع محتوى النصوص الأساسية وضع ترجمة عربية واضحة أو إعادة صياغة المحتوى العربي.');
+      }
+    }
+  } catch (e) {
+    // ignore suggestion assembly errors
+  }
+
   const result = {
     url,
     title,
@@ -792,7 +1394,15 @@ export async function auditColors(url, fastMode = false) {
     fonts,
     fontFaces,
     fontMatch,
+    fontMatchConfidence: (typeof fontDetectionSummary !== 'undefined' && fontDetectionSummary && fontDetectionSummary.confidence) ? fontDetectionSummary.confidence : 0,
+    fontDetection: (typeof fontDetectionSummary !== 'undefined') ? fontDetectionSummary : null,
+    primaryLanguage: primaryLanguage && primaryLanguage.detected ? primaryLanguage.detected : null,
+    primaryLanguageConfidence: primaryLanguage && primaryLanguage.confidence ? primaryLanguage.confidence : 0,
+    languageSample: primaryLanguage && primaryLanguage.sample ? primaryLanguage.sample : null,
+    languageSuggestions: languageSuggestions,
     colorAudit,
+    sitemapUrls: sitemapUrls || [],
+    templateMatch: templateMatch,
     // attach discovered favicon/logo names (populated if discovered before browser close)
     logo: discoveredLogo || null,
     favicon: discoveredFavicon || null,
@@ -806,6 +1416,13 @@ export async function auditColors(url, fastMode = false) {
     screenshotTablet: fastMode ? '' : screenshotTabletFile,
     screenshotDesktop: fastMode ? '' : screenshotDesktopFile
   };
+
+  // Attach performance summary collected earlier
+  try {
+    result.performance = { metrics: performanceSummary || null, resourceStats: networkStats };
+  } catch (e) {
+    result.performance = { metrics: null, resourceStats: { requestCount: 0, transferSizeBytes: 0 } };
+  }
 
   // Ensure reports directory exists
   const reportsDir = path.join(process.cwd(), 'reports');

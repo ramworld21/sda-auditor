@@ -1,0 +1,1482 @@
+{
+  "url": "https://dga.gov.sa",
+  "title": "هيئة الحكومة الرقمية",
+  "snapPath": "snap-1765357142401.png",
+  "timestamp": "2025-12-10T09:00:00.878Z",
+  "fonts": [
+    "regularFont",
+    "boldFont",
+    "mediumFont",
+    "semiBoldFont",
+    "Rubik, -apple-system, BlinkMacSystemFont, \"avenir next\", avenir, \"helvetica neue\", helvetica, ubuntu, roboto, noto, \"segoe ui\", arial, sans-serif",
+    "Roboto",
+    "Bahij_Janna-Regular",
+    "FontAwesome",
+    "Source Sans Pro",
+    "Rubik",
+    "IBM Plex Sans Arabic",
+    "IBM Plex Arabic",
+    "IBM Plex Sans",
+    "IBMPlexSans",
+    "IBMPlexSansArabic"
+  ],
+  "fontFaces": [
+    "regularFont",
+    "boldFont",
+    "mediumFont",
+    "semiBoldFont",
+    "Rubik",
+    "-apple-system",
+    "BlinkMacSystemFont",
+    "avenir next",
+    "avenir",
+    "helvetica neue",
+    "helvetica",
+    "ubuntu",
+    "roboto",
+    "noto",
+    "segoe ui",
+    "arial",
+    "sans-serif",
+    "Roboto",
+    "Bahij_Janna-Regular",
+    "FontAwesome",
+    "Source Sans Pro",
+    "IBM Plex Sans Arabic",
+    "IBM Plex Arabic",
+    "IBM Plex Sans",
+    "IBMPlexSans",
+    "IBMPlexSansArabic"
+  ],
+  "fontMatch": true,
+  "fontMatchConfidence": 90,
+  "fontDetection": {
+    "collectedFamilies": [
+      "regularFont",
+      "boldFont",
+      "mediumFont",
+      "semiBoldFont",
+      "Rubik",
+      "-apple-system",
+      "BlinkMacSystemFont",
+      "avenir next",
+      "avenir",
+      "helvetica neue",
+      "helvetica",
+      "ubuntu",
+      "roboto",
+      "noto",
+      "segoe ui",
+      "arial",
+      "sans-serif",
+      "Roboto",
+      "Bahij_Janna-Regular",
+      "FontAwesome",
+      "Source Sans Pro",
+      "IBM Plex Sans Arabic",
+      "IBM Plex Arabic",
+      "IBM Plex Sans",
+      "IBMPlexSans",
+      "IBMPlexSansArabic"
+    ],
+    "sampledFamilies": {
+      "boldfont": 52,
+      "regularfont": 57,
+      "mediumfont": 27,
+      "semiboldfont": 1,
+      "rubik": 37
+    },
+    "sampleCount": 174,
+    "sheetFamilies": [
+      "Bahij_Janna-Regular",
+      "slick",
+      "boldFont",
+      "semiBoldFont",
+      "mediumFont",
+      "regularFont",
+      "slick"
+    ],
+    "availableFonts": [
+      "Bahij_Janna-Regular",
+      "FontAwesome",
+      "boldFont",
+      "semiBoldFont",
+      "mediumFont",
+      "regularFont",
+      "Source Sans Pro",
+      "Source Sans Pro",
+      "Source Sans Pro",
+      "Source Sans Pro",
+      "Source Sans Pro",
+      "Source Sans Pro",
+      "Source Sans Pro",
+      "Rubik",
+      "Rubik",
+      "Rubik",
+      "Rubik",
+      "Rubik",
+      "Rubik",
+      "Rubik",
+      "Rubik",
+      "Rubik",
+      "Rubik",
+      "Rubik",
+      "Rubik",
+      "Rubik",
+      "Rubik",
+      "Rubik",
+      "Rubik",
+      "Rubik",
+      "Rubik",
+      "Roboto",
+      "Roboto",
+      "Roboto",
+      "Roboto",
+      "Roboto",
+      "Roboto",
+      "Roboto",
+      "Roboto",
+      "Roboto",
+      "Roboto",
+      "Roboto",
+      "Roboto",
+      "Roboto",
+      "Roboto",
+      "Roboto",
+      "Roboto",
+      "Roboto",
+      "Roboto",
+      "Roboto",
+      "Roboto",
+      "Roboto",
+      "Roboto",
+      "Roboto",
+      "Roboto",
+      "Roboto",
+      "Roboto",
+      "Roboto"
+    ],
+    "checked": {
+      "IBM Plex Sans Arabic": true,
+      "IBM Plex Arabic": true,
+      "IBM Plex Sans": true,
+      "IBMPlexSans": true,
+      "IBMPlexSansArabic": true
+    },
+    "confidence": 90
+  },
+  "primaryLanguage": "ar",
+  "primaryLanguageConfidence": 100,
+  "languageSample": {
+    "htmlLang": "ar",
+    "metaLang": null,
+    "sampleLength": 5198,
+    "arabicCount": 3822,
+    "arabicRatio": 0.7352828010773375
+  },
+  "languageSuggestions": [],
+  "colorAudit": [
+    {
+      "color": "rgb(0, 0, 0)",
+      "closest": "rgb(13,18,28)",
+      "distance": 35.73513677041127,
+      "match": false
+    },
+    {
+      "color": "rgb(112, 111, 111)",
+      "closest": "rgb(108,115,127)",
+      "distance": 16.97056274847714,
+      "match": true
+    },
+    {
+      "color": "rgb(252, 252, 253)",
+      "closest": "rgb(252,252,253)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(243, 244, 246)",
+      "closest": "rgb(243,244,246)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(22, 22, 22)",
+      "closest": "rgb(13,18,28)",
+      "distance": 11.532562594670797,
+      "match": true
+    },
+    {
+      "color": "rgb(27, 131, 84)",
+      "closest": "rgb(27,131,84)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(56, 66, 80)",
+      "closest": "rgb(56,66,80)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(255, 255, 255)",
+      "closest": "rgb(252,252,253)",
+      "distance": 4.69041575982343,
+      "match": true
+    },
+    {
+      "color": "rgb(249, 250, 251)",
+      "closest": "rgb(249,250,251)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(31, 42, 55)",
+      "closest": "rgb(31,42,55)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(219, 161, 2)",
+      "closest": "rgb(219,161,2)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(247, 253, 249)",
+      "closest": "rgb(247,253,249)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(6, 118, 71)",
+      "closest": "rgb(22,106,69)",
+      "distance": 20.09975124224178,
+      "match": true
+    },
+    {
+      "color": "rgb(210, 214, 219)",
+      "closest": "rgb(210,214,219)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(108, 115, 127)",
+      "closest": "rgb(108,115,127)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(8, 93, 58)",
+      "closest": "rgb(20,87,58)",
+      "distance": 13.416407864998739,
+      "match": true
+    },
+    {
+      "color": "rgb(236, 253, 243)",
+      "closest": "rgb(243,252,246)",
+      "distance": 7.681145747868608,
+      "match": true
+    },
+    {
+      "color": "rgb(171, 239, 198)",
+      "closest": "rgb(184,234,203)",
+      "distance": 14.798648586948742,
+      "match": true
+    },
+    {
+      "color": "rgb(22, 114, 72)",
+      "closest": "rgb(22,106,69)",
+      "distance": 8.54400374531753,
+      "match": true
+    },
+    {
+      "color": "rgb(229, 231, 235)",
+      "closest": "rgb(229,231,235)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(255, 254, 242)",
+      "closest": "rgb(255,255,242)",
+      "distance": 1,
+      "match": true
+    },
+    {
+      "color": "rgb(252, 243, 189)",
+      "closest": "rgb(252,243,189)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(13, 18, 28)",
+      "closest": "rgb(13,18,28)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(117, 117, 117)",
+      "closest": "rgb(108,115,127)",
+      "distance": 13.601470508735444,
+      "match": true
+    },
+    {
+      "color": "rgb(7, 77, 49)",
+      "closest": "rgb(16,70,49)",
+      "distance": 11.40175425099138,
+      "match": true
+    },
+    {
+      "color": "rgba(255, 255, 255, 0.3)",
+      "closest": "rgb(252,252,253)",
+      "distance": 4.69041575982343,
+      "match": true
+    },
+    {
+      "color": "rgba(0, 0, 0, 0.5)",
+      "closest": "rgb(13,18,28)",
+      "distance": 35.73513677041127,
+      "match": false
+    },
+    {
+      "color": "rgb(217, 45, 32)",
+      "closest": "rgb(148,92,1)",
+      "distance": 89.05616205518852,
+      "match": false
+    },
+    {
+      "color": "rgb(22, 106, 69)",
+      "closest": "rgb(22,106,69)",
+      "distance": 0,
+      "match": true
+    },
+    {
+      "color": "rgb(65, 64, 66)",
+      "closest": "rgb(56,66,80)",
+      "distance": 16.76305461424021,
+      "match": true
+    },
+    {
+      "color": "rgb(221, 221, 221)",
+      "closest": "rgb(210,214,219)",
+      "distance": 13.19090595827292,
+      "match": true
+    },
+    {
+      "color": "rgb(234, 246, 239)",
+      "closest": "rgb(243,244,246)",
+      "distance": 11.575836902790225,
+      "match": true
+    },
+    {
+      "color": "rgb(249, 174, 64)",
+      "closest": "rgb(247,213,77)",
+      "distance": 41.15823125451335,
+      "match": false
+    },
+    {
+      "color": "rgba(255, 255, 255, 0.2)",
+      "closest": "rgb(252,252,253)",
+      "distance": 4.69041575982343,
+      "match": true
+    },
+    {
+      "color": "rgb(128, 0, 0)",
+      "closest": "rgb(110,60,0)",
+      "distance": 62.6418390534633,
+      "match": false
+    },
+    {
+      "color": "rgb(255, 0, 0)",
+      "closest": "rgb(148,92,1)",
+      "distance": 141.1169727566461,
+      "match": false
+    },
+    {
+      "color": "rgb(255, 165, 0)",
+      "closest": "rgb(245,189,2)",
+      "distance": 26.076809620810597,
+      "match": true
+    },
+    {
+      "color": "rgb(255, 255, 0)",
+      "closest": "rgb(245,189,2)",
+      "distance": 66.783231428256,
+      "match": false
+    },
+    {
+      "color": "rgb(128, 128, 0)",
+      "closest": "rgb(148,92,1)",
+      "distance": 41.19465984809196,
+      "match": false
+    },
+    {
+      "color": "rgb(0, 128, 0)",
+      "closest": "rgb(20,87,58)",
+      "distance": 73.79024325749306,
+      "match": false
+    },
+    {
+      "color": "rgb(128, 0, 128)",
+      "closest": "rgb(77,87,97)",
+      "distance": 105.5035544424926,
+      "match": false
+    },
+    {
+      "color": "rgb(255, 0, 255)",
+      "closest": "rgb(157,164,174)",
+      "distance": 207.51144546747295,
+      "match": false
+    },
+    {
+      "color": "rgb(0, 255, 0)",
+      "closest": "rgb(37,147,95)",
+      "distance": 148.51935900750448,
+      "match": false
+    },
+    {
+      "color": "rgb(0, 128, 128)",
+      "closest": "rgb(27,131,84)",
+      "distance": 51.710733895391584,
+      "match": false
+    },
+    {
+      "color": "rgb(0, 255, 255)",
+      "closest": "rgb(84,192,138)",
+      "distance": 157.20687007888682,
+      "match": false
+    },
+    {
+      "color": "rgb(0, 0, 255)",
+      "closest": "rgb(56,66,80)",
+      "distance": 195.23575492209412,
+      "match": false
+    },
+    {
+      "color": "rgb(0, 0, 128)",
+      "closest": "rgb(31,42,55)",
+      "distance": 89.74408058473828,
+      "match": false
+    },
+    {
+      "color": "rgba(31, 175, 111, 0.42)",
+      "closest": "rgb(37,147,95)",
+      "distance": 32.802438933713454,
+      "match": false
+    },
+    {
+      "color": "rgb(109, 109, 109)",
+      "closest": "rgb(108,115,127)",
+      "distance": 19,
+      "match": true
+    },
+    {
+      "color": "rgb(236, 236, 236)",
+      "closest": "rgb(229,231,235)",
+      "distance": 8.660254037844387,
+      "match": true
+    },
+    {
+      "color": "rgb(68, 74, 82)",
+      "closest": "rgb(56,66,80)",
+      "distance": 14.560219778561036,
+      "match": true
+    },
+    {
+      "color": "rgb(218, 225, 232)",
+      "closest": "rgb(229,231,235)",
+      "distance": 12.884098726725126,
+      "match": true
+    },
+    {
+      "color": "rgb(102, 117, 155)",
+      "closest": "rgb(108,115,127)",
+      "distance": 28.705400188814647,
+      "match": true
+    }
+  ],
+  "sitemapUrls": [
+    "https://dga.gov.sa/sitemap.xml",
+    "https://dga.gov.sa/sitemap_index.xml",
+    "https://dga.gov.sa/sitemap/sitemap.xml",
+    "https://dga.gov.sa/sitemap.xml.gz",
+    "https://dga.gov.sa/ar/sitemap"
+  ],
+  "templateMatch": {
+    "tokensCount": 61,
+    "matchedTokens": [
+      "flex",
+      "items-center",
+      "dots"
+    ],
+    "missingTokens": [
+      "DgaBreadcrumbs",
+      "DgaButton",
+      "DgaCard",
+      "DgaDivider",
+      "DgaFeaturedIcon",
+      "DgaFooter",
+      "DgaHeaderActionBtn",
+      "DgaIcon",
+      "DgaNavHeader",
+      "DgaNavHeaderActions",
+      "DgaNavHeaderLink",
+      "DgaNavHeaderLogos",
+      "DgaNavHeaderMain",
+      "DgaNavHeaderMenu",
+      "DgaSecondNavHeader",
+      "DgaSecondNavHeaderActions",
+      "DgaSecondNavHeaderContent",
+      "DgaSecondNavHeaderItem",
+      "text-[#161616]",
+      "mt-[24px]",
+      "display-sm-bold",
+      "mb-4",
+      "text-md-regular",
+      "size-[16px]",
+      "inline-block",
+      "rounded-full",
+      "cursor-pointer",
+      "mb-8",
+      "justify-center",
+      "bg-[var(--background-neutral-200,#E5E7EB)]",
+      "text-[#FFF]",
+      "grid",
+      "grid-cols-1",
+      "md:grid-cols-3",
+      "py-[40px]",
+      "rounded-[16px]",
+      "border-[1px]",
+      "border-[#D2D6DB]",
+      "p-[16px]",
+      "gap-[16px]",
+      "md:-translate-x-[calc(100%/4-16px+(16px/4))]",
+      "xl:-translate-x-[calc(100%/4-16px+(16px/4))/2]",
+      "mt-[36px]",
+      "gap-[8px]",
+      "bg-[var(--stepper-button-completed,#1B8354)]",
+      "max-h-[491px]",
+      "h-[491px]",
+      "px-[196px]",
+      "pt-[130px]",
+      "display-xl-semibold",
+      "text-xl-regular",
+      "mb-[32px]",
+      "pt-[40px]",
+      "px-[16px]",
+      "md:px-[80px]",
+      "https://dga-nds-fbhtx.ondigitalocean.app/mobile-logo.svg",
+      "\r\n          ></DgaNavHeaderLogos>\r\n          <DgaNavHeaderMenu>\r\n            <DgaNavHeaderLink\r\n              label=",
+      "https://saudigazette.com.sa/uploads/images/2023/11/02/2173406.jpg"
+    ],
+    "score": 5
+  },
+  "logo": "logo.svg",
+  "favicon": "https://dga.gov.sa/themes/custom/dga/favicon.ico",
+  "digitalStamp": {
+    "present": true,
+    "reason": "موقع موثق: تم العثور على دلائل نصية/صورية متسقة مع ختم/شعار رسمي.",
+    "selectors": [],
+    "images": [
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/CountryFlags.svg",
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/DGA-Logo.svg"
+    ],
+    "svgs": [],
+    "qrCount": 36,
+    "score": 100,
+    "matchedPhrases": [
+      {
+        "phrase": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية",
+        "selector": "div",
+        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية\nكيف تتحقق"
+      },
+      {
+        "phrase": "موقع حكومي رسمي",
+        "selector": "div",
+        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية\nكيف تتحقق"
+      },
+      {
+        "phrase": "تابع لحكومة المملكة العربية السعودية",
+        "selector": "div",
+        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية\nكيف تتحقق"
+      },
+      {
+        "phrase": "حكومي رسمي",
+        "selector": "div",
+        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية\nكيف تتحقق"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "div",
+        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية\nكيف تتحقق"
+      },
+      {
+        "phrase": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية",
+        "selector": "div",
+        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية\nكيف تتحقق"
+      },
+      {
+        "phrase": "موقع حكومي رسمي",
+        "selector": "div",
+        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية\nكيف تتحقق"
+      },
+      {
+        "phrase": "تابع لحكومة المملكة العربية السعودية",
+        "selector": "div",
+        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية\nكيف تتحقق"
+      },
+      {
+        "phrase": "حكومي رسمي",
+        "selector": "div",
+        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية\nكيف تتحقق"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "div",
+        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية\nكيف تتحقق"
+      },
+      {
+        "phrase": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية",
+        "selector": "h6",
+        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية"
+      },
+      {
+        "phrase": "موقع حكومي رسمي",
+        "selector": "h6",
+        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية"
+      },
+      {
+        "phrase": "تابع لحكومة المملكة العربية السعودية",
+        "selector": "h6",
+        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية"
+      },
+      {
+        "phrase": "حكومي رسمي",
+        "selector": "h6",
+        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "h6",
+        "text": "موقع حكومي رسمي تابع لحكومة المملكة العربية السعودية"
+      },
+      {
+        "phrase": "number",
+        "selector": "section",
+        "text": "آخر أخـــــبار الهيئـــــة\nأخبار الهيئة\n\nالحكومة الرقمية تعقد ورشة عمل “السياسات"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "آخر أخـــــبار الهيئـــــة\nأخبار الهيئة\n\nالحكومة الرقمية تعقد ورشة عمل “السياسات"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "الحكومة الرقمية تعقد ورشة عمل “السياسات والمعايير والتوجهات الاستراتيجية…\n\n2025-"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "الحكومة الرقمية تعقد ورشة عمل “السياسات والمعايير والتوجهات الاستراتيجية…\n\n2025-"
+      },
+      {
+        "phrase": "number",
+        "selector": "a",
+        "text": "الحكومة الرقمية تعقد ورشة عمل “السياسات والمعايير والتوجهات الاستراتيجية…\n\n2025-"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "الحكومة الرقمية تعقد ورشة عمل “السياسات والمعايير والتوجهات الاستراتيجية…\n\n2025-"
+      },
+      {
+        "phrase": "number",
+        "selector": "span",
+        "text": "2025-11-26"
+      },
+      {
+        "phrase": "number",
+        "selector": "time",
+        "text": "2025-11-26"
+      },
+      {
+        "phrase": "number",
+        "selector": "a",
+        "text": "الحكومة الرقمية تعقد ورشة عمل “الذكاء الاصطناعي المدعوم بالحوسبة السحابية:…\n\n202"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "الحكومة الرقمية تعقد ورشة عمل “الذكاء الاصطناعي المدعوم بالحوسبة السحابية:…\n\n202"
+      },
+      {
+        "phrase": "number",
+        "selector": "span",
+        "text": "2025-11-24"
+      },
+      {
+        "phrase": "number",
+        "selector": "time",
+        "text": "2025-11-24"
+      },
+      {
+        "phrase": "number",
+        "selector": "a",
+        "text": "الحكومة الرقمية تُطلق برنامج “روّاد السحابة” لتمكين كفاءات الحكومة الرقمية من…\n\n"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "الحكومة الرقمية تُطلق برنامج “روّاد السحابة” لتمكين كفاءات الحكومة الرقمية من…\n\n"
+      },
+      {
+        "phrase": "number",
+        "selector": "span",
+        "text": "2025-11-23"
+      },
+      {
+        "phrase": "number",
+        "selector": "time",
+        "text": "2025-11-23"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "البنك الدولي يعيّن عبدالمحسن الماضي عضوًا في لجنته الاستشارية للابتكار\n\n2025-11-"
+      },
+      {
+        "phrase": "number",
+        "selector": "a",
+        "text": "البنك الدولي يعيّن عبدالمحسن الماضي عضوًا في لجنته الاستشارية للابتكار\n\n2025-11-"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "البنك الدولي يعيّن عبدالمحسن الماضي عضوًا في لجنته الاستشارية للابتكار\n\n2025-11-"
+      },
+      {
+        "phrase": "number",
+        "selector": "span",
+        "text": "2025-11-27"
+      },
+      {
+        "phrase": "number",
+        "selector": "time",
+        "text": "2025-11-27"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "section",
+        "text": "الخدمات الأكثر استخداماً\nجميع الخدمات\nخدمة تصنيف المقاولين\n\nتتيح هذه الخدمة لمقاولي قطاع الاتصالات وتقنية المعلومات الذين سبق تسجيلهم في منصة تجمع الحكومة الرقمية بالتقدم بطلب تصنيفهم للحصول على شهادة"
+      },
+      {
+        "phrase": "number",
+        "selector": "section",
+        "text": "الخدمات الأكثر استخداماً\nجميع الخدمات\nخدمة تصنيف المقاولين\n\nتتيح هذه الخدمة لمقا"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "div",
+        "text": "خدمة تصنيف المقاولين\n\nتتيح هذه الخدمة لمقاولي قطاع الاتصالات وتقنية المعلومات الذين سبق تسجيلهم في منصة تجمع الحكومة الرقمية بالتقدم بطلب تصنيفهم للحصول على شهادة التصنيف الفني وذلك من خلال معايير فني"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "خدمة تصنيف المقاولين\n\nتتيح هذه الخدمة لمقاولي قطاع الاتصالات وتقنية المعلومات ال"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "div",
+        "text": "خدمة تصنيف المقاولين\n\nتتيح هذه الخدمة لمقاولي قطاع الاتصالات وتقنية المعلومات الذين سبق تسجيلهم في منصة تجمع الحكومة الرقمية بالتقدم بطلب تصنيفهم للحصول على شهادة التصنيف الفني وذلك من خلال معايير فني"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "خدمة تصنيف المقاولين\n\nتتيح هذه الخدمة لمقاولي قطاع الاتصالات وتقنية المعلومات ال"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "div",
+        "text": "خدمة تصنيف المقاولين\n\nتتيح هذه الخدمة لمقاولي قطاع الاتصالات وتقنية المعلومات الذين سبق تسجيلهم في منصة تجمع الحكومة الرقمية بالتقدم بطلب تصنيفهم للحصول على شهادة التصنيف الفني وذلك من خلال معايير فني"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "خدمة تصنيف المقاولين\n\nتتيح هذه الخدمة لمقاولي قطاع الاتصالات وتقنية المعلومات ال"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "خدمة تصنيف المقاولين\n\nتتيح هذه الخدمة لمقاولي قطاع الاتصالات وتقنية المعلومات ال"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "خدمة تصنيف المقاولين\n\nتتيح هذه الخدمة لمقاولي قطاع الاتصالات وتقنية المعلومات ال"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "خدمة تصنيف المقاولين\n\nتتيح هذه الخدمة لمقاولي قطاع الاتصالات وتقنية المعلومات ال"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "3.7 / 5 من إجمالي أصوات 370."
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "div",
+        "text": "إصدار الختم الرقمي\n\nتتيح الخدمة لمنسوبي الجهة الحكومية تقديم طلب لإنشاء الختم الرقمي وشهادة تسجيل المنصة من خلال الإجراءات التي تتم على المنصة والموافقة على الشروط والأحكام الخاصة بالختم الرقمي.\n\nإدار"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "div",
+        "text": "إصدار الختم الرقمي\n\nتتيح الخدمة لمنسوبي الجهة الحكومية تقديم طلب لإنشاء الختم الرقمي وشهادة تسجيل المنصة من خلال الإجراءات التي تتم على المنصة والموافقة على الشروط والأحكام الخاصة بالختم الرقمي.\n\nإدار"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "div",
+        "text": "إصدار الختم الرقمي\n\nتتيح الخدمة لمنسوبي الجهة الحكومية تقديم طلب لإنشاء الختم الرقمي وشهادة تسجيل المنصة من خلال الإجراءات التي تتم على المنصة والموافقة على الشروط والأحكام الخاصة بالختم الرقمي.\n\nإدار"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "span",
+        "text": "إصدار الختم الرقمي"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "p",
+        "text": "تتيح الخدمة لمنسوبي الجهة الحكومية تقديم طلب لإنشاء الختم الرقمي وشهادة تسجيل المنصة من خلال الإجراءات التي تتم على المنصة والموافقة على الشروط والأحكام الخاصة بالختم الرقمي."
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "div",
+        "text": "تسجيل منصة جديدة\n\nتتيح خدمة طلب الموافقة على إنشاء منصة رقمية جديدة لمنسوبي الجهة الحكومية من خلال تقديم جميع المعلومات اللازمة لطلب إنشاء منصة رقمية جديدة والتي تشمل الاسم ,وصف مختصر ,الشريحة المستهد"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "تسجيل منصة جديدة\n\nتتيح خدمة طلب الموافقة على إنشاء منصة رقمية جديدة لمنسوبي الجه"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "div",
+        "text": "تسجيل منصة جديدة\n\nتتيح خدمة طلب الموافقة على إنشاء منصة رقمية جديدة لمنسوبي الجهة الحكومية من خلال تقديم جميع المعلومات اللازمة لطلب إنشاء منصة رقمية جديدة والتي تشمل الاسم ,وصف مختصر ,الشريحة المستهد"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "تسجيل منصة جديدة\n\nتتيح خدمة طلب الموافقة على إنشاء منصة رقمية جديدة لمنسوبي الجه"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "div",
+        "text": "تسجيل منصة جديدة\n\nتتيح خدمة طلب الموافقة على إنشاء منصة رقمية جديدة لمنسوبي الجهة الحكومية من خلال تقديم جميع المعلومات اللازمة لطلب إنشاء منصة رقمية جديدة والتي تشمل الاسم ,وصف مختصر ,الشريحة المستهد"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "تسجيل منصة جديدة\n\nتتيح خدمة طلب الموافقة على إنشاء منصة رقمية جديدة لمنسوبي الجه"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "p",
+        "text": "تتيح خدمة طلب الموافقة على إنشاء منصة رقمية جديدة لمنسوبي الجهة الحكومية من خلال تقديم جميع المعلومات اللازمة لطلب إنشاء منصة رقمية جديدة والتي تشمل الاسم ,وصف مختصر ,الشريحة المستهدفة والقطاعات ال"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "4.6 / 5 من إجمالي أصوات 19."
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "section",
+        "text": "برامج الهيئة\nجميع البرامج\nPrevious\nبرنامج الحكومة الشاملة\nبرنامج \"نمو\" لتطوير الخريجين (النسخة الثانية)\nبرنامج تبني الحوسبة السحابية لدى الجهات الحكومية\nالشمولية الرقمية\nالتميز الرقمي\nمركز تفاعل المست"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "div",
+        "text": "Previous\nبرنامج الحكومة الشاملة\nبرنامج \"نمو\" لتطوير الخريجين (النسخة الثانية)\nبرنامج تبني الحوسبة السحابية لدى الجهات الحكومية\nالشمولية الرقمية\nالتميز الرقمي\nمركز تفاعل المستفيدين (آمر)\nNext\n1\n2"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "div",
+        "text": "برنامج الحكومة الشاملة\nبرنامج \"نمو\" لتطوير الخريجين (النسخة الثانية)\nبرنامج تبني الحوسبة السحابية لدى الجهات الحكومية\nالشمولية الرقمية\nالتميز الرقمي\nمركز تفاعل المستفيدين (آمر)"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "div",
+        "text": "برنامج الحكومة الشاملة\nبرنامج \"نمو\" لتطوير الخريجين (النسخة الثانية)\nبرنامج تبني الحوسبة السحابية لدى الجهات الحكومية\nالشمولية الرقمية\nالتميز الرقمي\nمركز تفاعل المستفيدين (آمر)"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "div",
+        "text": "برنامج تبني الحوسبة السحابية لدى الجهات الحكومية"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "div",
+        "text": "برنامج تبني الحوسبة السحابية لدى الجهات الحكومية"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "a",
+        "text": "برنامج تبني الحوسبة السحابية لدى الجهات الحكومية"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "span",
+        "text": "برنامج تبني الحوسبة السحابية لدى الجهات الحكومية"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "section",
+        "text": "المعرفة الرقمية\n\nوكلاء الذكاء الاصطناعي كشركاء في العمل الحكومي\n\nالدراسات البحثية\n\nأثر تنظيمات حوكمة المنصات في تحقيق كفاءة الإنفاق الحكومي\n\nالدراسات التنظيمية\n\nالدليل التعريفي هيوماين تشات\n\nأدلة استر"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "div",
+        "text": "المعرفة الرقمية\n\nوكلاء الذكاء الاصطناعي كشركاء في العمل الحكومي\n\nالدراسات البحثية\n\nأثر تنظيمات حوكمة المنصات في تحقيق كفاءة الإنفاق الحكومي\n\nالدراسات التنظيمية\n\nالدليل التعريفي هيوماين تشات\n\nأدلة استر"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "div",
+        "text": "وكلاء الذكاء الاصطناعي كشركاء في العمل الحكومي\n\nالدراسات البحثية\n\nأثر تنظيمات حوكمة المنصات في تحقيق كفاءة الإنفاق الحكومي\n\nالدراسات التنظيمية\n\nالدليل التعريفي هيوماين تشات\n\nأدلة استرشادية\nاستعراض الك"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "a",
+        "text": "وكلاء الذكاء الاصطناعي كشركاء في العمل الحكومي\n\nالدراسات البحثية"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "div",
+        "text": "وكلاء الذكاء الاصطناعي كشركاء في العمل الحكومي\n\nالدراسات البحثية"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "p",
+        "text": "وكلاء الذكاء الاصطناعي كشركاء في العمل الحكومي"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "a",
+        "text": "أثر تنظيمات حوكمة المنصات في تحقيق كفاءة الإنفاق الحكومي\n\nالدراسات التنظيمية"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "div",
+        "text": "أثر تنظيمات حوكمة المنصات في تحقيق كفاءة الإنفاق الحكومي\n\nالدراسات التنظيمية"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "p",
+        "text": "أثر تنظيمات حوكمة المنصات في تحقيق كفاءة الإنفاق الحكومي"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "section",
+        "text": "أرقام وإنجازات\nPrevious\n1\n\nحافظت المملكة على المركز الأول للعام الثالث على التوالي في مؤشر نضج الخدمات الإلكترونية والنقالة (GEMS) الصادر من لجنة الإسكوا\n\n6\n\nترتيب المملكة في مؤشر تطور الحكومة الإلكتر"
+      },
+      {
+        "phrase": "number",
+        "selector": "section",
+        "text": "أرقام وإنجازات\nPrevious\n1\n\nحافظت المملكة على المركز الأول للعام الثالث على التوا"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "div",
+        "text": "أرقام وإنجازات\nPrevious\n1\n\nحافظت المملكة على المركز الأول للعام الثالث على التوالي في مؤشر نضج الخدمات الإلكترونية والنقالة (GEMS) الصادر من لجنة الإسكوا\n\n6\n\nترتيب المملكة في مؤشر تطور الحكومة الإلكتر"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "أرقام وإنجازات\nPrevious\n1\n\nحافظت المملكة على المركز الأول للعام الثالث على التوا"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "div",
+        "text": "Previous\n1\n\nحافظت المملكة على المركز الأول للعام الثالث على التوالي في مؤشر نضج الخدمات الإلكترونية والنقالة (GEMS) الصادر من لجنة الإسكوا\n\n6\n\nترتيب المملكة في مؤشر تطور الحكومة الإلكترونية (UN EGDI) "
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "Previous\n1\n\nحافظت المملكة على المركز الأول للعام الثالث على التوالي في مؤشر نضج "
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "div",
+        "text": "Previous\n1\n\nحافظت المملكة على المركز الأول للعام الثالث على التوالي في مؤشر نضج الخدمات الإلكترونية والنقالة (GEMS) الصادر من لجنة الإسكوا\n\n6\n\nترتيب المملكة في مؤشر تطور الحكومة الإلكترونية (UN EGDI) "
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "Previous\n1\n\nحافظت المملكة على المركز الأول للعام الثالث على التوالي في مؤشر نضج "
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "div",
+        "text": "1\n\nحافظت المملكة على المركز الأول للعام الثالث على التوالي في مؤشر نضج الخدمات الإلكترونية والنقالة (GEMS) الصادر من لجنة الإسكوا\n\n6\n\nترتيب المملكة في مؤشر تطور الحكومة الإلكترونية (UN EGDI) لعام (202"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "1\n\nحافظت المملكة على المركز الأول للعام الثالث على التوالي في مؤشر نضج الخدمات ا"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "div",
+        "text": "1\n\nحافظت المملكة على المركز الأول للعام الثالث على التوالي في مؤشر نضج الخدمات الإلكترونية والنقالة (GEMS) الصادر من لجنة الإسكوا\n\n6\n\nترتيب المملكة في مؤشر تطور الحكومة الإلكترونية (UN EGDI) لعام (202"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "1\n\nحافظت المملكة على المركز الأول للعام الثالث على التوالي في مؤشر نضج الخدمات ا"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "6\n\nترتيب المملكة في مؤشر تطور الحكومة الإلكترونية (UN EGDI) لعام (2024م) الصادر "
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "6\n\nترتيب المملكة في مؤشر تطور الحكومة الإلكترونية (UN EGDI) لعام (2024م) الصادر "
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "6\n\nترتيب المملكة في مؤشر تطور الحكومة الإلكترونية (UN EGDI) لعام (2024م) الصادر "
+      },
+      {
+        "phrase": "number",
+        "selector": "p",
+        "text": "ترتيب المملكة في مؤشر تطور الحكومة الإلكترونية (UN EGDI) لعام (2024م) الصادر من "
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "4\n\nترتيب المملكة في مؤشر الخدمات الإلكترونية (OSI) لعام (2024م) الصادر من الأمم "
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "4\n\nترتيب المملكة في مؤشر الخدمات الإلكترونية (OSI) لعام (2024م) الصادر من الأمم "
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "4\n\nترتيب المملكة في مؤشر الخدمات الإلكترونية (OSI) لعام (2024م) الصادر من الأمم "
+      },
+      {
+        "phrase": "number",
+        "selector": "p",
+        "text": "ترتيب المملكة في مؤشر الخدمات الإلكترونية (OSI) لعام (2024م) الصادر من الأمم الم"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "7\n\nترتيب المملكة في مؤشر المشاركة الإلكترونية (EPI) لعام (2024م) الصادر من الأمم"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "7\n\nترتيب المملكة في مؤشر المشاركة الإلكترونية (EPI) لعام (2024م) الصادر من الأمم"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "7\n\nترتيب المملكة في مؤشر المشاركة الإلكترونية (EPI) لعام (2024م) الصادر من الأمم"
+      },
+      {
+        "phrase": "number",
+        "selector": "p",
+        "text": "ترتيب المملكة في مؤشر المشاركة الإلكترونية (EPI) لعام (2024م) الصادر من الأمم ال"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "div",
+        "text": "1\n\nترتيب المملكة في مؤشر البيانات الحكومية المفتوحة (OGDI) لعام (2024م) الصادر من الأمم المتحدة"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "1\n\nترتيب المملكة في مؤشر البيانات الحكومية المفتوحة (OGDI) لعام (2024م) الصادر م"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "div",
+        "text": "1\n\nترتيب المملكة في مؤشر البيانات الحكومية المفتوحة (OGDI) لعام (2024م) الصادر من الأمم المتحدة"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "1\n\nترتيب المملكة في مؤشر البيانات الحكومية المفتوحة (OGDI) لعام (2024م) الصادر م"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "div",
+        "text": "1\n\nترتيب المملكة في مؤشر البيانات الحكومية المفتوحة (OGDI) لعام (2024م) الصادر من الأمم المتحدة"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "1\n\nترتيب المملكة في مؤشر البيانات الحكومية المفتوحة (OGDI) لعام (2024م) الصادر م"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "p",
+        "text": "ترتيب المملكة في مؤشر البيانات الحكومية المفتوحة (OGDI) لعام (2024م) الصادر من الأمم المتحدة"
+      },
+      {
+        "phrase": "number",
+        "selector": "p",
+        "text": "ترتيب المملكة في مؤشر البيانات الحكومية المفتوحة (OGDI) لعام (2024م) الصادر من ا"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "3\n\nترتيب مدينة الرياض في مؤشر الخدمات الإلكترونية المحلية (LOSI) لعام (2024م) ال"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "3\n\nترتيب مدينة الرياض في مؤشر الخدمات الإلكترونية المحلية (LOSI) لعام (2024م) ال"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "3\n\nترتيب مدينة الرياض في مؤشر الخدمات الإلكترونية المحلية (LOSI) لعام (2024م) ال"
+      },
+      {
+        "phrase": "number",
+        "selector": "p",
+        "text": "ترتيب مدينة الرياض في مؤشر الخدمات الإلكترونية المحلية (LOSI) لعام (2024م) الصاد"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "8\n\nترتيب المملكة في مؤشر قياس الحكومات الرقمية (DGI) لعام (2024م) الصادر من جامع"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "8\n\nترتيب المملكة في مؤشر قياس الحكومات الرقمية (DGI) لعام (2024م) الصادر من جامع"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "8\n\nترتيب المملكة في مؤشر قياس الحكومات الرقمية (DGI) لعام (2024م) الصادر من جامع"
+      },
+      {
+        "phrase": "number",
+        "selector": "p",
+        "text": "ترتيب المملكة في مؤشر قياس الحكومات الرقمية (DGI) لعام (2024م) الصادر من جامعة و"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "2\n\nترتيب المملكة في تقرير التنافسية الرقمية لعام 2021 الصادر عن المركز الأوربي"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "2\n\nترتيب المملكة في تقرير التنافسية الرقمية لعام 2021 الصادر عن المركز الأوربي"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "2\n\nترتيب المملكة في تقرير التنافسية الرقمية لعام 2021 الصادر عن المركز الأوربي"
+      },
+      {
+        "phrase": "number",
+        "selector": "p",
+        "text": "ترتيب المملكة في تقرير التنافسية الرقمية لعام 2021 الصادر عن المركز الأوربي"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "section",
+        "text": "المواضيع الأكثر قراءة\n\nإصدار الختم الرقمي\nالمعايير الأساسية للتحول الرقمي\nإدارة المشروع الرقمي\nضوابط المشاركة الإلكترونية"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "div",
+        "text": "المواضيع الأكثر قراءة\n\nإصدار الختم الرقمي\nالمعايير الأساسية للتحول الرقمي\nإدارة المشروع الرقمي\nضوابط المشاركة الإلكترونية"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "div",
+        "text": "إصدار الختم الرقمي\nالمعايير الأساسية للتحول الرقمي\nإدارة المشروع الرقمي\nضوابط المشاركة الإلكترونية"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "a",
+        "text": "إصدار الختم الرقمي"
+      },
+      {
+        "phrase": "number",
+        "selector": "section",
+        "text": "تاريخ آخر تحديث لمحتوى الصفحة : 10/12/2025 11:53 بتوقيت المملكة العربية السعودية"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "تاريخ آخر تحديث لمحتوى الصفحة : 10/12/2025 11:53 بتوقيت المملكة العربية السعودية"
+      },
+      {
+        "phrase": "number",
+        "selector": "h6",
+        "text": "تاريخ آخر تحديث لمحتوى الصفحة : 10/12/2025 11:53 بتوقيت المملكة العربية السعودية"
+      },
+      {
+        "phrase": "number",
+        "selector": "footer",
+        "text": "روابط ذات صلة\nالمنصة الوطنية\nمنصة البيانات المفتوحة\nمنصة المشاركة الإلكترونية\nبو"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "روابط ذات صلة\nالمنصة الوطنية\nمنصة البيانات المفتوحة\nمنصة المشاركة الإلكترونية\nبو"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "جميع الحقوق محفوظة لهيئة الحكومة الرقمية © 2025\n\nالشروط والأحكام\nسياسة الخصوصية\n"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "جميع الحقوق محفوظة لهيئة الحكومة الرقمية © 2025\n\nالشروط والأحكام\nسياسة الخصوصية\n"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "جميع الحقوق محفوظة لهيئة الحكومة الرقمية © 2025\n\nالشروط والأحكام\nسياسة الخصوصية\n"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "جميع الحقوق محفوظة لهيئة الحكومة الرقمية © 2025"
+      },
+      {
+        "phrase": "number",
+        "selector": "p",
+        "text": "جميع الحقوق محفوظة لهيئة الحكومة الرقمية © 2025"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "div",
+        "text": "Language Selector\nArabic\nتبديل السمة\nسمة داكنة\nسمة فاتحة\nسمة النظام\nأداة سهولة الوصول\nتكبير أزرار الأداة\nتكبير أزرار الأداة\nأنماط المساعدة\nتجربة قراءة مريحة\nتغيير حجم المحتوى\nمكبر النص\nخط لقراءة أسهل\n"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "Language Selector\nArabic\nتبديل السمة\nسمة داكنة\nسمة فاتحة\nسمة النظام\nأداة سهولة ا"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "div",
+        "text": "تكبير أزرار الأداة\nتكبير أزرار الأداة\nأنماط المساعدة\nتجربة قراءة مريحة\nتغيير حجم المحتوى\nمكبر النص\nخط لقراءة أسهل\nخط الدسليكسيا\nتمييز العناوين\nتمييز الروابط\nتغيير حجم الخط\nمحاذاة النص\nتباعد الأسطر\nتبا"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "تكبير أزرار الأداة\nتكبير أزرار الأداة\nأنماط المساعدة\nتجربة قراءة مريحة\nتغيير حجم"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "div",
+        "text": "اختر من القائمة\nالرئيسية\n20240520402\nEnglish\nالبرامج\nالخدمات\nالمعرفة الرقمية\nأخبار الهيئة\nالحكومة الرقمية تعقد ورشة عمل “السياسات وا\nالحكومة الرقمية تعقد ورشة عمل “الذكاء الاص\nالحكومة الرقمية تُطلق بر"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "اختر من القائمة\nالرئيسية\n20240520402\nEnglish\nالبرامج\nالخدمات\nالمعرفة الرقمية\nأخب"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "div",
+        "text": "اختر من القائمة\nالرئيسية\n20240520402\nEnglish\nالبرامج\nالخدمات\nالمعرفة الرقمية\nأخبار الهيئة\nالحكومة الرقمية تعقد ورشة عمل “السياسات وا\nالحكومة الرقمية تعقد ورشة عمل “الذكاء الاص\nالحكومة الرقمية تُطلق بر"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "اختر من القائمة\nالرئيسية\n20240520402\nEnglish\nالبرامج\nالخدمات\nالمعرفة الرقمية\nأخب"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "div",
+        "text": "اختر من القائمة\nالرئيسية\n20240520402\nEnglish\nالبرامج\nالخدمات\nالمعرفة الرقمية\nأخبار الهيئة\nالحكومة الرقمية تعقد ورشة عمل “السياسات وا\nالحكومة الرقمية تعقد ورشة عمل “الذكاء الاص\nالحكومة الرقمية تُطلق بر"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "اختر من القائمة\nالرئيسية\n20240520402\nEnglish\nالبرامج\nالخدمات\nالمعرفة الرقمية\nأخب"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "div",
+        "text": "اختر من القائمة\nالرئيسية\n20240520402\nEnglish\nالبرامج\nالخدمات\nالمعرفة الرقمية\nأخبار الهيئة\nالحكومة الرقمية تعقد ورشة عمل “السياسات وا\nالحكومة الرقمية تعقد ورشة عمل “الذكاء الاص\nالحكومة الرقمية تُطلق بر"
+      },
+      {
+        "phrase": "number",
+        "selector": "div",
+        "text": "اختر من القائمة\nالرئيسية\n20240520402\nEnglish\nالبرامج\nالخدمات\nالمعرفة الرقمية\nأخب"
+      },
+      {
+        "phrase": "heuristic",
+        "selector": "select",
+        "text": "اختر من القائمة\nالرئيسية\n20240520402\nEnglish\nالبرامج\nالخدمات\nالمعرفة الرقمية\nأخبار الهيئة\nالحكومة الرقمية تعقد ورشة عمل “السياسات وا\nالحكومة الرقمية تعقد ورشة عمل “الذكاء الاص\nالحكومة الرقمية تُطلق بر"
+      },
+      {
+        "phrase": "number",
+        "selector": "select",
+        "text": "اختر من القائمة\nالرئيسية\n20240520402\nEnglish\nالبرامج\nالخدمات\nالمعرفة الرقمية\nأخب"
+      }
+    ],
+    "matchedSelectors": [
+      "div",
+      "div",
+      "div",
+      "div",
+      "div",
+      "div",
+      "div",
+      "div",
+      "h6",
+      "h6",
+      "h6",
+      "h6"
+    ],
+    "matchedLinks": [
+      "https://raqmi.dga.gov.sa/platforms/DigitalStamp/ShowCertificate/4990",
+      "https://dga.gov.sa/",
+      "https://dga.gov.sa/",
+      "https://dga.gov.sa/ar/programs/Qiyas",
+      "https://awards.dga.gov.sa",
+      "https://dga.gov.sa//news",
+      "https://dga.gov.sa//listing-services",
+      "https://dga.gov.sa//listing-programmes",
+      "https://dga.gov.sa/programs/amer",
+      "https://dga.gov.sa//digital_knowledge",
+      "https://dga.gov.sa//contact",
+      "https://www.facebook.com/sharer/sharer.php?u=http://dga.gov.sa/ar/node&title=",
+      "https://twitter.com/intent/tweet?text=+http://dga.gov.sa/ar/node",
+      "https://wa.me/?text=http://dga.gov.sa/ar/node",
+      "https://www.linkedin.com/sharing/share-offsite/?url=http://dga.gov.sa/ar/node",
+      "https://www.my.gov.sa",
+      "https://od.data.gov.sa/Data/ar/organization/digital-government-authority",
+      "https://eparticipation.my.gov.sa/",
+      "https://raqmi.dga.gov.sa",
+      "https://dga.gov.sa/contact",
+      "https://career.dga.gov.sa/ar",
+      "https://dga.gov.sa/faq",
+      "https://my.gov.sa/ar/content/report-corruption",
+      "https://twitter.com/DgaGovSa",
+      "https://www.facebook.com/DGAGOVSA",
+      "https://deaf.dga.gov.sa/",
+      "https://vision2030.gov.sa/"
+    ]
+  },
+  "colorFailures": [
+    {
+      "color": "rgb(0, 0, 0)",
+      "screenshot": "color-fail-1765357168278-1.png",
+      "snippet": "<html dir=\"rtl\" lang=\"ar\" class=\" js\"><head>\n\t<link id=\"genesys-widgets-styles\" href=\"/themes/custom/dga/chat/widgets-ar.css\" type=\"text/css\" rel=\"stylesheet\" media=\"all\">\n\t<script id=\"genesys-widgets-script\" src=\"/themes/custom/dga/chat/cxbus.min_AR.js\" defer=\"\"></script>\n\t<script id=\"genesys-widgets-script1\" src=\"/themes/custom/dga/chat/chat_sidebtn_AR.js\" defer=\"\"></script>\n\t<script id=\"genesys",
+      "selector": null,
+      "rect": null
+    },
+    {
+      "color": "rgb(217, 45, 32)",
+      "screenshot": "color-fail-1765357180272-3.png",
+      "snippet": "<button type=\"button\" class=\"decline-button eu-cookie-compliance-default-button button button--small button--primary nds-red-btn\" tabindex=\"0\">رفض</button>",
+      "selector": null,
+      "rect": null
+    }
+  ],
+  "hasSearchBar": true,
+  "spacings": [
+    "0px",
+    "8px",
+    "32px",
+    "38px",
+    "auto",
+    "40px",
+    "12px",
+    "28px",
+    "70px",
+    "16px",
+    "-16px",
+    "10px",
+    "-897px",
+    "80px",
+    "64px",
+    "4px",
+    "24px",
+    "50px",
+    "1px",
+    "30px",
+    "-1140px",
+    "5px",
+    "168.734px",
+    "94px",
+    "294.703px",
+    "60px",
+    "-847px",
+    "9px",
+    "48px",
+    "13px",
+    "7px",
+    "6px",
+    "-1px",
+    "34.0469px",
+    "20px",
+    "22px",
+    "2px",
+    "100px",
+    "18px",
+    "-24px",
+    "35px",
+    "11px",
+    "-10px"
+  ],
+  "spacingMatches": [
+    8,
+    32,
+    40,
+    12,
+    16,
+    80,
+    64,
+    4,
+    24,
+    48,
+    20
+  ],
+  "spacingAccuracy": 32.35294117647059,
+  "screenshotMobile": "snap-1765357143540-mobile.png",
+  "screenshotTablet": "snap-1765357143540-tablet.png",
+  "screenshotDesktop": "snap-1765357143540-desktop.png",
+  "performance": {
+    "metrics": {
+      "fcpMs": 1632,
+      "lcpMs": null,
+      "domContentLoadedMs": 3086,
+      "loadEventEndMs": 4448,
+      "totalBlockingTimeMs": 0,
+      "ttfbMs": 759,
+      "resourceStats": {
+        "requestCount": 0,
+        "transferSizeBytes": 0
+      },
+      "speedIndexMs": 1632,
+      "speedIndexSec": 1.63
+    },
+    "resourceStats": {
+      "requestCount": 8,
+      "transferSizeBytes": 70962
+    }
+  }
+}

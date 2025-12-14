@@ -97,6 +97,25 @@ app.post('/scan', async (req, res) => {
   if (!url) return res.status(400).json({ error: 'Missing URL' });
   if (!email) return res.status(400).json({ error: 'Missing email' });
 
+  // Validate URL hostname against allowed Saudi domain suffixes
+  let hostname;
+  try {
+    let parsed;
+    try {
+      parsed = new URL(url);
+    } catch (e) {
+      // Try adding https:// if caller omitted protocol
+      parsed = new URL('https://' + url);
+    }
+    hostname = parsed.hostname.toLowerCase();
+  } catch (e) {
+    return res.status(400).json({ error: 'Invalid URL' });
+  }
+  const allowedSuffixes = ['.gov.sa', '.edu.sa', '.org.sa', '.med.sa', '.sch.sa'];
+  if (!allowedSuffixes.some(s => hostname.endsWith(s))) {
+    return res.status(400).json({ error: 'الرجاء إدخال موقع ينتهي بـ .gov.sa أو .edu.sa أو .org.sa أو .med.sa أو .sch.sa' });
+  }
+
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
     return res.status(400).json({ error: 'Invalid email format' });
