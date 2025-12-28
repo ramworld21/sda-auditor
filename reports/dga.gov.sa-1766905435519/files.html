@@ -1,0 +1,197 @@
+<!doctype html>
+    <html lang="ar" dir="rtl">
+    <head>
+      <meta charset="utf-8">
+      <title>فحص المرفقات والتحميلات — هيئة الحكومة الرقمية</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+      <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'IBM Plex Sans Arabic', Arial, sans-serif; background: linear-gradient(135deg, #f4f7fb 0%, #e8f0f7 100%); padding: 24px; line-height: 1.6; color: #1f2937; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { background: linear-gradient(135deg, #062c6e, #2563eb); color: white; padding: 32px; border-radius: 16px; margin-bottom: 24px; box-shadow: 0 8px 24px rgba(6,44,110,0.2); }
+        .header h1 { font-size: 2em; font-weight: 700; margin-bottom: 8px; }
+        .header .meta { opacity: 0.95; font-size: 0.95em; }
+        .card { background: white; padding: 24px; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); margin-bottom: 24px; border: 1px solid #e5e7eb; }
+        .card h2 { color: #062c6e; margin-bottom: 16px; font-size: 1.5em; border-bottom: 2px solid #2563eb; padding-bottom: 8px; }
+        .card h3 { color: #1f2937; margin: 16px 0 12px; font-size: 1.2em; }
+        .stats { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
+        .stat-box { flex: 1; min-width: 200px; background: linear-gradient(135deg, #f6f9ff, #fff); padding: 20px; border-radius: 10px; border: 2px solid #e0e7ff; text-align: center; }
+        .stat-box.danger { border-color: #fee; background: linear-gradient(135deg, #fff5f5, #fff); }
+        .stat-box.warning { border-color: #fef3c7; background: linear-gradient(135deg, #fffbeb, #fff); }
+        .stat-box.success { border-color: #d1fae5; background: linear-gradient(135deg, #f0fdf4, #fff); }
+        .stat-value { font-size: 2em; font-weight: 700; color: #062c6e; margin-bottom: 4px; }
+        .stat-label { color: #6b7280; font-size: 0.9em; }
+        table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+        th { background: #f9fafb; padding: 12px; border-bottom: 2px solid #e5e7eb; text-align: right; font-weight: 600; color: #062c6e; }
+        td { padding: 10px 12px; border-bottom: 1px solid #f1f5f9; text-align: right; }
+        tr:hover { background: #f9fafb; }
+        .badge { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 0.85em; font-weight: 600; margin: 0 4px; }
+        .badge.danger { background: #fee2e2; color: #991b1b; }
+        .badge.warning { background: #fef3c7; color: #92400e; }
+        .badge.success { background: #d1fae5; color: #065f46; }
+        .badge.info { background: #dbeafe; color: #1e40af; }
+        a { color: #2563eb; text-decoration: none; word-break: break-all; }
+        a:hover { text-decoration: underline; }
+        .btn { display: inline-block; padding: 12px 24px; background: #2563eb; color: white; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.2s; border: none; cursor: pointer; }
+        .btn:hover { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,99,235,0.3); }
+        .alert { padding: 16px; border-radius: 8px; margin-bottom: 16px; border-right: 4px solid; }
+        .alert.danger { background: #fef2f2; border-color: #dc2626; color: #7f1d1d; }
+        .alert.warning { background: #fffbeb; border-color: #f59e0b; color: #92400e; }
+        .alert.info { background: #eff6ff; border-color: #3b82f6; color: #1e40af; }
+        .category-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 16px 0; }
+        .category-card { background: #f9fafb; padding: 16px; border-radius: 8px; text-align: center; border: 1px solid #e5e7eb; }
+        .category-card strong { display: block; font-size: 1.8em; color: #2563eb; margin-bottom: 4px; }
+        .file-icon { width: 24px; height: 24px; display: inline-block; margin-left: 8px; vertical-align: middle; }
+        .security-issue { background: #fef2f2; padding: 12px; border-radius: 8px; border-right: 3px solid #dc2626; margin-bottom: 12px; }
+        .security-issue strong { color: #991b1b; }
+        .back-btn { position: fixed; bottom: 24px; left: 24px; z-index: 100; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+          <h1>📤 فحص المرفقات والتحميلات</h1>
+          <div class="meta">
+            <strong>الموقع:</strong> https://dga.gov.sa<br>
+            <strong>التاريخ:</strong> ٢٨‏/١٢‏/٢٠٢٥
+          </div>
+        </div>
+
+        
+            <!-- Overall Summary -->
+            <div class="card">
+              <h2>📊 ملخص الفحص</h2>
+              <div class="stats">
+                <div class="stat-box">
+                  <div class="stat-value">0</div>
+                  <div class="stat-label">حقول رفع الملفات</div>
+                </div>
+                <div class="stat-box">
+                  <div class="stat-value">0</div>
+                  <div class="stat-label">نماذج بها تحميل</div>
+                </div>
+                <div class="stat-box info">
+                  <div class="stat-value">1</div>
+                  <div class="stat-label">روابط ملفات مكتشفة</div>
+                </div>
+                <div class="stat-box ">
+                  <div class="stat-value">0</div>
+                  <div class="stat-label">ملفات قابلة للوصول</div>
+                </div>
+                <div class="stat-box ">
+                  <div class="stat-value">0</div>
+                  <div class="stat-label">ملفات حساسة</div>
+                </div>
+                <div class="stat-box warning">
+                  <div class="stat-value">1</div>
+                  <div class="stat-label">امتدادات خطرة</div>
+                </div>
+              </div>
+              
+              <div class="alert info"><strong>📦 إجمالي حجم الملفات المكتشفة:</strong> 745 بايت</div>
+              
+              
+            </div>
+
+            <!-- Security Issues -->
+            
+
+            <!-- File Categories -->
+            
+              <div class="card">
+                <h2>📂 تصنيف الملفات حسب النوع</h2>
+                <div class="category-grid">
+                  
+                    <div class="category-card">
+                      <strong>1</strong>
+                      <div style="color: #6b7280">سكربتات</div>
+                    </div>
+                  
+                </div>
+              </div>
+            
+
+            <!-- Linked Files Table -->
+            
+              <div class="card">
+                <h2>📎 روابط الملفات المكتشفة</h2>
+                <div style="overflow-x:auto">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>اسم الملف</th>
+                        <th>الرابط</th>
+                        <th>الحالة</th>
+                        <th>النوع</th>
+                        <th>الحجم</th>
+                        <th>التصنيف</th>
+                        <th>الملاحظات</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      
+                        <tr>
+                          <td><strong>sharer.php</strong></td>
+                          <td><a href="https://www.facebook.com/sharer/sharer.php?u=http://dga.gov.sa/ar/node&title=" target="_blank">https://www.facebook.com/sharer/sharer.php?u=http://dga.gov....</a></td>
+                          <td>
+                            <span class="badge warning">400</span>
+                          </td>
+                          <td style="font-size:0.85em">text/html; charset="utf-8"</td>
+                          <td>745 بايت</td>
+                          <td>
+                            <span class="badge danger">
+                              scripts
+                            </span>
+                          </td>
+                          <td>
+                            
+                            <span class="badge warning">خطير</span>
+                            
+                            
+                          </td>
+                        </tr>
+                      
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            
+
+            <!-- Forms with File Upload -->
+            
+
+            <!-- Forms with Security Issues -->
+            
+
+            <!-- File Input Details -->
+            
+
+            <!-- Directory Listings -->
+            
+              <div class="card">
+                <div class="alert danger">
+                  <strong>🔴 تحذير:</strong> تم اكتشاف قوائم دلائل محتملة! هذا قد يمثل خطراً أمنياً.
+                </div>
+                <h3>📁 قوائم الدلائل المكتشفة</h3>
+                <ul style="margin-right:20px">
+                  <li><a href="https://dga.gov.sa/ar/listing-programmes" target="_blank">https://dga.gov.sa/ar/listing-programmes</a> — البرامج</li><li><a href="https://dga.gov.sa/ar/listing-services" target="_blank">https://dga.gov.sa/ar/listing-services</a> — الخدمات</li><li><a href="https://dga.gov.sa//listing-services" target="_blank">https://dga.gov.sa//listing-services</a> — جميع الخدمات</li><li><a href="https://dga.gov.sa//listing-programmes" target="_blank">https://dga.gov.sa//listing-programmes</a> — جميع البرامج</li><li><a href="https://dga.gov.sa/ar/listing-services" target="_blank">https://dga.gov.sa/ar/listing-services</a> — خدمات الهيئة</li><li><a href="https://dga.gov.sa/ar/listing-programmes" target="_blank">https://dga.gov.sa/ar/listing-programmes</a> — برامج الهيئة</li><li><a href="https://dga.gov.sa/ar/listing-services/issue-digital-stamp" target="_blank">https://dga.gov.sa/ar/listing-services/issue-digital-stamp</a> — إصدار الختم الرقمي</li>
+                </ul>
+              </div>
+            
+
+            <!-- API Endpoints -->
+            
+          
+
+        <div class="card" style="text-align:center;background:linear-gradient(135deg,#f6f9ff,#fff)">
+          <p style="color:#6b7280;margin-bottom:16px">العودة إلى التقرير الرئيسي</p>
+          <a href="report.html" class="btn">← العودة للتقرير</a>
+        </div>
+      </div>
+
+      <a href="report.html" class="btn back-btn">← رجوع</a>
+    </body>
+    </html>

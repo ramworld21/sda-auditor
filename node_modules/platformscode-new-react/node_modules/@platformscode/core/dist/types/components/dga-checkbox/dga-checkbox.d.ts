@@ -1,0 +1,26 @@
+export declare class DgaCheckbox {
+    el: HTMLElement;
+    color?: 'brand' | 'neutral';
+    size?: 'lg' | 'md' | 'sm';
+    label?: string;
+    helperText?: string;
+    alertMessage?: boolean;
+    alertText?: string;
+    disabled?: boolean;
+    name?: string;
+    value?: string;
+    showBorderOnFocusAndFocusOute?: boolean;
+    onChange?: (event?: any) => void;
+    onInput?: (event?: any) => void;
+    checked?: boolean;
+    isChecked: boolean;
+    Indeterminate?: boolean;
+    labelRef: HTMLLabelElement;
+    private handleFocus;
+    private handleFocusOut;
+    private handleEscape;
+    componentWillLoad(): void;
+    componentDidLoad(): void;
+    watchMaxValue(newValue: any): void;
+    render(): any;
+}

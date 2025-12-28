@@ -6,7 +6,7 @@ import { exec } from 'child_process';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { logScanToExcel } from './src/utils/excelLogger.js';
-import pkg from 'pg';
+// import pkg from 'pg';
 import fs from 'fs';
 
 function generateHTMLReport(url, cliOutput) {
@@ -46,27 +46,27 @@ function generateHTMLReport(url, cliOutput) {
 </html>
 `;
 }
-const { Pool } = pkg;
+// const { Pool } = pkg;
 
 // Setup Postgres pool
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false }
-});
+// const pool = new Pool({
+//   connectionString: process.env.DATABASE_URL,
+//   ssl: { rejectUnauthorized: false }
+// });
 
 // Ensure table exists
-(async () => {
-  const createTableQuery = `
-    CREATE TABLE IF NOT EXISTS submissions (
-      id SERIAL PRIMARY KEY,
-      email VARCHAR(255) NOT NULL,
-      url TEXT,
-      fast_mode BOOLEAN,
-      created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    );
-  `;
-  await pool.query(createTableQuery);
-})();
+// (async () => {
+//   const createTableQuery = `
+//     CREATE TABLE IF NOT EXISTS submissions (
+//       id SERIAL PRIMARY KEY,
+//       email VARCHAR(255) NOT NULL,
+//       url TEXT,
+//       fast_mode BOOLEAN,
+//       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+//     );
+//   `;
+//   await pool.query(createTableQuery);
+// })();
 
 // Fix: define __dirname BEFORE using it
 const __filename = fileURLToPath(import.meta.url);
@@ -131,14 +131,14 @@ app.post('/scan', async (req, res) => {
   }
 
   // Save email to database
-  try {
-    await pool.query(
-      'INSERT INTO submissions(email, url, fast_mode) VALUES($1, $2, $3)',
-      [email, url, fastMode || false]
-    );
-  } catch (dbErr) {
-    console.error('❌ Failed to save email to database:', dbErr);
-  }
+  // try {
+  //   await pool.query(
+  //     'INSERT INTO submissions(email, url, fast_mode) VALUES($1, $2, $3)',
+  //     [email, url, fastMode || false]
+  //   );
+  // } catch (dbErr) {
+  //   console.error('❌ Failed to save email to database:', dbErr);
+  // }
 
   // Log to Excel
   try {
@@ -196,15 +196,15 @@ app.get('/health', (req, res) => {
 });
 
 // GET /emails - retrieve all submitted emails (for testing/verification)
-app.get('/emails', async (req, res) => {
-  try {
-    const result = await pool.query('SELECT id, email, url, fast_mode, created_at FROM submissions ORDER BY created_at DESC');
-    res.json(result.rows);
-  } catch (err) {
-    console.error('❌ Failed to fetch emails:', err);
-    res.status(500).json({ error: 'Failed to fetch emails from database' });
-  }
-});
+// app.get('/emails', async (req, res) => {
+//   try {
+//     const result = await pool.query('SELECT id, email, url, fast_mode, created_at FROM submissions ORDER BY created_at DESC');
+//     res.json(result.rows);
+//   } catch (err) {
+//     console.error('❌ Failed to fetch emails:', err);
+//     res.status(500).json({ error: 'Failed to fetch emails from database' });
+//   }
+// });
 
 // Generate a PDF of the latest HTML report using Playwright (server-side rendering)
 app.get('/report-pdf', async (req, res) => {

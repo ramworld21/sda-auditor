@@ -1,7 +1,9 @@
 import fs from "fs";
 import { chromium } from "playwright";
 import path from "path";
+import { analyzeUploads } from './uploadScanner.js';
 import { generateHTMLReport } from "../utils/reporter.js";
+import zlib from 'zlib';
 
 // Load brand colors
 const tokens = JSON.parse(fs.readFileSync('./src/config/sda.tokens.json', 'utf-8'));
@@ -827,90 +829,179 @@ export async function auditColors(url, fastMode = false) {
     // ignore digital stamp detection errors
   }
 
-  // Capture element screenshots for each discovered page color (help locate failing colors)
+  // Capture element screenshots for ALL occurrences of each non-matching color
   const colorFailures = [];
   try {
     if (!fastMode) {
+    console.log('Starting color failure screenshot capture...');
+    
     // Only capture colors that don't match (from colorAudit results)
     const failingColors = (colorAudit || []).filter(r => !r.match).map(r => r.color);
     const uniqueColors = Array.from(new Set(failingColors)).filter(Boolean);
-    let idx = 0;
+    
+    console.log(`Found ${uniqueColors.length} unique non-matching colors to capture`);
+    
+    let globalIdx = 0;
+    
     for (const c of uniqueColors) {
       try {
-        // Find an element whose computed style matches this color string
-        const handle = await page.evaluateHandle((col) => {
+        console.log(`Processing color: ${c}`);
+        // Find ALL elements whose computed style matches this color string
+        const elementsInfo = await page.evaluate((col) => {
           try {
+            const results = [];
             const els = document.querySelectorAll('*');
+            
             for (const el of els) {
               try {
                 const s = getComputedStyle(el);
                 if (!s) continue;
-                const props = [s.color, s.backgroundColor, s.borderTopColor, s.borderRightColor, s.borderBottomColor, s.borderLeftColor, s.outlineColor];
-                for (const p of props) {
-                  if (!p) continue;
-                  if (p.trim() === col.trim()) {
-                    el.scrollIntoView({ block: 'center', inline: 'center' });
-                    return el;
+                
+                const props = [
+                  { name: 'color', value: s.color },
+                  { name: 'backgroundColor', value: s.backgroundColor },
+                  { name: 'borderTopColor', value: s.borderTopColor },
+                  { name: 'borderRightColor', value: s.borderRightColor },
+                  { name: 'borderBottomColor', value: s.borderBottomColor },
+                  { name: 'borderLeftColor', value: s.borderLeftColor },
+                  { name: 'outlineColor', value: s.outlineColor }
+                ];
+                
+                for (const prop of props) {
+                  if (!prop.value) continue;
+                  if (prop.value.trim() === col.trim()) {
+                    // Get element info
+                    const rect = el.getBoundingClientRect();
+                    
+                    // Skip invisible elements
+                    if (rect.width === 0 || rect.height === 0) continue;
+                    if (rect.top < -1000 || rect.left < -1000) continue;
+                    
+                    // Generate CSS path
+                    function cssPath(el) {
+                      if (!(el instanceof Element)) return '';
+                      const path = [];
+                      while (el && el.nodeType === Node.ELEMENT_NODE) {
+                        let selector = el.nodeName.toLowerCase();
+                        if (el.id) {
+                          selector += '#' + el.id;
+                          path.unshift(selector);
+                          break;
+                        } else {
+                          let sib = el, nth = 1;
+                          while (sib = sib.previousElementSibling) {
+                            if (sib.nodeName.toLowerCase() === selector) nth++;
+                          }
+                          if (nth > 1) selector += `:nth-of-type(${nth})`;
+                        }
+                        path.unshift(selector);
+                        el = el.parentElement;
+                        if (path.length > 5) break; // limit depth
+                      }
+                      return path.join(' > ');
+                    }
+                    
+                    results.push({
+                      selector: cssPath(el),
+                      outerHTML: el.outerHTML ? el.outerHTML.substring(0, 400) : '',
+                      rect: { x: rect.x, y: rect.y, width: rect.width, height: rect.height },
+                      propertyName: prop.name,
+                      computedValue: prop.value
+                    });
+                    
+                    // Limit per color to avoid too many screenshots
+                    if (results.length >= 10) break;
                   }
                 }
               } catch (e) {}
             }
-          } catch (e) {}
-          return null;
-        }, c);
-        const el = handle && handle.asElement ? handle.asElement() : null;
-        if (el) {
-          idx += 1;
-          const safeName = `color-fail-${Date.now()}-${idx}.png`;
-          const reportsDir = path.join(process.cwd(), 'reports');
-          if (!fs.existsSync(reportsDir)) fs.mkdirSync(reportsDir);
-          const outPath = path.join(reportsDir, safeName);
-          try {
-            // collect selector and bounding rect from page context
-            const info = await page.evaluate((node) => {
-              function cssPath(el) {
-                if (!(el instanceof Element)) return '';
-                const path = [];
-                while (el && el.nodeType === Node.ELEMENT_NODE) {
-                  let selector = el.nodeName.toLowerCase();
-                  if (el.id) {
-                    selector += '#' + el.id;
-                    path.unshift(selector);
-                    break;
-                  } else {
-                    let sib = el, nth = 1;
-                    while (sib = sib.previousElementSibling) {
-                      if (sib.nodeName.toLowerCase() === selector) nth++;
-                    }
-                    selector += `:nth-of-type(${nth})`;
-                  }
-                  path.unshift(selector);
-                  el = el.parentElement;
-                }
-                return path.join(' > ');
-              }
-              const rect = el.getBoundingClientRect ? el.getBoundingClientRect() : null;
-              return { selector: cssPath(node), outerHTML: node.outerHTML, rect: rect ? { x: rect.x, y: rect.y, width: rect.width, height: rect.height } : null };
-            }, el).catch(()=>({ selector: null, outerHTML: null, rect: null }));
-
-            await el.screenshot({ path: outPath });
-            // capture a short snippet/description of the element (prefer info.outerHTML)
-            const snippet = info && info.outerHTML ? String(info.outerHTML).slice(0,400) : await (await el.getProperty('outerHTML')).jsonValue().catch(()=>null);
-            colorFailures.push({ color: c, screenshot: safeName, snippet: snippet ? String(snippet).slice(0,400) : null, selector: info.selector, rect: info.rect });
+            return results;
           } catch (e) {
-            // ignore screenshot failures
+            return [];
           }
-          try { await handle.dispose(); } catch(e){}
-        } else {
-          try { await handle.dispose(); } catch(e){}
+        
+        console.log(`Found ${elementsInfo.length} elements with color ${c}`);
+        }, c);
+        
+        // Take screenshot for each found element
+        for (const info of elementsInfo) {
+          try {
+            globalIdx += 1;
+            const safeName = `color-fail-${Date.now()}-${globalIdx}.png`;
+            const reportsDir = path.join(process.cwd(), 'reports');
+            if (!fs.existsSync(reportsDir)) fs.mkdirSync(reportsDir);
+            const outPath = path.join(reportsDir, safeName);
+            
+            // Use evaluateHandle to get element reference
+            const elementHandle = await page.evaluateHandle((selector) => {
+              try {
+                return document.querySelector(selector);
+              } catch (e) {
+                return null;
+              }
+            }, info.selector);
+            
+            const element = elementHandle && elementHandle.asElement ? elementHandle.asElement() : null;
+            
+            if (element) {
+              try {
+                // Scroll to element
+                await page.evaluate((sel) => {
+                  const el = document.querySelector(sel);
+                  if (el) el.scrollIntoView({ block: 'center', inline: 'center', behavior: 'smooth' });
+                }, info.selector);
+                
+                await page.waitForTimeout(500); // Wait for scroll
+                
+                // Take element screenshot
+                await element.screenshot({ path: outPath });
+                
+                colorFailures.push({
+                  color: c,
+                  screenshot: safeName,
+                  snippet: info.outerHTML,
+                  selector: info.selector,
+                  rect: info.rect,
+                  propertyName: info.propertyName
+                });
+                
+                console.log(`Captured screenshot for color ${c} at ${info.selector}`);
+              } catch (e) {
+                console.log(`Failed to capture element screenshot: ${e.message}, trying viewport screenshot`);
+                // Try full page screenshot with highlight if element screenshot fails
+                try {
+                  await page.screenshot({ path: outPath, fullPage: false });
+                  colorFailures.push({
+                    color: c,
+                    screenshot: safeName,
+                    snippet: info.outerHTML,
+                    selector: info.selector,
+                    rect: info.rect,
+                    propertyName: info.propertyName
+                  });
+                } catch (e2) {
+                  console.log(`Failed to capture viewport screenshot: ${e2.message}`);
+                }
+              } finally {
+                try { await elementHandle.dispose(); } catch(e) {}
+              }
+            } else {
+              console.log(`Element not found for selector: ${info.selector}`);
+              try { await elementHandle.dispose(); } catch(e) {}
+            }
+          } catch (e) {
+            console.log(`Error processing element: ${e.message}`);
+          }
         }
       } catch (e) {
-        // continue to next color
+        console.log(`Error processing color ${c}: ${e.message}`);
       }
     }
+    
+    console.log(`Color failure capture complete. Total screenshots: ${colorFailures.length}`);
     }
   } catch (e) {
-    // ignore overall failures
+    console.error(`Overall color failure capture error: ${e.message}`);
   }
 
   // Attempt to discover a site logo (favicon, og:image, twitter:image, images with logo-like attributes)
@@ -1085,137 +1176,642 @@ export async function auditColors(url, fastMode = false) {
       } catch (e) { /* ignore */ }
     }
 
-    // 3) scan page for <link rel="sitemap"> and anchor hrefs containing sitemap
+    // 3) Enhanced sitemap discovery:
+    // - Parse robots.txt Sitemap: lines
+    // - Probe common sitemap filenames
+    // - Inspect page <link rel="sitemap"> and anchors
+    // - Fetch sitemap XML (and .gz) and extract <loc> entries
     try {
-      const pageSitemaps = await page.evaluate(() => {
-        const found = [];
-        try {
-          const links = Array.from(document.querySelectorAll('link[rel="sitemap"], link[rel="alternate"][type*="xml"], a'));
-          links.forEach(l => {
-            try {
-              const href = l.getAttribute && l.getAttribute('href') ? l.getAttribute('href') : (l.href || '');
-              if (!href) return;
-              if (/sitemap|sitemap_index|site-map|\.xml(\?|$)/i.test(href)) found.push(href);
-            } catch(e){}
-          });
-        } catch(e){}
-        return found;
-      });
-      if (pageSitemaps && pageSitemaps.length) {
-        pageSitemaps.forEach(u => {
-          try { sitemapUrls.push(new URL(u, origin).href); } catch(e) { sitemapUrls.push(u); }
-        });
-      }
-    } catch (e) { /* ignore page scan errors */ }
+      const candidates = new Set(sitemapUrls || []);
 
-    // dedupe
-    sitemapUrls = Array.from(new Set(sitemapUrls));
+      // 3a) robots.txt
+      try {
+        const robotsUrl = new URL('/robots.txt', origin).href;
+        const r = await page.request.fetch(robotsUrl, { method: 'GET' });
+        if (r && r.status && r.status() >= 200 && r.status() < 400) {
+          try {
+            const txt = await r.text();
+            const lines = txt.split(/\r?\n/);
+            lines.forEach(l => {
+              const m = l.match(/^\s*Sitemap:\s*(.+)$/i);
+              if (m && m[1]) {
+                try { candidates.add(new URL(m[1].trim(), origin).href); } catch(e) { candidates.add(m[1].trim()); }
+              }
+            });
+          } catch(e) {}
+        }
+      } catch(e) { /* ignore robots fetch errors */ }
+
+      // 3b) common sitemap paths to probe - prioritize visible HTML sitemap pages
+      const common = [
+        '/sitemap', '/ar/sitemap', '/en/sitemap', // Visible sitemap pages (priority)
+        '/site-map', '/sitemap.html', '/sitemap/index.html',
+        '/sitemap.xml','/sitemap_index.xml','/sitemap/sitemap.xml','/sitemap.xml.gz','/sitemap-index.xml','/sitemap-index.xml.gz'
+      ];
+      for (const p of common) {
+        try {
+          const u = new URL(p, origin).href;
+          const head = await page.request.fetch(u, { method: 'HEAD', timeout: 8000 });
+          if (head && head.status && head.status() >= 200 && head.status() < 400) {
+            candidates.add(u);
+          } else {
+            // try GET as some servers disallow HEAD
+            const g = await page.request.fetch(u, { method: 'GET', timeout: 8000 });
+            if (g && g.status && g.status() >= 200 && g.status() < 400) candidates.add(u);
+          }
+        } catch(e) { /* ignore */ }
+      }
+
+      // 3c) Enhanced page scanning for visible sitemap links (footer, nav, etc.)
+      try {
+        const pageSitemaps = await page.evaluate(() => {
+          const found = [];
+          try {
+            // Look in common locations: footer, nav, header
+            const nodes = Array.from(document.querySelectorAll('a, link[rel="sitemap"], link[rel="alternate"][type*="xml"]'));
+            nodes.forEach(l => {
+              try {
+                const href = l.getAttribute && l.getAttribute('href') ? l.getAttribute('href') : (l.href || '');
+                const text = (l.innerText || l.textContent || '').trim().toLowerCase();
+                const ariaLabel = (l.getAttribute('aria-label') || '').toLowerCase();
+                const title = (l.getAttribute('title') || '').toLowerCase();
+                
+                if (!href) return;
+                
+                // Priority 1: Links with sitemap-related text (visible to users)
+                const sitemapText = /sitemap|site\s*map|site-map|خريطة\s*الموقع|خريطة\s*موقع/i;
+                if (sitemapText.test(text) || sitemapText.test(ariaLabel) || sitemapText.test(title)) {
+                  found.push({ url: href, priority: 1, source: 'visible link' });
+                  return;
+                }
+                
+                // Priority 2: href that ends with /sitemap or contains sitemap path
+                if (/\/sitemap\/?$/i.test(href) || /\/sitemap\/|\/site-map\/?/i.test(href)) {
+                  found.push({ url: href, priority: 2, source: 'href pattern' });
+                  return;
+                }
+                
+                // Priority 3: XML sitemaps
+                if (/sitemap.*\.xml|sitemap_index|\.xml\.gz/i.test(href)) {
+                  found.push({ url: href, priority: 3, source: 'xml file' });
+                }
+              } catch(e){}
+            });
+          } catch(e){}
+          return found;
+        });
+        
+        if (pageSitemaps && pageSitemaps.length) {
+          // Sort by priority (lower number = higher priority)
+          pageSitemaps.sort((a, b) => (a.priority || 99) - (b.priority || 99));
+          pageSitemaps.forEach(item => {
+            try { 
+              const fullUrl = new URL(item.url, origin).href;
+              candidates.add(fullUrl);
+            } catch(e) { 
+              candidates.add(item.url); 
+            }
+          });
+        }
+      } catch(e) { /* ignore page scan errors */ }
+
+      // Normalize and categorize candidate sitemap URLs
+      const sitemapResults = { visible: [], xml: [], other: [] };
+      const processedUrls = new Set();
+      
+      for (const u of Array.from(candidates)) {
+        try {
+          const fullUrl = new URL(u, origin).href;
+          if (processedUrls.has(fullUrl)) continue;
+          processedUrls.add(fullUrl);
+          
+          const urlLower = fullUrl.toLowerCase();
+          
+          // Categorize: visible HTML sitemaps vs XML sitemaps
+          if (urlLower.match(/\.xml(\.gz)?(\?|$)/)) {
+            sitemapResults.xml.push(fullUrl);
+          } else if (urlLower.match(/\/sitemap\/?$|\/site-map\/?$|sitemap\.html$/)) {
+            sitemapResults.visible.push(fullUrl);
+          } else {
+            sitemapResults.other.push(fullUrl);
+          }
+        } catch(e) {
+          // Invalid URL, skip
+        }
+      }
+      
+      // Combine in order: visible first, then XML, then others
+      sitemapUrls = [...sitemapResults.visible, ...sitemapResults.xml, ...sitemapResults.other];
+
+      // Helper to parse XML text for <loc> entries
+      const extractLocs = (xmlText) => {
+        const locs = [];
+        try {
+          const re = /<loc\s*[^>]*>([^<]+)<\/loc>/gi;
+          let m;
+          while ((m = re.exec(xmlText)) !== null) {
+            if (m[1]) locs.push(m[1].trim());
+          }
+        } catch(e) {}
+        return locs;
+      };
+
+      const discovered = new Set();
+      const discoveredPages = new Set();
+      
+      // Process all sitemap candidates
+      for (const sUrl of sitemapUrls) {
+        try {
+          const resp = await page.request.fetch(sUrl, { method: 'GET' });
+          if (!resp || !resp.status) continue;
+          const status = resp.status();
+          if (status < 200 || status >= 400) continue;
+
+          // read body as buffer to support gz
+          const buffer = await resp.body();
+          let text = null;
+          const ct = (resp.headers && resp.headers()['content-type']) ? resp.headers()['content-type'] : '';
+          const isGz = sUrl.toLowerCase().endsWith('.gz') || (resp.headers && /gzip/i.test(resp.headers()['content-encoding'] || ''));
+          try {
+            if (isGz) {
+              try { text = zlib.gunzipSync(buffer).toString('utf8'); } catch(e) { text = null; }
+            } else {
+              text = buffer.toString('utf8');
+            }
+          } catch(e) { text = null; }
+
+          if (!text && ct && /xml|text|html/.test(ct)) {
+            try { text = await resp.text(); } catch(e) { text = null; }
+          }
+
+          if (!text) continue;
+
+          // If it's a sitemap index, extract nested sitemap URLs and queue them (one level)
+          const nested = [];
+          try {
+            const sitemapIndexRe = /<sitemap[\s\S]*?>[\s\S]*?<loc[^>]*>([^<]+)<\/loc>[\s\S]*?<\/sitemap>/gi;
+            let sm;
+            while ((sm = sitemapIndexRe.exec(text)) !== null) {
+              if (sm[1]) nested.push(sm[1].trim());
+            }
+          } catch(e) {}
+
+          if (nested.length) {
+            for (const n of nested) {
+              try { discovered.add(new URL(n, sUrl).href); } catch(e) { discovered.add(n); }
+            }
+          }
+
+          // Extract <loc> entries (URLs to pages or sitemaps)
+          const locs = extractLocs(text || '');
+          locs.forEach(l => {
+            try { discovered.add(new URL(l, sUrl).href); } catch(e) { discovered.add(l); }
+          });
+
+          // If fetched content is HTML (a human-readable Sitemap page), detect it by title/headings
+          try {
+            const isHtml = /html/i.test(ct || '') || /<html/i.test(text || '');
+            if (isHtml) {
+              // extract <title> and first few headings to detect sitemap page
+              const titleMatch = /<title[^>]*>([^<]+)<\/title>/i.exec(text || '');
+              const headings = [];
+              try {
+                const hRe = /<h[1-3][^>]*>([^<]{1,200})<\/h[1-3]>/gi;
+                let hm2;
+                while ((hm2 = hRe.exec(text || '')) !== null && headings.length < 5) headings.push(hm2[1]);
+              } catch(e) {}
+              const pageCheckText = ((titleMatch && titleMatch[1]) ? titleMatch[1] : '') + ' ' + headings.join(' ');
+              if (/sitemap|site\s?map|خريطة\s*الموقع/i.test(pageCheckText || '')) {
+                // treat this HTML page as the sitemap page itself (do not expand its contained links)
+                try { discoveredPages.add(new URL(sUrl, origin).href); } catch(e) { discoveredPages.add(sUrl); }
+                continue; // skip further processing of this candidate
+              }
+            }
+          } catch(e) { /* ignore HTML detection errors */ }
+
+        } catch (e) {
+          // ignore individual sitemap fetch errors
+        }
+      }
+
+      // Merge discovered into sitemapUrls
+      sitemapUrls = Array.from(new Set([...(sitemapUrls||[]), ...Array.from(discovered)]));
+
+    } catch (e) {
+      // ignore sitemap discovery errors
+      sitemapUrls = sitemapUrls || [];
+    }
   } catch (e) {
     // ignore sitemap discovery errors
     sitemapUrls = sitemapUrls || [];
   }
 
-    // Template-match detection: optionally compare the live page to a provided React
-    // template file. Place your component/source at `config/template-to-match.jsx`.
-    // The detector extracts Dga* component names and className tokens from the
-    // template and checks for their presence in the rendered page (by class
-    // substring, id substring, or visible text). Results are attached as
-    // `result.templateMatch` (tokensCount, matchedTokens, missingTokens, score).
+    // Enhanced template matching with improved accuracy
     let templateMatch = null;
     try {
-      const tplPath = path.join(process.cwd(), 'config', 'template-to-match.jsx');
-      if (fs.existsSync(tplPath)) {
+      const templates = {
+        cookies: path.join(process.cwd(), 'config', 'cookiesbanner.tsx'),
+        rating: path.join(process.cwd(), 'config', 'rating.tsx')
+      };
+
+      const resultsByKey = {};
+      let templatesFound = 0;
+      
+      for (const [key, tplPath] of Object.entries(templates)) {
         try {
-          const tpl = fs.readFileSync(tplPath, 'utf-8');
-          // Extract component-like tokens (e.g., DgaNavHeader, DgaButton)
-          const compMatches = Array.from(new Set((tpl.match(/Dga[A-Za-z0-9_]+/g) || [])));
-
-          // Extract className="..." values and split into tokens
-          const classMatches = [];
-          const classRe = /className\s*=\s*(?:\{|)\s*[`'\"]([^`'\"]+)['\"]?\s*(?:\}|)/g;
-          let cm;
-          while ((cm = classRe.exec(tpl)) !== null) {
-            try {
-              const parts = (cm[1] || '').split(/\s+/).map(s => s.trim()).filter(Boolean);
-              parts.forEach(p => classMatches.push(p));
-            } catch (e) {}
+          // Check if file exists (handle both absolute and relative paths)
+          const fullPath = path.isAbsolute(tplPath) ? tplPath : path.join(process.cwd(), tplPath);
+          
+          if (!fs.existsSync(fullPath)) {
+            console.log(`Template file not found: ${fullPath}`);
+            console.log(`Current working directory: ${process.cwd()}`);
+            console.log(`Checked paths: ${tplPath} and ${fullPath}`);
+            continue;
           }
+          
+          templatesFound++;
+          const tpl = fs.readFileSync(fullPath, 'utf-8');
+          console.log(`Processing template: ${key}, file size: ${tpl.length} chars`);
+          
+          
+          // Extract comprehensive patterns with better accuracy
+          const patterns = {
+            // Component names (exact)
+            components: Array.from(new Set((tpl.match(/Dga[A-Za-z0-9_]+/g) || []))),
+            
+            // Extract ALL button labels and text precisely
+            buttonLabels: [],
+            
+            // Extract significant text strings (>10 chars, not code)
+            textStrings: [],
+            
+            // Extract className values
+            classNames: [],
+            
+            // Extract component props patterns
+            componentProps: [],
+            
+            // Interactive element counts
+            interactiveElements: {
+              buttons: (tpl.match(/<DgaButton|<button/gi) || []).length,
+              textareas: (tpl.match(/<DgaTextarea|<textarea/gi) || []).length,
+              switches: (tpl.match(/<Switch|input\[type=.checkbox/gi) || []).length,
+              links: (tpl.match(/<DgaLink|<a href/gi) || []).length,
+              ratings: (tpl.match(/<DgaRating|rating/gi) || []).length
+            },
+            
+            // Specific patterns for each template type
+            specificPatterns: []
+          };
 
-          // Also collect quoted strings that look useful (logo paths, copyright snippets)
-          const literalMatches = [];
-          const litRe = /['`\"]([^'`\"]{4,200})['`\"]/g;
-          let lm;
-          while ((lm = litRe.exec(tpl)) !== null) {
-            const v = lm[1] || '';
-            if (/logo|mobile-logo|All Right Reserved|Digital Government|dga-|saudigazette|saudi/i.test(v)) {
-              literalMatches.push(v);
+          // Extract button labels more accurately
+          const labelRegex = /label\s*=\s*[{"]([^}"]+)[}"]/g;
+          let labelMatch;
+          while ((labelMatch = labelRegex.exec(tpl)) !== null) {
+            if (labelMatch[1] && labelMatch[1].length > 2) {
+              patterns.buttonLabels.push(labelMatch[1].trim());
             }
           }
 
-          // Build final token list (components + frequent class tokens + literals)
-          const classCounts = {};
-          classMatches.forEach(c => { classCounts[c] = (classCounts[c] || 0) + 1; });
-          const sortedClassTokens = Object.keys(classCounts).sort((a,b)=>classCounts[b]-classCounts[a]).slice(0,40);
-          const tokens = Array.from(new Set([...(compMatches||[]), ...sortedClassTokens, ...literalMatches])).slice(0,200);
-
-          if (tokens.length > 0) {
-            // Evaluate presence of tokens in the rendered page
-            const check = await page.evaluate((tokensIn) => {
-              const found = [];
-              try {
-                const bodyText = (document.body && document.body.innerText) ? document.body.innerText.toLowerCase() : '';
-                for (const t of tokensIn) {
-                  if (!t) continue;
-                  const tl = String(t).toLowerCase();
-                  let ok = false;
-                  try {
-                    // Class substring match
-                    if (document.querySelector('[class*="' + tl + '"]')) ok = true;
-                  } catch (e) {}
-                  if (!ok) {
-                    try {
-                      // id substring
-                      if (document.querySelector('[id*="' + tl + '"]')) ok = true;
-                    } catch (e) {}
-                  }
-                  if (!ok) {
-                    try {
-                      // text content match
-                      if (bodyText.indexOf(tl) !== -1) ok = true;
-                    } catch (e) {}
-                  }
-                  if (!ok) {
-                    try {
-                      // fallback: attribute contains (class/id/data-*/aria-label)
-                      const attrs = Array.from(document.querySelectorAll('[class],[id],[aria-label],[data-*]'));
-                      for (const el of attrs) {
-                        try {
-                          const cs = (el.getAttribute('class')||'').toLowerCase();
-                          const id = (el.id||'').toLowerCase();
-                          const aria = (el.getAttribute('aria-label')||'').toLowerCase();
-                          if (cs.indexOf(tl) !== -1 || id.indexOf(tl) !== -1 || aria.indexOf(tl) !== -1) { ok = true; break; }
-                        } catch(e){}
-                      }
-                    } catch(e){}
-                  }
-                  if (ok) found.push(t);
-                }
-              } catch (e) {}
-              return { found };
-            }, tokens);
-
-            const matchedTokens = (check && check.found) ? check.found : [];
-            const missingTokens = tokens.filter(t => !matchedTokens.includes(t));
-            const score = Math.round((matchedTokens.length / (tokens.length || 1)) * 100);
-            templateMatch = { tokensCount: tokens.length, matchedTokens, missingTokens, score };
+          // Extract text content from JSX (between > and <)
+          const textRegex = />([^<>{}\n]{10,150})</g;
+          let textMatch;
+          while ((textMatch = textRegex.exec(tpl)) !== null) {
+            const text = textMatch[1].trim();
+            // Filter out code, variables, and comments
+            if (text && 
+                !text.startsWith('//') && 
+                !text.startsWith('/*') &&
+                !text.startsWith('{') &&
+                !text.match(/^[a-zA-Z_$][a-zA-Z0-9_$]*$/) && // not a variable
+                !text.match(/^\$\{/) && // not template literal
+                text.length > 10) {
+              patterns.textStrings.push(text);
+            }
           }
+
+          // Extract className values
+          const classRegex = /className\s*=\s*[{"']([^}"']+)["'}]/g;
+          let classMatch;
+          while ((classMatch = classRegex.exec(tpl)) !== null) {
+            if (classMatch[1]) {
+              // Split by spaces and get unique classes
+              const classes = classMatch[1].split(/\s+/).filter(c => c.length > 3 && !c.includes('$'));
+              patterns.classNames.push(...classes);
+            }
+          }
+          patterns.classNames = Array.from(new Set(patterns.classNames));
+
+          // Extract component variant/type props
+          const propsRegex = /(variant|type|color|size)\s*=\s*["']([^"']+)["']/g;
+          let propsMatch;
+          while ((propsMatch = propsRegex.exec(tpl)) !== null) {
+            patterns.componentProps.push(`${propsMatch[1]}:${propsMatch[2]}`);
+          }
+
+          // Template-specific patterns
+          if (key === 'cookies') {
+            patterns.specificPatterns = [
+              'cookie', 'cookies', 'accept', 'reject', 'manage', 'privacy', 
+              'consent', 'ملفات تعريف الارتباط', 'قبول', 'رفض', 'إدارة'
+            ];
+          } else if (key === 'rating') {
+            patterns.specificPatterns = [
+              'rating', 'rate', 'review', 'feedback', 'submit', 'star',
+              'تقييم', 'تقييمات', 'رأي', 'تعليق', 'إرسال'
+            ];
+          }
+
+          // Check in page with improved accuracy
+          const check = await page.evaluate((patternsIn, templateKey) => {
+            const results = {
+              components: { found: [], total: 0, confidence: [] },
+              buttonLabels: { found: [], total: 0 },
+              textStrings: { found: [], total: 0, partialMatches: [] },
+              classNames: { found: [], total: 0 },
+              componentProps: { found: [], total: 0 },
+              interactiveElements: { found: {}, total: 0, scores: {} },
+              specificPatterns: { found: [], total: 0 }
+            };
+
+            try {
+              const bodyHTML = document.body.innerHTML;
+              const bodyText = document.body.innerText;
+              const bodyHTMLLower = bodyHTML.toLowerCase();
+              const bodyTextLower = bodyText.toLowerCase();
+
+              // Check components with high accuracy
+              results.components.total = patternsIn.components.length;
+              patternsIn.components.forEach(comp => {
+                const compName = comp.replace('Dga', '').toLowerCase();
+                let found = false;
+                let confidence = 0;
+                
+                // Check for component in class names
+                if (bodyHTMLLower.includes(compName)) {
+                  confidence += 30;
+                  found = true;
+                }
+                
+                // Check for data attributes
+                if (document.querySelector(`[data-component*="${compName}"], [class*="${compName}"]`)) {
+                  confidence += 40;
+                  found = true;
+                }
+                
+                // Check in button/link/input tags context
+                const contextRegex = new RegExp(`<(button|a|input|div|textarea)[^>]*${compName}`, 'i');
+                if (contextRegex.test(bodyHTML)) {
+                  confidence += 30;
+                  found = true;
+                }
+                
+                if (found && confidence >= 30) {
+                  results.components.found.push(comp);
+                  results.components.confidence.push(confidence);
+                }
+              });
+
+              // Check button labels with exact and fuzzy matching
+              results.buttonLabels.total = patternsIn.buttonLabels.length;
+              const buttons = Array.from(document.querySelectorAll('button, [role="button"], input[type="button"], input[type="submit"]'));
+              patternsIn.buttonLabels.forEach(label => {
+                const labelLower = label.toLowerCase().trim();
+                const found = buttons.some(btn => {
+                  const btnText = (btn.textContent || btn.value || '').toLowerCase().trim();
+                  // Exact match or contains
+                  return btnText === labelLower || 
+                         btnText.includes(labelLower) || 
+                         labelLower.includes(btnText);
+                });
+                if (found) {
+                  results.buttonLabels.found.push(label);
+                }
+              });
+
+              // Check text strings with partial matching
+              results.textStrings.total = patternsIn.textStrings.length;
+              patternsIn.textStrings.forEach(text => {
+                const textLower = text.toLowerCase().trim();
+                // Exact match
+                if (bodyTextLower.includes(textLower)) {
+                  results.textStrings.found.push(text);
+                } else {
+                  // Check for partial match (at least 70% of words)
+                  const words = textLower.split(/\s+/).filter(w => w.length > 3);
+                  if (words.length > 0) {
+                    const matchedWords = words.filter(w => bodyTextLower.includes(w));
+                    if (matchedWords.length / words.length >= 0.7) {
+                      results.textStrings.partialMatches.push(text);
+                    }
+                  }
+                }
+              });
+
+              // Check class names
+              results.classNames.total = patternsIn.classNames.length;
+              patternsIn.classNames.forEach(className => {
+                if (document.querySelector(`.${className}, [class*="${className}"]`)) {
+                  results.classNames.found.push(className);
+                }
+              });
+
+              // Check component props patterns
+              results.componentProps.total = patternsIn.componentProps.length;
+              patternsIn.componentProps.forEach(prop => {
+                const [propName, propValue] = prop.split(':');
+                const selector = `[${propName}="${propValue}"], [data-${propName}="${propValue}"], [class*="${propValue}"]`;
+                if (document.querySelector(selector) || bodyHTMLLower.includes(propValue.toLowerCase())) {
+                  results.componentProps.found.push(prop);
+                }
+              });
+
+              // Check interactive elements with better scoring
+              const elemCounts = {
+                buttons: document.querySelectorAll('button, [role="button"], input[type="button"], input[type="submit"]').length,
+                textareas: document.querySelectorAll('textarea, [role="textbox"][multiline]').length,
+                switches: document.querySelectorAll('input[type="checkbox"], input[type="radio"], [role="switch"], [role="checkbox"]').length,
+                links: document.querySelectorAll('a[href]').length,
+                ratings: document.querySelectorAll('[class*="rating"], [class*="star"], [aria-label*="rating"], [role="slider"]').length
+              };
+              
+              results.interactiveElements.found = elemCounts;
+              Object.keys(patternsIn.interactiveElements).forEach(key => {
+                const expected = patternsIn.interactiveElements[key];
+                const actual = elemCounts[key] || 0;
+                
+                if (expected > 0) {
+                  results.interactiveElements.total += 1;
+                  
+                  // Scoring: exact match = 100%, within range = scaled score
+                  let score = 0;
+                  if (actual === expected) {
+                    score = 100;
+                  } else if (actual > 0) {
+                    const diff = Math.abs(actual - expected);
+                    const tolerance = Math.max(2, expected * 0.5);
+                    if (diff <= tolerance) {
+                      score = Math.max(0, 100 - (diff / tolerance * 30));
+                    } else {
+                      // Some elements found but not in range
+                      score = Math.min(50, 100 / (diff + 1));
+                    }
+                  }
+                  
+                  results.interactiveElements.scores[key] = score;
+                }
+              });
+
+              // Check specific patterns
+              results.specificPatterns.total = patternsIn.specificPatterns.length;
+              patternsIn.specificPatterns.forEach(pattern => {
+                if (bodyTextLower.includes(pattern.toLowerCase()) || bodyHTMLLower.includes(pattern.toLowerCase())) {
+                  results.specificPatterns.found.push(pattern);
+                }
+              });
+
+            } catch (e) {
+              console.error('Template check error:', e);
+            }
+            return results;
+          }, patterns, key);
+
+          // Calculate weighted scores with improved algorithm
+          const weights = {
+            components: 0.25,        // DGA component usage
+            buttonLabels: 0.20,      // Button text matching
+            textStrings: 0.20,       // Content text matching
+            classNames: 0.10,        // CSS classes
+            componentProps: 0.05,    // Component properties
+            interactiveElements: 0.10, // Element counts
+            specificPatterns: 0.10   // Template-specific keywords
+          };
+
+          let totalScore = 0;
+          let scoreDetails = {};
+          
+          // Components scoring with confidence
+          const compData = check.components;
+          const compScore = compData.total > 0 ? (compData.found.length / compData.total) * 100 : 0;
+          scoreDetails.components = {
+            score: compScore,
+            found: compData.found,
+            total: compData.total
+          };
+          totalScore += compScore * weights.components;
+
+          // Button labels
+          const btnData = check.buttonLabels;
+          const btnScore = btnData.total > 0 ? (btnData.found.length / btnData.total) * 100 : 0;
+          scoreDetails.buttonLabels = {
+            score: btnScore,
+            found: btnData.found,
+            total: btnData.total
+          };
+          totalScore += btnScore * weights.buttonLabels;
+
+          // Text strings (exact + partial)
+          const textData = check.textStrings;
+          const textScore = textData.total > 0 ? 
+            ((textData.found.length + textData.partialMatches.length * 0.5) / textData.total) * 100 : 0;
+          scoreDetails.textStrings = {
+            score: textScore,
+            found: textData.found,
+            partial: textData.partialMatches,
+            total: textData.total
+          };
+          totalScore += textScore * weights.textStrings;
+
+          // Class names
+          const classData = check.classNames;
+          const classScore = classData.total > 0 ? (classData.found.length / classData.total) * 100 : 0;
+          scoreDetails.classNames = {
+            score: classScore,
+            found: classData.found,
+            total: classData.total
+          };
+          totalScore += classScore * weights.classNames;
+
+          // Component props
+          const propsData = check.componentProps;
+          const propsScore = propsData.total > 0 ? (propsData.found.length / propsData.total) * 100 : 0;
+          scoreDetails.componentProps = {
+            score: propsScore,
+            found: propsData.found,
+            total: propsData.total
+          };
+          totalScore += propsScore * weights.componentProps;
+
+          // Interactive elements (use score from evaluation)
+          const elemData = check.interactiveElements;
+          const elemScores = Object.values(elemData.scores || {});
+          const elemScore = elemScores.length > 0 ? 
+            elemScores.reduce((a, b) => a + b, 0) / elemScores.length : 0;
+          scoreDetails.interactiveElements = {
+            score: elemScore,
+            found: elemData.found,
+            scores: elemData.scores,
+            total: elemData.total
+          };
+          totalScore += elemScore * weights.interactiveElements;
+
+          // Specific patterns
+          const specData = check.specificPatterns;
+          const specScore = specData.total > 0 ? (specData.found.length / specData.total) * 100 : 0;
+          scoreDetails.specificPatterns = {
+            score: specScore,
+            found: specData.found,
+            total: specData.total
+          };
+          totalScore += specScore * weights.specificPatterns;
+
+          // Compile matched tokens for display
+          const allMatchedTokens = [
+            ...scoreDetails.components.found,
+            ...scoreDetails.buttonLabels.found.slice(0, 3),
+            ...scoreDetails.textStrings.found.slice(0, 3),
+            ...scoreDetails.specificPatterns.found.slice(0, 3)
+          ];
+
+          // Compile missing tokens
+          const missingTokens = [
+            ...patterns.components.filter(c => !scoreDetails.components.found.includes(c)).slice(0, 5),
+            ...patterns.buttonLabels.filter(b => !scoreDetails.buttonLabels.found.includes(b)).slice(0, 3)
+          ];
+
+          resultsByKey[key] = {
+            score: Math.round(totalScore),
+            tokensCount: Object.values(check).reduce((sum, cat) => sum + (cat.total || 0), 0),
+            matchedTokens: allMatchedTokens.slice(0, 20),
+            missingTokens: missingTokens.slice(0, 10),
+            details: scoreDetails
+          };
+          
+          console.log(`Template ${key} processed: score=${Math.round(totalScore)}%, tokens=${allMatchedTokens.length}`);
         } catch (e) {
-          // ignore template read/parse errors
+          console.error(`Template ${key} error:`, e.message);
         }
       }
+      
+      if (Object.keys(resultsByKey).length > 0) {
+        templateMatch = resultsByKey;
+        console.log(`Template matching completed: ${Object.keys(resultsByKey).length} templates processed`);
+      } else {
+        console.log(`No templates were successfully processed. Templates found: ${templatesFound}`);
+        // Set to empty object so we know it ran but found nothing
+        templateMatch = { __status: 'no_templates_matched' };
+      }
     } catch (e) {
-      // ignore overall template detection errors
-      templateMatch = null;
+      console.error('Template matching error:', e.message);
+      templateMatch = { __status: 'error', __error: e.message };
+    }
+
+    // Uploads scan: detect file inputs, upload forms, and linked files; perform HEAD checks
+    let uploads = null;
+    try {
+      uploads = await analyzeUploads(page, url);
+    } catch (e) {
+      uploads = { error: 'upload scan failed: ' + (e && e.message ? e.message : String(e)) };
     }
 
   // Load brand colors (flattened)
@@ -1403,6 +1999,7 @@ export async function auditColors(url, fastMode = false) {
     colorAudit,
     sitemapUrls: sitemapUrls || [],
     templateMatch: templateMatch,
+    uploads: uploads || null,
     // attach discovered favicon/logo names (populated if discovered before browser close)
     logo: discoveredLogo || null,
     favicon: discoveredFavicon || null,

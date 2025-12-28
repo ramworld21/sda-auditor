@@ -1,0 +1,37 @@
+import { Icon } from '../dga-featured-icon/dga-featured-icon';
+import { SxProps } from '../../utils/sx-system';
+export declare class DgaNumberInput {
+    label?: string;
+    placeholder?: string;
+    size: 'md' | 'lg';
+    variant: 'default' | 'lighter' | 'darker';
+    error: boolean;
+    helperTextIcon?: Icon;
+    helperText?: string;
+    disabled: boolean;
+    readonly: boolean;
+    required: boolean;
+    fullwidth: boolean;
+    name: string;
+    value: number;
+    onChange?: (event?: any) => void;
+    onInput?: (event?: any) => void;
+    onBlur?: (event?: any) => void;
+    isActive: boolean;
+    isFocused: boolean;
+    inputContainerRef: HTMLDivElement;
+    handleIncrement: () => void;
+    handleDecrement: () => void;
+    el: HTMLElement;
+    sx?: SxProps | string;
+    private componentId;
+    private sxStyleManager;
+    private rootStyles;
+    handleSxChange(): void;
+    componentWillLoad(): void;
+    componentDidLoad(): void;
+    componentDidUpdate(): void;
+    processStyling(): void;
+    disconnectedCallback(): void;
+    render(): any;
+}

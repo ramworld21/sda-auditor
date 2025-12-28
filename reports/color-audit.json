@@ -1,8 +1,8 @@
 {
   "url": "https://dga.gov.sa",
   "title": "هيئة الحكومة الرقمية",
-  "snapPath": "snap-1765357142401.png",
-  "timestamp": "2025-12-10T09:00:00.878Z",
+  "snapPath": "snap-1766905343956.png",
+  "timestamp": "2025-12-28T07:03:55.519Z",
   "fonts": [
     "regularFont",
     "boldFont",
@@ -170,9 +170,9 @@
   "languageSample": {
     "htmlLang": "ar",
     "metaLang": null,
-    "sampleLength": 5198,
-    "arabicCount": 3822,
-    "arabicRatio": 0.7352828010773375
+    "sampleLength": 5180,
+    "arabicCount": 3788,
+    "arabicRatio": 0.7312741312741313
   },
   "languageSuggestions": [],
   "colorAudit": [
@@ -496,80 +496,88 @@
     }
   ],
   "sitemapUrls": [
+    "https://dga.gov.sa/sitemap",
+    "https://dga.gov.sa/ar/sitemap",
+    "https://dga.gov.sa/en/sitemap",
+    "https://dga.gov.sa/site-map",
+    "https://dga.gov.sa/sitemap.html",
     "https://dga.gov.sa/sitemap.xml",
     "https://dga.gov.sa/sitemap_index.xml",
     "https://dga.gov.sa/sitemap/sitemap.xml",
     "https://dga.gov.sa/sitemap.xml.gz",
-    "https://dga.gov.sa/ar/sitemap"
+    "https://dga.gov.sa/sitemap-index.xml",
+    "https://dga.gov.sa/sitemap-index.xml.gz",
+    "https://dga.gov.sa/sitemap/index.html",
+    "https://dga.gov.sa/sitemap.xml?page=1",
+    "https://dga.gov.sa/sitemap.xml?page=2"
   ],
   "templateMatch": {
-    "tokensCount": 61,
-    "matchedTokens": [
-      "flex",
-      "items-center",
-      "dots"
+    "__status": "no_templates_matched"
+  },
+  "uploads": {
+    "foundUploadInputs": [],
+    "linkedFiles": [
+      {
+        "url": "https://www.facebook.com/sharer/sharer.php?u=http://dga.gov.sa/ar/node&title=",
+        "filename": "sharer.php",
+        "status": 400,
+        "contentType": "text/html; charset=\"utf-8\"",
+        "contentLength": 745,
+        "lastModified": null,
+        "publicAccessible": false,
+        "suspiciousName": false,
+        "dangerousExt": true,
+        "isBackup": false,
+        "category": "scripts",
+        "lacksSecurity": false,
+        "downloadAttr": false,
+        "linkText": ""
+      }
     ],
-    "missingTokens": [
-      "DgaBreadcrumbs",
-      "DgaButton",
-      "DgaCard",
-      "DgaDivider",
-      "DgaFeaturedIcon",
-      "DgaFooter",
-      "DgaHeaderActionBtn",
-      "DgaIcon",
-      "DgaNavHeader",
-      "DgaNavHeaderActions",
-      "DgaNavHeaderLink",
-      "DgaNavHeaderLogos",
-      "DgaNavHeaderMain",
-      "DgaNavHeaderMenu",
-      "DgaSecondNavHeader",
-      "DgaSecondNavHeaderActions",
-      "DgaSecondNavHeaderContent",
-      "DgaSecondNavHeaderItem",
-      "text-[#161616]",
-      "mt-[24px]",
-      "display-sm-bold",
-      "mb-4",
-      "text-md-regular",
-      "size-[16px]",
-      "inline-block",
-      "rounded-full",
-      "cursor-pointer",
-      "mb-8",
-      "justify-center",
-      "bg-[var(--background-neutral-200,#E5E7EB)]",
-      "text-[#FFF]",
-      "grid",
-      "grid-cols-1",
-      "md:grid-cols-3",
-      "py-[40px]",
-      "rounded-[16px]",
-      "border-[1px]",
-      "border-[#D2D6DB]",
-      "p-[16px]",
-      "gap-[16px]",
-      "md:-translate-x-[calc(100%/4-16px+(16px/4))]",
-      "xl:-translate-x-[calc(100%/4-16px+(16px/4))/2]",
-      "mt-[36px]",
-      "gap-[8px]",
-      "bg-[var(--stepper-button-completed,#1B8354)]",
-      "max-h-[491px]",
-      "h-[491px]",
-      "px-[196px]",
-      "pt-[130px]",
-      "display-xl-semibold",
-      "text-xl-regular",
-      "mb-[32px]",
-      "pt-[40px]",
-      "px-[16px]",
-      "md:px-[80px]",
-      "https://dga-nds-fbhtx.ondigitalocean.app/mobile-logo.svg",
-      "\r\n          ></DgaNavHeaderLogos>\r\n          <DgaNavHeaderMenu>\r\n            <DgaNavHeaderLink\r\n              label=",
-      "https://saudigazette.com.sa/uploads/images/2023/11/02/2173406.jpg"
+    "summary": {
+      "suspiciousCount": 1,
+      "confidentialCount": 0,
+      "publicFiles": 0,
+      "totalSize": 745,
+      "byCategory": {
+        "scripts": 1
+      },
+      "securityIssues": []
+    },
+    "formsWithFile": [],
+    "directoryListing": [
+      {
+        "href": "https://dga.gov.sa/ar/listing-programmes",
+        "text": "البرامج"
+      },
+      {
+        "href": "https://dga.gov.sa/ar/listing-services",
+        "text": "الخدمات"
+      },
+      {
+        "href": "https://dga.gov.sa//listing-services",
+        "text": "جميع الخدمات"
+      },
+      {
+        "href": "https://dga.gov.sa//listing-programmes",
+        "text": "جميع البرامج"
+      },
+      {
+        "href": "https://dga.gov.sa/ar/listing-services",
+        "text": "خدمات الهيئة"
+      },
+      {
+        "href": "https://dga.gov.sa/ar/listing-programmes",
+        "text": "برامج الهيئة"
+      },
+      {
+        "href": "https://dga.gov.sa/ar/listing-services/issue-digital-stamp",
+        "text": "إصدار الختم الرقمي"
+      }
     ],
-    "score": 5
+    "formsWithIssues": [],
+    "apiEndpoints": [],
+    "downloadableAssets": []
   },
   "logo": "logo.svg",
   "favicon": "https://dga.gov.sa/themes/custom/dga/favicon.ico",
@@ -579,7 +587,8 @@
     "selectors": [],
     "images": [
       "https://dga.gov.sa/themes/custom/dga/Images/NDS/CountryFlags.svg",
-      "https://dga.gov.sa/themes/custom/dga/Images/NDS/DGA-Logo.svg"
+      "https://dga.gov.sa/themes/custom/dga/Images/NDS/DGA-Logo.svg",
+      "https://dga.gov.sa/sites/default/files/default_images/news-default-big.png"
     ],
     "svgs": [],
     "qrCount": 36,
@@ -663,107 +672,112 @@
       {
         "phrase": "number",
         "selector": "section",
-        "text": "آخر أخـــــبار الهيئـــــة\nأخبار الهيئة\n\nالحكومة الرقمية تعقد ورشة عمل “السياسات"
+        "text": "آخر أخـــــبار الهيئـــــة\nأخبار الهيئة\n\nالأمين العام للأمم المتحدة يزور مركز ال"
       },
       {
         "phrase": "number",
         "selector": "div",
-        "text": "آخر أخـــــبار الهيئـــــة\nأخبار الهيئة\n\nالحكومة الرقمية تعقد ورشة عمل “السياسات"
+        "text": "آخر أخـــــبار الهيئـــــة\nأخبار الهيئة\n\nالأمين العام للأمم المتحدة يزور مركز ال"
       },
       {
         "phrase": "number",
         "selector": "div",
-        "text": "الحكومة الرقمية تعقد ورشة عمل “السياسات والمعايير والتوجهات الاستراتيجية…\n\n2025-"
+        "text": "الأمين العام للأمم المتحدة يزور مركز الابتكار في هيئة الحكومة الرقمية\n\n2025-12-1"
       },
       {
         "phrase": "number",
         "selector": "div",
-        "text": "الحكومة الرقمية تعقد ورشة عمل “السياسات والمعايير والتوجهات الاستراتيجية…\n\n2025-"
+        "text": "الأمين العام للأمم المتحدة يزور مركز الابتكار في هيئة الحكومة الرقمية\n\n2025-12-1"
       },
       {
         "phrase": "number",
         "selector": "a",
-        "text": "الحكومة الرقمية تعقد ورشة عمل “السياسات والمعايير والتوجهات الاستراتيجية…\n\n2025-"
+        "text": "الأمين العام للأمم المتحدة يزور مركز الابتكار في هيئة الحكومة الرقمية\n\n2025-12-1"
       },
       {
         "phrase": "number",
         "selector": "div",
-        "text": "الحكومة الرقمية تعقد ورشة عمل “السياسات والمعايير والتوجهات الاستراتيجية…\n\n2025-"
+        "text": "الأمين العام للأمم المتحدة يزور مركز الابتكار في هيئة الحكومة الرقمية\n\n2025-12-1"
       },
       {
         "phrase": "number",
         "selector": "span",
-        "text": "2025-11-26"
+        "text": "2025-12-12"
       },
       {
         "phrase": "number",
         "selector": "time",
-        "text": "2025-11-26"
+        "text": "2025-12-12"
       },
       {
         "phrase": "number",
         "selector": "a",
-        "text": "الحكومة الرقمية تعقد ورشة عمل “الذكاء الاصطناعي المدعوم بالحوسبة السحابية:…\n\n202"
+        "text": "الحكومة الرقمية تعقد ورشة عمل \"التصديق الرقمي، مستقبل التحول الرقمي\"\n\n2025-12-10"
       },
       {
         "phrase": "number",
         "selector": "div",
-        "text": "الحكومة الرقمية تعقد ورشة عمل “الذكاء الاصطناعي المدعوم بالحوسبة السحابية:…\n\n202"
+        "text": "الحكومة الرقمية تعقد ورشة عمل \"التصديق الرقمي، مستقبل التحول الرقمي\"\n\n2025-12-10"
       },
       {
         "phrase": "number",
         "selector": "span",
-        "text": "2025-11-24"
+        "text": "2025-12-10"
       },
       {
         "phrase": "number",
         "selector": "time",
-        "text": "2025-11-24"
+        "text": "2025-12-10"
       },
       {
         "phrase": "number",
         "selector": "a",
-        "text": "الحكومة الرقمية تُطلق برنامج “روّاد السحابة” لتمكين كفاءات الحكومة الرقمية من…\n\n"
+        "text": "\"الحكومة الرقمية\" تتوج بالجائزة الذهبية في تجربة العميل السعودية (…\n\n2025-12-10"
       },
       {
         "phrase": "number",
         "selector": "div",
-        "text": "الحكومة الرقمية تُطلق برنامج “روّاد السحابة” لتمكين كفاءات الحكومة الرقمية من…\n\n"
+        "text": "\"الحكومة الرقمية\" تتوج بالجائزة الذهبية في تجربة العميل السعودية (…\n\n2025-12-10"
       },
       {
         "phrase": "number",
         "selector": "span",
-        "text": "2025-11-23"
+        "text": "2025-12-10"
       },
       {
         "phrase": "number",
         "selector": "time",
-        "text": "2025-11-23"
+        "text": "2025-12-10"
       },
       {
         "phrase": "number",
         "selector": "div",
-        "text": "البنك الدولي يعيّن عبدالمحسن الماضي عضوًا في لجنته الاستشارية للابتكار\n\n2025-11-"
+        "text": "وفقًا لمؤشر (GTMI) الصادر عن مجموعة البنك الدولي لعام 2025 ويشمل 197 دولة…\n\n2025"
       },
       {
         "phrase": "number",
         "selector": "a",
-        "text": "البنك الدولي يعيّن عبدالمحسن الماضي عضوًا في لجنته الاستشارية للابتكار\n\n2025-11-"
+        "text": "وفقًا لمؤشر (GTMI) الصادر عن مجموعة البنك الدولي لعام 2025 ويشمل 197 دولة…\n\n2025"
       },
       {
         "phrase": "number",
         "selector": "div",
-        "text": "البنك الدولي يعيّن عبدالمحسن الماضي عضوًا في لجنته الاستشارية للابتكار\n\n2025-11-"
+        "text": "وفقًا لمؤشر (GTMI) الصادر عن مجموعة البنك الدولي لعام 2025 ويشمل 197 دولة…\n\n2025"
+      },
+      {
+        "phrase": "number",
+        "selector": "p",
+        "text": "وفقًا لمؤشر (GTMI) الصادر عن مجموعة البنك الدولي لعام 2025 ويشمل 197 دولة…"
       },
       {
         "phrase": "number",
         "selector": "span",
-        "text": "2025-11-27"
+        "text": "2025-12-18"
       },
       {
         "phrase": "number",
         "selector": "time",
-        "text": "2025-11-27"
+        "text": "2025-12-18"
       },
       {
         "phrase": "heuristic",
@@ -1218,17 +1232,17 @@
       {
         "phrase": "number",
         "selector": "section",
-        "text": "تاريخ آخر تحديث لمحتوى الصفحة : 10/12/2025 11:53 بتوقيت المملكة العربية السعودية"
+        "text": "تاريخ آخر تحديث لمحتوى الصفحة : 28/12/2025 09:33 بتوقيت المملكة العربية السعودية"
       },
       {
         "phrase": "number",
         "selector": "div",
-        "text": "تاريخ آخر تحديث لمحتوى الصفحة : 10/12/2025 11:53 بتوقيت المملكة العربية السعودية"
+        "text": "تاريخ آخر تحديث لمحتوى الصفحة : 28/12/2025 09:33 بتوقيت المملكة العربية السعودية"
       },
       {
         "phrase": "number",
         "selector": "h6",
-        "text": "تاريخ آخر تحديث لمحتوى الصفحة : 10/12/2025 11:53 بتوقيت المملكة العربية السعودية"
+        "text": "تاريخ آخر تحديث لمحتوى الصفحة : 28/12/2025 09:33 بتوقيت المملكة العربية السعودية"
       },
       {
         "phrase": "number",
@@ -1288,7 +1302,7 @@
       {
         "phrase": "heuristic",
         "selector": "div",
-        "text": "اختر من القائمة\nالرئيسية\n20240520402\nEnglish\nالبرامج\nالخدمات\nالمعرفة الرقمية\nأخبار الهيئة\nالحكومة الرقمية تعقد ورشة عمل “السياسات وا\nالحكومة الرقمية تعقد ورشة عمل “الذكاء الاص\nالحكومة الرقمية تُطلق بر"
+        "text": "اختر من القائمة\nالرئيسية\n20240520402\nEnglish\nالبرامج\nالخدمات\nالمعرفة الرقمية\nأخبار الهيئة\nالأمين العام للأمم المتحدة يزور مركز الابت\nالحكومة الرقمية تعقد ورشة عمل \"التصديق الر\n\"الحكومة الرقمية\" تتوج ب"
       },
       {
         "phrase": "number",
@@ -1298,7 +1312,7 @@
       {
         "phrase": "heuristic",
         "selector": "div",
-        "text": "اختر من القائمة\nالرئيسية\n20240520402\nEnglish\nالبرامج\nالخدمات\nالمعرفة الرقمية\nأخبار الهيئة\nالحكومة الرقمية تعقد ورشة عمل “السياسات وا\nالحكومة الرقمية تعقد ورشة عمل “الذكاء الاص\nالحكومة الرقمية تُطلق بر"
+        "text": "اختر من القائمة\nالرئيسية\n20240520402\nEnglish\nالبرامج\nالخدمات\nالمعرفة الرقمية\nأخبار الهيئة\nالأمين العام للأمم المتحدة يزور مركز الابت\nالحكومة الرقمية تعقد ورشة عمل \"التصديق الر\n\"الحكومة الرقمية\" تتوج ب"
       },
       {
         "phrase": "number",
@@ -1308,7 +1322,7 @@
       {
         "phrase": "heuristic",
         "selector": "div",
-        "text": "اختر من القائمة\nالرئيسية\n20240520402\nEnglish\nالبرامج\nالخدمات\nالمعرفة الرقمية\nأخبار الهيئة\nالحكومة الرقمية تعقد ورشة عمل “السياسات وا\nالحكومة الرقمية تعقد ورشة عمل “الذكاء الاص\nالحكومة الرقمية تُطلق بر"
+        "text": "اختر من القائمة\nالرئيسية\n20240520402\nEnglish\nالبرامج\nالخدمات\nالمعرفة الرقمية\nأخبار الهيئة\nالأمين العام للأمم المتحدة يزور مركز الابت\nالحكومة الرقمية تعقد ورشة عمل \"التصديق الر\n\"الحكومة الرقمية\" تتوج ب"
       },
       {
         "phrase": "number",
@@ -1318,7 +1332,7 @@
       {
         "phrase": "heuristic",
         "selector": "div",
-        "text": "اختر من القائمة\nالرئيسية\n20240520402\nEnglish\nالبرامج\nالخدمات\nالمعرفة الرقمية\nأخبار الهيئة\nالحكومة الرقمية تعقد ورشة عمل “السياسات وا\nالحكومة الرقمية تعقد ورشة عمل “الذكاء الاص\nالحكومة الرقمية تُطلق بر"
+        "text": "اختر من القائمة\nالرئيسية\n20240520402\nEnglish\nالبرامج\nالخدمات\nالمعرفة الرقمية\nأخبار الهيئة\nالأمين العام للأمم المتحدة يزور مركز الابت\nالحكومة الرقمية تعقد ورشة عمل \"التصديق الر\n\"الحكومة الرقمية\" تتوج ب"
       },
       {
         "phrase": "number",
@@ -1328,7 +1342,7 @@
       {
         "phrase": "heuristic",
         "selector": "select",
-        "text": "اختر من القائمة\nالرئيسية\n20240520402\nEnglish\nالبرامج\nالخدمات\nالمعرفة الرقمية\nأخبار الهيئة\nالحكومة الرقمية تعقد ورشة عمل “السياسات وا\nالحكومة الرقمية تعقد ورشة عمل “الذكاء الاص\nالحكومة الرقمية تُطلق بر"
+        "text": "اختر من القائمة\nالرئيسية\n20240520402\nEnglish\nالبرامج\nالخدمات\nالمعرفة الرقمية\nأخبار الهيئة\nالأمين العام للأمم المتحدة يزور مركز الابت\nالحكومة الرقمية تعقد ورشة عمل \"التصديق الر\n\"الحكومة الرقمية\" تتوج ب"
       },
       {
         "phrase": "number",
@@ -1383,14 +1397,14 @@
   "colorFailures": [
     {
       "color": "rgb(0, 0, 0)",
-      "screenshot": "color-fail-1765357168278-1.png",
+      "screenshot": "color-fail-1766905398916-1.png",
       "snippet": "<html dir=\"rtl\" lang=\"ar\" class=\" js\"><head>\n\t<link id=\"genesys-widgets-styles\" href=\"/themes/custom/dga/chat/widgets-ar.css\" type=\"text/css\" rel=\"stylesheet\" media=\"all\">\n\t<script id=\"genesys-widgets-script\" src=\"/themes/custom/dga/chat/cxbus.min_AR.js\" defer=\"\"></script>\n\t<script id=\"genesys-widgets-script1\" src=\"/themes/custom/dga/chat/chat_sidebtn_AR.js\" defer=\"\"></script>\n\t<script id=\"genesys",
       "selector": null,
       "rect": null
     },
     {
       "color": "rgb(217, 45, 32)",
-      "screenshot": "color-fail-1765357180272-3.png",
+      "screenshot": "color-fail-1766905411066-3.png",
       "snippet": "<button type=\"button\" class=\"decline-button eu-cookie-compliance-default-button button button--small button--primary nds-red-btn\" tabindex=\"0\">رفض</button>",
       "selector": null,
       "rect": null
@@ -1439,7 +1453,7 @@
     "18px",
     "-24px",
     "35px",
-    "11px",
+    "8.82279px",
     "-10px"
   ],
   "spacingMatches": [
@@ -1456,26 +1470,26 @@
     20
   ],
   "spacingAccuracy": 32.35294117647059,
-  "screenshotMobile": "snap-1765357143540-mobile.png",
-  "screenshotTablet": "snap-1765357143540-tablet.png",
-  "screenshotDesktop": "snap-1765357143540-desktop.png",
+  "screenshotMobile": "snap-1766905344976-mobile.png",
+  "screenshotTablet": "snap-1766905344976-tablet.png",
+  "screenshotDesktop": "snap-1766905344976-desktop.png",
   "performance": {
     "metrics": {
-      "fcpMs": 1632,
+      "fcpMs": 4023,
       "lcpMs": null,
-      "domContentLoadedMs": 3086,
-      "loadEventEndMs": 4448,
+      "domContentLoadedMs": 5421,
+      "loadEventEndMs": 5564,
       "totalBlockingTimeMs": 0,
-      "ttfbMs": 759,
+      "ttfbMs": 2537,
       "resourceStats": {
         "requestCount": 0,
         "transferSizeBytes": 0
       },
-      "speedIndexMs": 1632,
-      "speedIndexSec": 1.63
+      "speedIndexMs": 4023,
+      "speedIndexSec": 4.02
     },
     "resourceStats": {
-      "requestCount": 8,
+      "requestCount": 9,
       "transferSizeBytes": 70962
     }
   }

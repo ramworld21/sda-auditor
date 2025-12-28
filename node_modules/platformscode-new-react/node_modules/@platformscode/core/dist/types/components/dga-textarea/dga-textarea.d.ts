@@ -1,0 +1,38 @@
+import { SxProps } from '../../utils/sx-system';
+export declare class DgaTextarea {
+    label?: string;
+    placeholder?: string;
+    variant?: 'default' | 'lighter' | 'darker';
+    error?: boolean;
+    feedbackIcon?: boolean;
+    feedbackIconType?: 'success' | 'error' | 'warning';
+    feedbackIconRing?: boolean;
+    disabled?: boolean;
+    readonly?: boolean;
+    scrollbar?: boolean;
+    fullwidth?: boolean;
+    resize?: boolean;
+    cols?: number;
+    rows?: number;
+    onChange?: (event?: any) => void;
+    onInput?: (event?: any) => void;
+    name?: string;
+    value?: string;
+    isActive: boolean;
+    isFocused: boolean;
+    inputContainerRef: HTMLDivElement;
+    private textAreaEl;
+    valueChanged(newValue: string, oldValue: string): void;
+    el: HTMLElement;
+    sx?: SxProps | string;
+    private componentId;
+    private sxStyleManager;
+    private rootStyles;
+    handleSxChange(): void;
+    componentWillLoad(): void;
+    componentDidLoad(): void;
+    componentDidUpdate(): void;
+    processStyling(): void;
+    disconnectedCallback(): void;
+    render(): any;
+}

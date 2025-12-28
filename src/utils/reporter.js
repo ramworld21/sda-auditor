@@ -304,7 +304,7 @@ export function generateHTMLReport(result) {
             /* Floating TOC fixed to the right of the viewport with hover hints
               - Placed outside of the main .container so it doesn't affect layout
               - Hidden on small screens and when printing */
-            #section-toc { position:fixed; right:18px; top:110px; width:220px; z-index:1200; }
+            #section-toc { position:fixed; right:18px; top:110px; width:220px; z-index:1200; background: white; border-radius: 8px; box-shadow: 0 2px 8px rgba(15,23,36,0.08); }
           .toc-list { padding: 0; }
           .toc-item { display:flex; align-items:center; justify-content:space-between; padding:8px; border-radius:8px; transition:background .12s; position:relative; }
           .toc-item .toc-link { flex:1; text-decoration:none; color:var(--primary); font-weight:600; padding-right:8px }
@@ -312,9 +312,40 @@ export function generateHTMLReport(result) {
           .toc-item:hover { background: rgba(6,44,110,0.04); }
           .toc-hint { position:absolute; right: calc(100% + 12px); top: 50%; transform: translateY(-50%); background: #fff; border:1px solid #e5e7eb; padding:8px 12px; min-width:220px; border-radius:8px; box-shadow:0 6px 20px rgba(2,6,23,0.06); display:none; z-index:40; font-size:13px; color:#334155 }
           .toc-item:hover .toc-hint { display:block; }
-          /* Ensure TOC is usable on small screens: collapse to top of page */
-          @media (max-width:900px) { #section-toc { position:static; right:auto; top:auto; width:100%; margin:0; } .toc-hint { display:none !important; } }
-          @media print { #section-toc { display:none !important; } }
+          
+          /* Hamburger menu button */
+          .toc-hamburger { display: none; position: fixed; top: 90px; right: 20px; z-index: 1300; background: var(--primary); color: white; border: none; border-radius: 8px; padding: 10px 12px; cursor: pointer; box-shadow: 0 2px 8px rgba(6,44,110,0.3); }
+          .toc-hamburger:hover { background: #051f4d; }
+          .toc-hamburger svg { width: 24px; height: 24px; }
+          
+          /* Mobile/Tablet: Hide TOC by default, show hamburger */
+          @media (max-width:1100px) { 
+            .toc-hamburger { display: block; }
+            #section-toc { 
+              position: fixed; 
+              right: -280px;
+              top: 0;
+              height: 100vh;
+              width: 260px; 
+              margin: 0;
+              overflow-y: auto;
+              transition: right 0.3s ease;
+              box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+              border-radius: 0;
+            }
+            #section-toc.toc-open { right: 0; }
+            .toc-hint { display:none !important; }
+            .toc-overlay { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.5); z-index: 1199; }
+            .toc-overlay.active { display: block; }
+          }
+          
+          /* Desktop: Optional hamburger toggle */
+          @media (min-width:1101px) {
+            .toc-hamburger { display: block; }
+            #section-toc.toc-hidden { display: none; }
+          }
+          
+          @media print { #section-toc { display:none !important; } .toc-hamburger { display: none !important; } }
         .footer { background: white; border-top: 2px solid var(--primary); padding: 16px 32px; display: flex; align-items: center; justify-content: space-between; font-size: 0.9em; color: var(--muted); position: relative; }
         .footer .info { display: flex; flex-direction: column; gap: 6px; }
         .footer .info strong { color: var(--primary); font-weight: 700; font-size: 1.1em; }
@@ -325,12 +356,20 @@ export function generateHTMLReport(result) {
           .footer .page-number { display: block; }
           .footer .page-number::before { content: "صفحة " counter(page); }
         }
+        @media (max-width: 1024px) {
+          #failures-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .three-col-grid { grid-template-columns: repeat(2, 1fr); }
+        }
         @media (max-width: 700px) {
           .header, .footer { flex-direction: column; align-items: flex-start; padding: 12px 8px; }
-          .container { padding: 12px 8px; }
+          .container { padding: 12px 8px; margin-top: 60px; }
           .responsive-grid { grid-template-columns: 1fr; }
           .card > div[style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
+          #failures-grid { grid-template-columns: 1fr !important; }
+          .three-col-grid { grid-template-columns: 1fr; }
           .btn { font-size: 14px; padding: 10px 14px; }
+          table { font-size: 13px; }
+          table th, table td { padding: 6px 8px !important; }
         }
       </style>
       <script>
@@ -453,10 +492,52 @@ export function generateHTMLReport(result) {
             }
           });
         }
+        
+        function toggleTOC() {
+          const toc = document.getElementById('section-toc');
+          const overlay = document.getElementById('toc-overlay');
+          if (toc.classList.contains('toc-open') || toc.classList.contains('toc-hidden')) {
+            toc.classList.remove('toc-open', 'toc-hidden');
+            if (overlay) overlay.classList.remove('active');
+          } else {
+            if (window.innerWidth <= 1100) {
+              toc.classList.add('toc-open');
+              if (overlay) overlay.classList.add('active');
+            } else {
+              toc.classList.add('toc-hidden');
+            }
+          }
+        }
+        
+        // Close TOC when clicking on overlay or link
+        document.addEventListener('DOMContentLoaded', function() {
+          const overlay = document.getElementById('toc-overlay');
+          if (overlay) {
+            overlay.addEventListener('click', toggleTOC);
+          }
+          const tocLinks = document.querySelectorAll('.toc-link');
+          tocLinks.forEach(link => {
+            link.addEventListener('click', function() {
+              if (window.innerWidth <= 1100) {
+                setTimeout(toggleTOC, 300);
+              }
+            });
+          });
+        });
       </script>
     </head>
     <body>
       <div id="report-root">
+      <!-- Hamburger menu button -->
+      <button class="toc-hamburger" onclick="toggleTOC()" aria-label="Toggle menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+      <!-- Overlay for mobile TOC -->
+      <div id="toc-overlay" class="toc-overlay"></div>
       <div class="header">
         <img src="${ramworldLogo}" alt="Ramworld Logo" style="height:48px;max-width:120px;object-fit:contain;order:1;">
         <span class="report-title" style="order:2;">تقرير فحص التوافق مع معايير التصميم الموحد</span>
@@ -506,7 +587,7 @@ export function generateHTMLReport(result) {
             <span class="toc-icon">🗺️</span>
             <div class="toc-hint">روابط خريطة الموقع المكتشفة (robots.txt أو sitemap.xml)</div>
           </li>
-          <li class="toc-item" data-desc="التحقق من مطابقة القالب المقدم" style="position:relative">
+          <li class="toc-item" data-desc="التحقق من مطابقة القالب المقدم" style="position:relative;display:none">
             <a class="toc-link" href="#section-template-match">مطابقة القالب</a>
             <span class="toc-icon">🧭</span>
             <div class="toc-hint">التحقق إن كان تصميم الصفحة يطابق القالب المقدم</div>
@@ -541,12 +622,14 @@ export function generateHTMLReport(result) {
               <span style="margin-left:8px">الرابط:</span> <a href="${result.url || '#'}" target="_blank" style="color:var(--accent);text-decoration:underline">${result.url || 'غير متوفر'}</a>
             </div>
             <div style="font-size:1em;color:#475569">
-              <span style="margin-left:8px">تاريخ الفحص:</span> ${(() => {
+              ${(() => {
                 try {
                   const d = result.timestamp ? new Date(result.timestamp) : new Date();
-                  return d.toLocaleDateString('ar-SA', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+                  const hijri = d.toLocaleString('ar-SA-u-ca-islamic', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+                  const greg = d.toLocaleString('en-GB', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+                  return `<div><span style="margin-left:8px">تاريخ الفحص (هجري):</span> ${hijri}</div><div><span style="margin-left:8px">تاريخ الفحص (ميلادي):</span> ${greg}</div>`;
                 } catch (e) {
-                  return result.timestamp || 'غير متوفر';
+                  return `<span style="margin-left:8px">تاريخ الفحص:</span> ${result.timestamp || 'غير متوفر'}`;
                 }
               })()}
             </div>
@@ -623,12 +706,29 @@ export function generateHTMLReport(result) {
             </table>
           </div>
         </div>
-        ${result.colorFailures && result.colorFailures.length ? `
+        ${(() => {
+          // Get all non-matched colors from the color audit
+          const nonMatchedColors = (result.colorAudit || []).filter(r => !r.match);
+          if (nonMatchedColors.length === 0) return '';
+          
+          // Create a map of colors that have screenshots
+          const colorFailuresMap = new Map();
+          if (result.colorFailures && result.colorFailures.length) {
+            result.colorFailures.forEach(cf => {
+              colorFailuresMap.set(cf.color, cf);
+            });
+          }
+          
+          return `
         <div class="card" id="section-color-failures">
           <h2>ألوان غير متوافقة — مواقع الظهور</h2>
-          <div class="meta">تم تصوير عنصر واحد على الأقل لكل لون غير متوافق. انقر على الصورة لعرضها بالحجم الكامل.</div>
+          <div class="meta">جميع الألوان غير المتوافقة مع معايير التصميم الموحد. الألوان التي تم تصويرها تحتوي على صورة توضيحية.</div>
           <div id="failures-grid" style="margin-top:12px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;align-items:start">
-            ${result.colorFailures.map(cf => `
+            ${nonMatchedColors.map((colorAudit, idx) => {
+              const cf = colorFailuresMap.get(colorAudit.color);
+              if (cf) {
+                // Color with screenshot
+                return `
               <div style="background:#fff;border:1px solid #eee;padding:10px;border-radius:10px;box-shadow:0 4px 12px rgba(2,6,23,0.04);">
                 <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px"><div class="swatch" style="background:${cf.color};width:28px;height:28px;border-radius:6px;border:1px solid #ddd"></div><div style="font-size:13px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">${cf.color}</div></div>
                 <img src="/reports/${cf.screenshot}" style="width:100%;height:140px;object-fit:cover;border-radius:8px;cursor:pointer" onclick="showFullScreenshot('/reports/${cf.screenshot}')">
@@ -637,10 +737,29 @@ export function generateHTMLReport(result) {
                 <div style="margin-top:4px;font-size:12px;color:var(--muted)"><strong>Rect:</strong> ${cf.rect ? `x:${Math.round(cf.rect.x)}, y:${Math.round(cf.rect.y)}, w:${Math.round(cf.rect.width)}, h:${Math.round(cf.rect.height)}` : 'N/A'}</div>
                 <div style="margin-top:8px"><a href="${cf.screenshot}" target="_blank" class="btn" style="display:inline-block;padding:8px 10px;font-size:13px">فتح الصورة</a></div>
               </div>
-            `).join('')}
+                `;
+              } else {
+                // Color without screenshot - just show the color info
+                return `
+              <div style="background:#fff;border:1px solid #eee;padding:10px;border-radius:10px;box-shadow:0 4px 12px rgba(2,6,23,0.04);">
+                <div style="display:flex;gap:8px;align-items:center;margin-bottom:8px">
+                  <div class="swatch" style="background:${colorAudit.color};width:28px;height:28px;border-radius:6px;border:1px solid #ddd"></div>
+                  <div style="font-size:13px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis">${colorAudit.color}</div>
+                </div>
+                <div style="height:140px;background:linear-gradient(135deg, #f0f0f0 25%, transparent 25%, transparent 75%, #f0f0f0 75%, #f0f0f0), linear-gradient(135deg, #f0f0f0 25%, transparent 25%, transparent 75%, #f0f0f0 75%, #f0f0f0);background-size:20px 20px;background-position:0 0, 10px 10px;border-radius:8px;display:flex;align-items:center;justify-content:center">
+                  <div style="background:${colorAudit.color};width:80px;height:80px;border-radius:50%;border:2px solid #ddd;box-shadow:0 2px 8px rgba(0,0,0,0.1)"></div>
+                </div>
+                <div style="margin-top:8px;font-size:12px;color:var(--muted)"><strong>أقرب لون:</strong> ${colorAudit.closest || 'N/A'}</div>
+                <div style="margin-top:4px;font-size:12px;color:var(--muted)"><strong>المسافة:</strong> ${colorAudit.distance !== null && colorAudit.distance !== undefined ? colorAudit.distance.toFixed(1) : 'N/A'}</div>
+                <div style="margin-top:4px;font-size:11px;color:#dc2626;background:#fee;padding:6px 8px;border-radius:6px;text-align:center">لم يتم التقاط صورة لهذا اللون</div>
+              </div>
+                `;
+              }
+            }).join('')}
           </div>
         </div>
-        ` : ''}
+          `;
+        })()}
         ` : ''}
         <!-- Language Validation Section -->
         <div class="card" id="section-language">
@@ -681,24 +800,81 @@ export function generateHTMLReport(result) {
           <h2>خريطة الموقع (Sitemap)</h2>
           ${(() => {
             const s = result.sitemapUrls || [];
-            if (!s || !s.length) return `<div class="meta">لم يتم العثور على خريطة موقع تلقائية (robots.txt أو sitemap.xml).</div>`;
+            if (!s || !s.length) return `<div class="meta">لم يتم العثور على خريطة موقع.</div>`;
+            
+            // Categorize sitemaps
+            const visible = s.filter(u => !u.match(/\.xml(\.gz)?(\?|$)/) && u.match(/\/sitemap\/?$|\/site-map\/?$|sitemap\.html$/i));
+            const xml = s.filter(u => u.match(/\.xml(\.gz)?(\?|$)/i));
+            const other = s.filter(u => !visible.includes(u) && !xml.includes(u));
+            
             return `
-              <div style="display:flex;flex-direction:column;gap:10px;">
-                <div class="meta">تم العثور على خرائط الموقع التالية. يمكنك فتح أي رابط لمراجعتها أو مشاركتها مع فريق النشر.</div>
-                <ul style="margin-top:8px;color:#475569">
-                  ${s.map(u => `<li><a href="${u}" target="_blank">${u}</a></li>`).join('')}
-                </ul>
+              <div style="display:flex;flex-direction:column;gap:16px;">
+                <div class="meta">تم العثور على <strong>${s.length}</strong> خريطة موقع. يمكنك فتح أي رابط لمراجعتها.</div>
+                
+                ${visible.length > 0 ? `
+                  <div style="background:#f0fdf4;padding:12px;border-radius:8px;border-right:3px solid #16a34a">
+                    <h3 style="color:#15803d;margin:0 0 8px 0;font-size:1.1em">📄 خرائط الموقع المرئية (للمستخدمين)</h3>
+                    <div class="meta" style="color:#166534;margin-bottom:8px">هذه صفحات HTML يمكن للزوار الوصول إليها مباشرة</div>
+                    <ul style="color:#166534">
+                      ${visible.map(u => `<li><a href="${u}" target="_blank" style="color:#15803d;font-weight:600">${u}</a></li>`).join('')}
+                    </ul>
+                  </div>
+                ` : ''}
+                
+                ${xml.length > 0 ? `
+                  <div style="background:#eff6ff;padding:12px;border-radius:8px;border-right:3px solid #2563eb">
+                    <h3 style="color:#1e40af;margin:0 0 8px 0;font-size:1.1em">🤖 خرائط XML (لمحركات البحث)</h3>
+                    <div class="meta" style="color:#1e40af;margin-bottom:8px">ملفات XML تستخدمها محركات البحث للزحف</div>
+                    <ul style="color:#1e40af">
+                      ${xml.map(u => `<li><a href="${u}" target="_blank" style="color:#2563eb">${u}</a></li>`).join('')}
+                    </ul>
+                  </div>
+                ` : ''}
               </div>
             `;
           })()}
         </div>
         
-        <!-- Template Match Section (inserted) -->
-        <div class="card" id="section-template-match">
+        <!-- Template Match Section (hidden) -->
+        <div class="card" id="section-template-match" style="display:none">
           <h2>مطابقة القالب</h2>
           ${(() => {
             const tm = result.templateMatch || null;
-            if (!tm) return `<div class="meta">لم يتم تشغيل فحص مطابقة القالب أو لا توجد بيانات.</div>`;
+            
+            // Handle error states
+            if (!tm) {
+              return `<div class="meta">لم يتم تشغيل فحص مطابقة القالب.</div>`;
+            }
+            
+            if (tm.__status === 'error') {
+              return `<div style="color:#dc2626">حدث خطأ أثناء فحص القالب: ${tm.__error || 'خطأ غير معروف'}</div>`;
+            }
+            
+            if (tm.__status === 'no_templates_matched') {
+              return `<div class="meta">لم يتم العثور على ملفات القوالب في المسار: <code>config/cookiesbanner.tsx</code> و <code>config/rating.tsx</code></div>`;
+            }
+            
+            // Support object with multiple template comparisons (cookies, rating)
+            if (typeof tm === 'object' && (tm.cookies || tm.rating)) {
+              const parts = [];
+              ['cookies','rating'].forEach(key => {
+                const t = tm[key] || null;
+                if (!t) return;
+                const score = (typeof t.score === 'number') ? t.score.toFixed(0) : '-';
+                const matchedList = (t.matchedTokens || []).slice(0,10).map(x => `<li>${x}</li>`).join('');
+                const missingCount = (t.missingTokens || []).length;
+                parts.push(`
+                  <div style="display:flex;flex-direction:column;gap:8px;padding:8px;border-radius:8px;background:#fff;border:1px solid #eef6ff">
+                    <div style="font-weight:700;color:var(--primary)">${key === 'cookies' ? 'مقارنة قالب ملفات الكوكيز' : 'مقارنة قالب التقييم'}</div>
+                    <div class="meta">نسبة المطابقة: ${score}% — مجموع الرموز: ${t.tokensCount || 0} — المكتشفة: ${(t.matchedTokens || []).length} — المفقودة: ${missingCount}</div>
+                    <div><strong>أهم الرموز المكتشفة:</strong><ul style="margin-top:8px;color:#475569">${matchedList || '<li>لا توجد رموز مكتشفة</li>'}</ul></div>
+                    ${missingCount ? `<div style="color:#7f1d1d"><strong>ملحوظة:</strong> يوجد ${missingCount} رمزًا مفقودًا قد يشير إلى اختلاف في القالب.</div>` : `<div class="meta" style="color:#15803d">تشابه جيد مع القالب.</div>`}
+                  </div>
+                `);
+              });
+              return parts.join('');
+            }
+            // Fallback: single template object
             const score = (typeof tm.score === 'number') ? tm.score.toFixed(0) : '-';
             const matchedList = (tm.matchedTokens || []).slice(0,10).map(t => `<li>${t}</li>`).join('');
             const missingCount = (tm.missingTokens || []).length;
@@ -715,6 +891,8 @@ export function generateHTMLReport(result) {
             `;
           })()}
         </div>
+
+        <!-- Removed Uploads Section - Now in separate page -->
 
         <!-- Removed unique color set display per request -->
         <div class="card" id="section-design">
@@ -993,6 +1171,9 @@ export function generateHTMLReport(result) {
                 <svg viewBox="0 0 24 24" style="width:20px;height:20px" fill="currentColor"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm1 10h-4v5h-2v-5H5l7-7 7 7z"/></svg>
                 تصدير إلى PDF
               </button>
+              <div style="margin-top:10px">
+                <a href="files.html" class="btn" style="background:#2563eb;display:inline-block;text-decoration:none;padding:12px 14px">فتح صفحة الملفات</a>
+              </div>
               <div style="margin-top:12px;padding:12px;background:rgba(45,185,219,0.1);border-radius:8px;border-right:3px solid var(--accent)">
                 <div style="font-size:12px;color:var(--muted);line-height:1.5">
                   <strong style="color:var(--accent)">💡 ملاحظة:</strong> سيتم تضمين جميع الألوان والعناصر غير المتوافقة تلقائياً في التقرير المصدر.
@@ -1170,5 +1351,332 @@ export function generateHTMLReport(result) {
   }
 
   fs.writeFileSync(`${outDir}/report.html`, html, 'utf-8');
+  
+  // Generate comprehensive files page with enhanced upload scanner results
+  try {
+    const uploads = result.uploads || null;
+    const filesHtml = `<!doctype html>
+    <html lang="ar" dir="rtl">
+    <head>
+      <meta charset="utf-8">
+      <title>فحص المرفقات والتحميلات — ${result.title || ''}</title>
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+      <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'IBM Plex Sans Arabic', Arial, sans-serif; background: linear-gradient(135deg, #f4f7fb 0%, #e8f0f7 100%); padding: 24px; line-height: 1.6; color: #1f2937; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .header { background: linear-gradient(135deg, #062c6e, #2563eb); color: white; padding: 32px; border-radius: 16px; margin-bottom: 24px; box-shadow: 0 8px 24px rgba(6,44,110,0.2); }
+        .header h1 { font-size: 2em; font-weight: 700; margin-bottom: 8px; }
+        .header .meta { opacity: 0.95; font-size: 0.95em; }
+        .card { background: white; padding: 24px; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); margin-bottom: 24px; border: 1px solid #e5e7eb; }
+        .card h2 { color: #062c6e; margin-bottom: 16px; font-size: 1.5em; border-bottom: 2px solid #2563eb; padding-bottom: 8px; }
+        .card h3 { color: #1f2937; margin: 16px 0 12px; font-size: 1.2em; }
+        .stats { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 20px; }
+        .stat-box { flex: 1; min-width: 200px; background: linear-gradient(135deg, #f6f9ff, #fff); padding: 20px; border-radius: 10px; border: 2px solid #e0e7ff; text-align: center; }
+        .stat-box.danger { border-color: #fee; background: linear-gradient(135deg, #fff5f5, #fff); }
+        .stat-box.warning { border-color: #fef3c7; background: linear-gradient(135deg, #fffbeb, #fff); }
+        .stat-box.success { border-color: #d1fae5; background: linear-gradient(135deg, #f0fdf4, #fff); }
+        .stat-value { font-size: 2em; font-weight: 700; color: #062c6e; margin-bottom: 4px; }
+        .stat-label { color: #6b7280; font-size: 0.9em; }
+        table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+        th { background: #f9fafb; padding: 12px; border-bottom: 2px solid #e5e7eb; text-align: right; font-weight: 600; color: #062c6e; }
+        td { padding: 10px 12px; border-bottom: 1px solid #f1f5f9; text-align: right; }
+        tr:hover { background: #f9fafb; }
+        .badge { display: inline-block; padding: 4px 10px; border-radius: 6px; font-size: 0.85em; font-weight: 600; margin: 0 4px; }
+        .badge.danger { background: #fee2e2; color: #991b1b; }
+        .badge.warning { background: #fef3c7; color: #92400e; }
+        .badge.success { background: #d1fae5; color: #065f46; }
+        .badge.info { background: #dbeafe; color: #1e40af; }
+        a { color: #2563eb; text-decoration: none; word-break: break-all; }
+        a:hover { text-decoration: underline; }
+        .btn { display: inline-block; padding: 12px 24px; background: #2563eb; color: white; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.2s; border: none; cursor: pointer; }
+        .btn:hover { background: #1d4ed8; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(37,99,235,0.3); }
+        .alert { padding: 16px; border-radius: 8px; margin-bottom: 16px; border-right: 4px solid; }
+        .alert.danger { background: #fef2f2; border-color: #dc2626; color: #7f1d1d; }
+        .alert.warning { background: #fffbeb; border-color: #f59e0b; color: #92400e; }
+        .alert.info { background: #eff6ff; border-color: #3b82f6; color: #1e40af; }
+        .category-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin: 16px 0; }
+        .category-card { background: #f9fafb; padding: 16px; border-radius: 8px; text-align: center; border: 1px solid #e5e7eb; }
+        .category-card strong { display: block; font-size: 1.8em; color: #2563eb; margin-bottom: 4px; }
+        .file-icon { width: 24px; height: 24px; display: inline-block; margin-left: 8px; vertical-align: middle; }
+        .security-issue { background: #fef2f2; padding: 12px; border-radius: 8px; border-right: 3px solid #dc2626; margin-bottom: 12px; }
+        .security-issue strong { color: #991b1b; }
+        .back-btn { position: fixed; bottom: 24px; left: 24px; z-index: 100; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="header">
+          <h1>📤 فحص المرفقات والتحميلات</h1>
+          <div class="meta">
+            <strong>الموقع:</strong> ${result.url || 'غير متوفر'}<br>
+            <strong>التاريخ:</strong> ${new Date().toLocaleDateString('ar-SA')}
+          </div>
+        </div>
+
+        ${(() => {
+          if (!uploads) return `<div class="card"><div class="alert info">⚠️ لم يتم تشغيل فحص التحميلات أو لا توجد بيانات.</div></div>`;
+          
+          const inputs = uploads.foundUploadInputs || [];
+          const forms = uploads.formsWithFile || [];
+          const files = uploads.linkedFiles || [];
+          const dirlist = uploads.directoryListing || [];
+          const summary = uploads.summary || {};
+          const formsWithIssues = uploads.formsWithIssues || [];
+          const apiEndpoints = uploads.apiEndpoints || [];
+          const securityIssues = summary.securityIssues || [];
+          
+          const formatBytes = (bytes) => {
+            if (!bytes || bytes === 0) return '0 بايت';
+            const k = 1024;
+            const sizes = ['بايت', 'ك.بايت', 'م.بايت', 'ج.بايت'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+          };
+          
+          return `
+            <!-- Overall Summary -->
+            <div class="card">
+              <h2>📊 ملخص الفحص</h2>
+              <div class="stats">
+                <div class="stat-box">
+                  <div class="stat-value">${inputs.length}</div>
+                  <div class="stat-label">حقول رفع الملفات</div>
+                </div>
+                <div class="stat-box">
+                  <div class="stat-value">${forms.length}</div>
+                  <div class="stat-label">نماذج بها تحميل</div>
+                </div>
+                <div class="stat-box ${files.length > 0 ? 'info' : ''}">
+                  <div class="stat-value">${files.length}</div>
+                  <div class="stat-label">روابط ملفات مكتشفة</div>
+                </div>
+                <div class="stat-box ${summary.publicFiles > 0 ? 'success' : ''}">
+                  <div class="stat-value">${summary.publicFiles || 0}</div>
+                  <div class="stat-label">ملفات قابلة للوصول</div>
+                </div>
+                <div class="stat-box ${summary.confidentialCount > 0 ? 'danger' : ''}">
+                  <div class="stat-value">${summary.confidentialCount || 0}</div>
+                  <div class="stat-label">ملفات حساسة</div>
+                </div>
+                <div class="stat-box ${summary.suspiciousCount > 0 ? 'warning' : ''}">
+                  <div class="stat-value">${summary.suspiciousCount || 0}</div>
+                  <div class="stat-label">امتدادات خطرة</div>
+                </div>
+              </div>
+              
+              ${summary.totalSize ? `<div class="alert info"><strong>📦 إجمالي حجم الملفات المكتشفة:</strong> ${formatBytes(summary.totalSize)}</div>` : ''}
+              
+              ${securityIssues.length > 0 ? `
+                <div class="alert danger">
+                  <strong>🔴 تحذير أمني:</strong> تم اكتشاف ${securityIssues.length} مشكلة أمنية محتملة في الملفات!
+                </div>
+              ` : ''}
+            </div>
+
+            <!-- Security Issues -->
+            ${securityIssues.length > 0 ? `
+              <div class="card">
+                <h2>🔒 المشاكل الأمنية المكتشفة</h2>
+                ${securityIssues.map(issue => `
+                  <div class="security-issue">
+                    <strong>${issue.severity === 'high' ? '🔴 خطورة عالية' : '🟡 خطورة متوسطة'}</strong><br>
+                    <strong>الملف:</strong> ${issue.file}<br>
+                    <strong>المشكلة:</strong> ${issue.issue}
+                  </div>
+                `).join('')}
+              </div>
+            ` : ''}
+
+            <!-- File Categories -->
+            ${summary.byCategory && Object.keys(summary.byCategory).length > 0 ? `
+              <div class="card">
+                <h2>📂 تصنيف الملفات حسب النوع</h2>
+                <div class="category-grid">
+                  ${Object.entries(summary.byCategory).map(([category, count]) => `
+                    <div class="category-card">
+                      <strong>${count}</strong>
+                      <div style="color: #6b7280">${category === 'documents' ? 'مستندات' : 
+                        category === 'archives' ? 'أرشيفات' :
+                        category === 'media' ? 'وسائط' :
+                        category === 'code' ? 'كود' :
+                        category === 'executables' ? 'تنفيذية' :
+                        category === 'scripts' ? 'سكربتات' :
+                        category === 'security' ? 'أمنية' :
+                        category === 'database' ? 'قواعد بيانات' :
+                        category === 'backup' ? 'نسخ احتياطية' : 'أخرى'}</div>
+                    </div>
+                  `).join('')}
+                </div>
+              </div>
+            ` : ''}
+
+            <!-- Linked Files Table -->
+            ${files.length > 0 ? `
+              <div class="card">
+                <h2>📎 روابط الملفات المكتشفة</h2>
+                <div style="overflow-x:auto">
+                  <table>
+                    <thead>
+                      <tr>
+                        <th>اسم الملف</th>
+                        <th>الرابط</th>
+                        <th>الحالة</th>
+                        <th>النوع</th>
+                        <th>الحجم</th>
+                        <th>التصنيف</th>
+                        <th>الملاحظات</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      ${files.map(f => `
+                        <tr>
+                          <td><strong>${f.filename || 'غير معروف'}</strong></td>
+                          <td><a href="${f.url}" target="_blank">${f.url.length > 60 ? f.url.substring(0, 60) + '...' : f.url}</a></td>
+                          <td>
+                            ${f.publicAccessible ? '<span class="badge success">مفتوح</span>' : 
+                              f.status ? `<span class="badge warning">${f.status}</span>` : 
+                              '<span class="badge">غير متوفر</span>'}
+                          </td>
+                          <td style="font-size:0.85em">${f.contentType || '-'}</td>
+                          <td>${f.contentLength ? formatBytes(f.contentLength) : '-'}</td>
+                          <td>
+                            <span class="badge ${f.category === 'executables' || f.category === 'scripts' ? 'danger' : 
+                              f.category === 'backup' ? 'warning' : 'info'}">
+                              ${f.category || 'other'}
+                            </span>
+                          </td>
+                          <td>
+                            ${f.suspiciousName ? '<span class="badge danger">حساس</span>' : ''}
+                            ${f.dangerousExt ? '<span class="badge warning">خطير</span>' : ''}
+                            ${f.isBackup ? '<span class="badge warning">نسخة احتياطية</span>' : ''}
+                            ${f.error ? '<span class="badge">خطأ</span>' : ''}
+                          </td>
+                        </tr>
+                      `).join('')}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            ` : '<div class="card"><div class="alert info">لم يتم العثور على روابط ملفات قابلة للفحص.</div></div>'}
+
+            <!-- Forms with File Upload -->
+            ${forms.length > 0 ? `
+              <div class="card">
+                <h2>📝 نماذج رفع الملفات</h2>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>الإجراء (Action)</th>
+                      <th>الطريقة</th>
+                      <th>نوع التشفير</th>
+                      <th>عدد حقول الملفات</th>
+                      <th>CSRF Token</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${forms.map(f => `
+                      <tr>
+                        <td>${f.action || 'N/A'}</td>
+                        <td><span class="badge ${f.method === 'POST' ? 'success' : 'warning'}">${f.method}</span></td>
+                        <td><span class="badge ${f.enctype && f.enctype.includes('multipart') ? 'success' : 'danger'}">${f.enctype || 'غير محدد'}</span></td>
+                        <td>${f.fileInputCount || 1}</td>
+                        <td>${f.hasCSRFToken ? '<span class="badge success">✓ موجود</span>' : '<span class="badge danger">✗ مفقود</span>'}</td>
+                      </tr>
+                    `).join('')}
+                  </tbody>
+                </table>
+              </div>
+            ` : ''}
+
+            <!-- Forms with Security Issues -->
+            ${formsWithIssues.length > 0 ? `
+              <div class="card">
+                <h2>⚠️ نماذج بها مشاكل أمنية</h2>
+                ${formsWithIssues.map(f => `
+                  <div class="alert ${f.severity === 'high' ? 'danger' : 'warning'}" style="margin-bottom:12px">
+                    <strong>Action:</strong> ${f.action || 'N/A'}<br>
+                    <strong>المشاكل المكتشفة:</strong>
+                    <ul style="margin-right:20px;margin-top:8px">
+                      ${f.issues.map(issue => `<li>${issue}</li>`).join('')}
+                    </ul>
+                  </div>
+                `).join('')}
+              </div>
+            ` : ''}
+
+            <!-- File Input Details -->
+            ${inputs.length > 0 ? `
+              <div class="card">
+                <h2>🔧 تفاصيل حقول رفع الملفات</h2>
+                <table>
+                  <thead>
+                    <tr>
+                      <th>الاسم/المعرف</th>
+                      <th>أنواع الملفات المقبولة</th>
+                      <th>متعدد</th>
+                      <th>مطلوب</th>
+                      <th>Form Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${inputs.map(input => `
+                      <tr>
+                        <td><code>${input.name || input.id || 'غير محدد'}</code></td>
+                        <td style="font-size:0.85em">${input.accept || 'جميع الأنواع'}</td>
+                        <td>${input.multiple ? '<span class="badge success">نعم</span>' : '<span class="badge">لا</span>'}</td>
+                        <td>${input.required ? '<span class="badge warning">نعم</span>' : '<span class="badge">لا</span>'}</td>
+                        <td style="font-size:0.85em">${input.formAction || '-'}</td>
+                      </tr>
+                    `).join('')}
+                  </tbody>
+                </table>
+              </div>
+            ` : ''}
+
+            <!-- Directory Listings -->
+            ${dirlist && dirlist.length > 0 ? `
+              <div class="card">
+                <div class="alert danger">
+                  <strong>🔴 تحذير:</strong> تم اكتشاف قوائم دلائل محتملة! هذا قد يمثل خطراً أمنياً.
+                </div>
+                <h3>📁 قوائم الدلائل المكتشفة</h3>
+                <ul style="margin-right:20px">
+                  ${dirlist.map(d => `<li><a href="${d.href}" target="_blank">${d.href}</a> ${d.text ? `— ${d.text}` : ''}</li>`).join('')}
+                </ul>
+              </div>
+            ` : ''}
+
+            <!-- API Endpoints -->
+            ${apiEndpoints && apiEndpoints.length > 0 ? `
+              <div class="card">
+                <h2>🔌 نقاط API المكتشفة</h2>
+                <div class="alert info">تم اكتشاف ${apiEndpoints.length} نقطة API محتملة في كود JavaScript</div>
+                <ul style="margin-right:20px;column-count:2;column-gap:20px">
+                  ${apiEndpoints.map(ep => `<li><code>${ep}</code></li>`).join('')}
+                </ul>
+              </div>
+            ` : ''}
+          `;
+        })()}
+
+        <div class="card" style="text-align:center;background:linear-gradient(135deg,#f6f9ff,#fff)">
+          <p style="color:#6b7280;margin-bottom:16px">العودة إلى التقرير الرئيسي</p>
+          <a href="report.html" class="btn">← العودة للتقرير</a>
+        </div>
+      </div>
+
+      <a href="report.html" class="btn back-btn">← رجوع</a>
+    </body>
+    </html>`;
+
+    fs.writeFileSync(`${outDir}/files.html`, filesHtml, 'utf-8');
+    console.log(`✅ Files page saved in ${outDir}/files.html`);
+  } catch (e) {
+    // ignore files page generation errors
+  }
   console.log(`✅ HTML report saved in ${outDir}/report.html`);
 }
